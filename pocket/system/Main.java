@@ -5,8 +5,6 @@ import org.newdawn.slick.*;
 import pocket.creature.*;
 import pocket.world.*;
 
-
-
 public class Main extends BasicGame{
     
     //////////////////////////////////////
@@ -238,7 +236,7 @@ public class Main extends BasicGame{
                     World.updateCursor(World.space[39][23]);
                 }
                 World.cursor.space.cursorOn = !World.cursor.space.cursorOn;
-    
+                selection = false;
                 
                 builderMode = !builderMode;
 
@@ -256,6 +254,7 @@ public class Main extends BasicGame{
                     World.updateCursor(World.space[39][23]);
                 }
                 World.cursor.space.cursorOn = !World.cursor.space.cursorOn;
+                selection = false;
     
                 
                 creatureMode = !creatureMode;
