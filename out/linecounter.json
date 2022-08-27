@@ -1,0 +1,777 @@
+{
+    "extension": "linecounter",
+    "version": "0.2.7",
+    "workspace": "c:\\Users\\Dylan\\.vscode\\projects\\d",
+    "linecount": [
+        {
+            "version": "0.2.7",
+            "counttime": "2022-08-26 00:18:52",
+            "filesum": 21,
+            "codesum": 658,
+            "commentsum": 124,
+            "blanksum": 243,
+            "statistics": {
+                ".java": {
+                    "code": 658,
+                    "comment": 124,
+                    "blank": 243
+                }
+            },
+            "filelist": [
+                {
+                    "filename": "natives\\jinput-dx8_64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "natives\\jinput-raw_64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "natives\\lwjgl64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "natives\\OpenAL64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 22,
+                    "code": 23,
+                    "comment": 52,
+                    "filename": "pocket\\creature\\Entity.java"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "pocket\\creature\\Human.java"
+                },
+                {
+                    "blank": 9,
+                    "code": 61,
+                    "comment": 10,
+                    "filename": "pocket\\creature\\HumanAdult.java"
+                },
+                {
+                    "blank": 5,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "pocket\\system\\Cursor.java"
+                },
+                {
+                    "blank": 101,
+                    "code": 294,
+                    "comment": 46,
+                    "filename": "pocket\\system\\Main.java"
+                },
+                {
+                    "blank": 22,
+                    "code": 61,
+                    "comment": 0,
+                    "filename": "pocket\\system\\Screen.java"
+                },
+                {
+                    "blank": 3,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "pocket\\tile\\Grass.java"
+                },
+                {
+                    "blank": 3,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "pocket\\tile\\Tile.java"
+                },
+                {
+                    "blank": 32,
+                    "code": 96,
+                    "comment": 5,
+                    "filename": "pocket\\world\\Space.java"
+                },
+                {
+                    "blank": 45,
+                    "code": 90,
+                    "comment": 11,
+                    "filename": "pocket\\world\\World.java"
+                },
+                {
+                    "filename": "res\\bg.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\cbg.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\clear.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\screen.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\startup.ogg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\taskbar.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\tileset.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                }
+            ]
+        },
+        {
+            "version": "0.2.7",
+            "counttime": "2022-08-26 00:21:34",
+            "filesum": 21,
+            "codesum": 656,
+            "commentsum": 124,
+            "blanksum": 243,
+            "statistics": {
+                ".java": {
+                    "code": 656,
+                    "comment": 124,
+                    "blank": 243
+                }
+            },
+            "filelist": [
+                {
+                    "filename": "natives\\jinput-dx8_64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "natives\\jinput-raw_64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "natives\\lwjgl64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "natives\\OpenAL64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 22,
+                    "code": 23,
+                    "comment": 52,
+                    "filename": "pocket\\creature\\Entity.java"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "pocket\\creature\\Human.java"
+                },
+                {
+                    "blank": 9,
+                    "code": 61,
+                    "comment": 10,
+                    "filename": "pocket\\creature\\HumanAdult.java"
+                },
+                {
+                    "blank": 5,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "pocket\\system\\Cursor.java"
+                },
+                {
+                    "blank": 101,
+                    "code": 292,
+                    "comment": 46,
+                    "filename": "pocket\\system\\Main.java"
+                },
+                {
+                    "blank": 22,
+                    "code": 61,
+                    "comment": 0,
+                    "filename": "pocket\\system\\Screen.java"
+                },
+                {
+                    "blank": 3,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "pocket\\tile\\Grass.java"
+                },
+                {
+                    "blank": 3,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "pocket\\tile\\Tile.java"
+                },
+                {
+                    "blank": 32,
+                    "code": 96,
+                    "comment": 5,
+                    "filename": "pocket\\world\\Space.java"
+                },
+                {
+                    "blank": 45,
+                    "code": 90,
+                    "comment": 11,
+                    "filename": "pocket\\world\\World.java"
+                },
+                {
+                    "filename": "res\\bg.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\cbg.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\clear.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\screen.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\startup.ogg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\taskbar.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\tileset.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                }
+            ]
+        },
+        {
+            "version": "0.2.7",
+            "counttime": "2022-08-26 01:06:15",
+            "filesum": 21,
+            "codesum": 633,
+            "commentsum": 147,
+            "blanksum": 244,
+            "statistics": {
+                ".java": {
+                    "code": 633,
+                    "comment": 147,
+                    "blank": 244
+                }
+            },
+            "filelist": [
+                {
+                    "filename": "natives\\jinput-dx8_64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "natives\\jinput-raw_64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "natives\\lwjgl64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "natives\\OpenAL64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 22,
+                    "code": 23,
+                    "comment": 52,
+                    "filename": "pocket\\creature\\Entity.java"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "pocket\\creature\\Human.java"
+                },
+                {
+                    "blank": 9,
+                    "code": 61,
+                    "comment": 10,
+                    "filename": "pocket\\creature\\HumanAdult.java"
+                },
+                {
+                    "blank": 5,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "pocket\\system\\Cursor.java"
+                },
+                {
+                    "blank": 101,
+                    "code": 267,
+                    "comment": 63,
+                    "filename": "pocket\\system\\Main.java"
+                },
+                {
+                    "blank": 21,
+                    "code": 61,
+                    "comment": 0,
+                    "filename": "pocket\\system\\Screen.java"
+                },
+                {
+                    "blank": 3,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "pocket\\tile\\Grass.java"
+                },
+                {
+                    "blank": 3,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "pocket\\tile\\Tile.java"
+                },
+                {
+                    "blank": 34,
+                    "code": 98,
+                    "comment": 11,
+                    "filename": "pocket\\world\\Space.java"
+                },
+                {
+                    "blank": 45,
+                    "code": 90,
+                    "comment": 11,
+                    "filename": "pocket\\world\\World.java"
+                },
+                {
+                    "filename": "res\\bg.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\cbg.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\clear.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\screen.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\startup.ogg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\taskbar.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\tileset.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                }
+            ]
+        },
+        {
+            "version": "0.2.7",
+            "counttime": "2022-08-26 02:18:28",
+            "filesum": 21,
+            "codesum": 635,
+            "commentsum": 149,
+            "blanksum": 248,
+            "statistics": {
+                ".java": {
+                    "code": 635,
+                    "comment": 149,
+                    "blank": 248
+                }
+            },
+            "filelist": [
+                {
+                    "filename": "natives\\jinput-dx8_64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "natives\\jinput-raw_64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "natives\\lwjgl64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "natives\\OpenAL64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 23,
+                    "code": 25,
+                    "comment": 52,
+                    "filename": "pocket\\creature\\Entity.java"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "pocket\\creature\\Human.java"
+                },
+                {
+                    "blank": 9,
+                    "code": 61,
+                    "comment": 10,
+                    "filename": "pocket\\creature\\HumanAdult.java"
+                },
+                {
+                    "blank": 5,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "pocket\\system\\Cursor.java"
+                },
+                {
+                    "blank": 104,
+                    "code": 267,
+                    "comment": 65,
+                    "filename": "pocket\\system\\Main.java"
+                },
+                {
+                    "blank": 21,
+                    "code": 61,
+                    "comment": 0,
+                    "filename": "pocket\\system\\Screen.java"
+                },
+                {
+                    "blank": 3,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "pocket\\tile\\Grass.java"
+                },
+                {
+                    "blank": 3,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "pocket\\tile\\Tile.java"
+                },
+                {
+                    "blank": 34,
+                    "code": 98,
+                    "comment": 11,
+                    "filename": "pocket\\world\\Space.java"
+                },
+                {
+                    "blank": 45,
+                    "code": 90,
+                    "comment": 11,
+                    "filename": "pocket\\world\\World.java"
+                },
+                {
+                    "filename": "res\\bg.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\cbg.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\clear.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\screen.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\startup.ogg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\taskbar.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\tileset.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                }
+            ]
+        },
+        {
+            "version": "0.2.7",
+            "counttime": "2022-08-27 11:50:52",
+            "filesum": 21,
+            "codesum": 790,
+            "commentsum": 177,
+            "blanksum": 298,
+            "statistics": {
+                ".java": {
+                    "code": 790,
+                    "comment": 177,
+                    "blank": 298
+                }
+            },
+            "filelist": [
+                {
+                    "filename": "natives\\jinput-dx8_64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "natives\\jinput-raw_64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "natives\\lwjgl64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "natives\\OpenAL64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 23,
+                    "code": 25,
+                    "comment": 52,
+                    "filename": "pocket\\creature\\Entity.java"
+                },
+                {
+                    "blank": 1,
+                    "code": 6,
+                    "comment": 0,
+                    "filename": "pocket\\creature\\Human.java"
+                },
+                {
+                    "blank": 9,
+                    "code": 61,
+                    "comment": 10,
+                    "filename": "pocket\\creature\\HumanAdult.java"
+                },
+                {
+                    "blank": 5,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "pocket\\system\\Cursor.java"
+                },
+                {
+                    "blank": 129,
+                    "code": 362,
+                    "comment": 83,
+                    "filename": "pocket\\system\\Main.java"
+                },
+                {
+                    "blank": 21,
+                    "code": 61,
+                    "comment": 0,
+                    "filename": "pocket\\system\\Screen.java"
+                },
+                {
+                    "blank": 3,
+                    "code": 9,
+                    "comment": 0,
+                    "filename": "pocket\\tile\\Grass.java"
+                },
+                {
+                    "blank": 3,
+                    "code": 7,
+                    "comment": 0,
+                    "filename": "pocket\\tile\\Tile.java"
+                },
+                {
+                    "blank": 57,
+                    "code": 156,
+                    "comment": 21,
+                    "filename": "pocket\\world\\Space.java"
+                },
+                {
+                    "blank": 47,
+                    "code": 92,
+                    "comment": 11,
+                    "filename": "pocket\\world\\World.java"
+                },
+                {
+                    "filename": "res\\bg.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\cbg.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\clear.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\screen.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\startup.ogg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\taskbar.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\tileset.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,33 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\Dylan\\Desktop\\slick\\lib\\ibxm.jar",
+        "c:\\Users\\Dylan\\Desktop\\slick\\lib\\jinput.jar",
+        "c:\\Users\\Dylan\\Desktop\\slick\\lib\\jnlp.jar",
+        "c:\\Users\\Dylan\\Desktop\\slick\\lib\\jogg-0.0.7.jar",
+        "c:\\Users\\Dylan\\Desktop\\slick\\lib\\jorbis-0.0.15.jar",
+        "c:\\Users\\Dylan\\Desktop\\slick\\lib\\lwjgl.jar",
+        "c:\\Users\\Dylan\\Desktop\\slick\\lib\\lwjgl_util.jar",
+        "c:\\Users\\Dylan\\Desktop\\slick\\lib\\lwjgl_util_applet.jar",
+        "c:\\Users\\Dylan\\Desktop\\slick\\lib\\natives-linux.jar",
+        "c:\\Users\\Dylan\\Desktop\\slick\\lib\\natives-mac.jar",
+        "c:\\Users\\Dylan\\Desktop\\slick\\lib\\natives-windows.jar",
+        "c:\\Users\\Dylan\\Desktop\\slick\\lib\\slick.jar",
+        "c:\\Users\\Dylan\\Desktop\\slick\\lib\\slick-examples.jar",
+        "c:\\Users\\Dylan\\Desktop\\slick\\lib\\tinylinepp.jar",
+        "c:\\Users\\Admin\\Desktop\\slick\\lib\\ibxm.jar",
+        "c:\\Users\\Admin\\Desktop\\slick\\lib\\jinput.jar",
+        "c:\\Users\\Admin\\Desktop\\slick\\lib\\jnlp.jar",
+        "c:\\Users\\Admin\\Desktop\\slick\\lib\\jogg-0.0.7.jar",
+        "c:\\Users\\Admin\\Desktop\\slick\\lib\\jorbis-0.0.15.jar",
+        "c:\\Users\\Admin\\Desktop\\slick\\lib\\lwjgl.jar",
+        "c:\\Users\\Admin\\Desktop\\slick\\lib\\lwjgl_util.jar",
+        "c:\\Users\\Admin\\Desktop\\slick\\lib\\lwjgl_util_applet.jar",
+        "c:\\Users\\Admin\\Desktop\\slick\\lib\\natives-linux.jar",
+        "c:\\Users\\Admin\\Desktop\\slick\\lib\\natives-mac.jar",
+        "c:\\Users\\Admin\\Desktop\\slick\\lib\\natives-windows.jar",
+        "c:\\Users\\Admin\\Desktop\\slick\\lib\\slick.jar",
+        "c:\\Users\\Admin\\Desktop\\slick\\lib\\slick-examples.jar",
+        "c:\\Users\\Admin\\Desktop\\slick\\lib\\tinylinepp.jar"
+    ]
+}
