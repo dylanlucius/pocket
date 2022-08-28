@@ -223,8 +223,6 @@ public class Main extends BasicGame{
                 cursorMode = !cursorMode;
                 System.out.println("\ncursor mode " + cursorMode);
             }
-            
-
         }
 
         // B    [CURSOR]
@@ -242,7 +240,6 @@ public class Main extends BasicGame{
 
                 System.out.println("\nbuilder mode " + builderMode);
             }  
-
         }
 
         // P    [CURSOR]
