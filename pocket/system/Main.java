@@ -22,9 +22,14 @@ public class Main extends BasicGame{
         static Input input;
         public static World world;
 
+        public static ScalableGame wrapper;
+
     public static void main(String[] args) throws SlickException {
 
-        system = new AppGameContainer(new Main(), 640, 384, false);
+        wrapper = new ScalableGame(new Main(), 640, 384, true);
+
+        system = new AppGameContainer(wrapper);
+        system.setDisplayMode(960, 576, false);
         system.setTargetFrameRate(8);
         system.setShowFPS(false);
         system.start();
