@@ -6,5 +6,6 @@ import org.newdawn.slick.Color;
 public class Tile {
     public Image icon;
     public Color bgColor, iconColor;
+    public boolean solid;
     
 }

@@ -1,13 +1,19 @@
 package pocket.creature;
 
 import pocket.system.Screen;
+import pocket.world.World;
+import java.util.Random;
 
 public class HumanAdult extends Human {
-    
+    Random random = new Random();
+
     public HumanAdult(){
+
+        space = World.cursor.space;
+
         name                = "Human Adult";
-        avatar              = Screen.spritesheet.getSprite(8, 4);
-        color               = Screen.WHITE;
+        avatar              = Screen.spritesheet.getSprite(2, 0);
+        color               = Screen.people[random.nextInt(8)];
         nickname            = "";
         age                 = 18;
         height              = 67;   // inches

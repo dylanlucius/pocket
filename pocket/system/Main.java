@@ -42,6 +42,7 @@ public class Main extends BasicGame{
         int titleColors, y, key;
         Sound startup;
         Cursor cursor;
+        public boolean paused;
 
     @Override
     public void init(GameContainer gc) throws SlickException{
@@ -53,6 +54,7 @@ public class Main extends BasicGame{
         colortest = false;
         key = 0;
         animationOver = false;
+        paused = false;
 
         if(!PLAY_INTRO){
             on = true;
@@ -110,10 +112,20 @@ public class Main extends BasicGame{
             titleColors = 0;
         }
 
+        // restart flag (F5) response
         if(restart){
             system.reinit();
         }
-        
+
+        // if not paused
+        if(!paused){
+            // check for and run any behavior on all spaces
+            for(int j = 0; j < World.space.length; j++){
+                for(int k = 0; k < World.space[0].length; k++){
+                    World.space[j][k].behavior();
+                }
+            }
+        }   
     }
 
  
@@ -122,7 +134,7 @@ public class Main extends BasicGame{
     //////////////////////////////////////
 
     @Override
-    public void render(GameContainer gc, Graphics grphcs) throws SlickException{
+    public void render(GameContainer gc, Graphics graphics) throws SlickException{
 
         // MENU BOX RULER    "12345678901234567890123456789012"
         // GAME BOX RULER    "123456789012345612345678901234561234567890123456"
@@ -162,8 +174,10 @@ public class Main extends BasicGame{
 
             world.draw();
             
-            if(menu){
-                Screen.menu.draw(384, 0, Screen.GRAY);
+            if(paused){
+ // FULL SCREEN RULER                           "12345678901234561234567890123456123456789012345612345678901234567890123456789012"
+
+                screen.font.drawString(0, 16,    "                                     Paused", Screen.YELLOW);
             }
             
         }
@@ -188,6 +202,10 @@ public class Main extends BasicGame{
         // TITLE SCREEN ENTER
         if(animationOver && !on && key == Keyboard.KEY_RETURN){
             on = true;
+        }
+
+        if(on && key == Keyboard.KEY_SPACE){
+            paused = !paused;
         }
 
         // 1    [COLOR TEST]
@@ -379,15 +397,12 @@ public class Main extends BasicGame{
                 if(!selection){
                     World.selectionStart = World.cursor.space;
                     selection = true;
-                    System.out.println("World selection start " + World.selectionStart.tagX + ", " + World.selectionStart.tagY + " | selection " + selection);
                 }
                 
                 // set world's "selection end" to cursor, set current world's "[current] selection" to false
                 else{
                     World.selectionEnd = World.cursor.space;
                     selection = false;
-                    System.out.println("World selection end " + World.selectionEnd.tagX + ", " + World.selectionEnd.tagY + " | selection " + selection);
-
                 }
 
                 // place tiles from world selection start to world selection end

@@ -8,5 +8,7 @@ public class Grass extends Tile {
         icon = Screen.spritesheet.getSprite(11, 3);
         bgColor = Screen.DARK_GREEN;
         iconColor = Screen.GREEN;
+
+        solid = true;
     }
 }

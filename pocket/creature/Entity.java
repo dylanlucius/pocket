@@ -3,7 +3,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Color;
 import pocket.world.Space;
 
-public class Entity {
+public abstract class Entity {
  ///////////////////////////////////////////////
  //                  FIELDS
  //////////////////////////////////////////////
@@ -95,5 +95,9 @@ public class Entity {
  /////////////////////////////////////////////   
  //                  METHODS
  ///////////////////////////////////////////////////////
+
+        public void behavior(){
+                
+        }
    
 }

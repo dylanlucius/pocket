@@ -33,6 +33,8 @@ public class Screen {
 
     public static final Color[] rainbow = {RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE};
 
+    public static final Color[] people = {WHITE, PINK, YELLOW, TAN, BROWN, RED, BLUE, DARK_PURPLE};
+
 
     public static Image tileset;
     public static SpriteSheet spritesheet;

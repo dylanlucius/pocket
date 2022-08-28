@@ -230,5 +230,16 @@ public class Space {
         return  up + left + right + down;
     }
 
+    public void behavior(){
+        if(entities != null){
+            // for (Entity entity : entities){
+            //     entity.behavior();
+            // }
 
+            for(int i = 0; i < entities.size(); i++){
+                entities.get(i).behavior();
+            }
+        }
+        
+    }
 }
