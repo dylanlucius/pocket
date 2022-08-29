@@ -264,3 +264,86 @@ res\startup.ogg, it is a binary file.
 res\taskbar.png, it is a binary file.
 res\tileset.png, it is a binary file.
 ===============================================================================
+===============================================================================
+EXTENSION NAME : linecounter
+EXTENSION VERSION : 0.2.7
+-------------------------------------------------------------------------------
+count time : 2022-08-28 09:01:50
+count workspace : c:\Users\Admin\Desktop\d
+total files : 21
+total code lines : 895
+total comment lines : 184
+total blank lines : 321
+
+    statistics
+   |      extension|     total code|  total comment|    total blank|percent|
+   -------------------------------------------------------------------------
+   |          .java|            895|            184|            321| 1.0e+2|
+   -------------------------------------------------------------------------
+natives\jinput-dx8_64.dll, it is a binary file.
+natives\jinput-raw_64.dll, it is a binary file.
+natives\lwjgl64.dll, it is a binary file.
+natives\OpenAL64.dll, it is a binary file.
+pocket\creature\Entity.java, code is 27, comment is 52, blank is 25.
+pocket\creature\Human.java, code is 80, comment is 0, blank is 20.
+pocket\creature\HumanAdult.java, code is 65, comment is 10, blank is 11.
+pocket\system\Cursor.java, code is 11, comment is 0, blank is 5.
+pocket\system\Main.java, code is 377, comment is 87, blank is 126.
+pocket\system\Screen.java, code is 62, comment is 0, blank is 22.
+pocket\tile\Grass.java, code is 10, comment is 0, blank is 4.
+pocket\tile\Tile.java, code is 8, comment is 0, blank is 3.
+pocket\world\Space.java, code is 163, comment is 24, blank is 58.
+pocket\world\World.java, code is 92, comment is 11, blank is 47.
+res\bg.png, it is a binary file.
+res\cbg.png, it is a binary file.
+res\clear.png, it is a binary file.
+res\screen.png, it is a binary file.
+res\startup.ogg, it is a binary file.
+res\taskbar.png, it is a binary file.
+res\tileset.png, it is a binary file.
+===============================================================================
+===============================================================================
+EXTENSION NAME : linecounter
+EXTENSION VERSION : 0.2.7
+-------------------------------------------------------------------------------
+count time : 2022-08-28 22:47:30
+count workspace : c:\Users\Admin\Desktop\d
+total files : 28
+total code lines : 1157
+total comment lines : 221
+total blank lines : 378
+
+    statistics
+   |      extension|     total code|  total comment|    total blank|percent|
+   -------------------------------------------------------------------------
+   |          .java|           1157|            221|            378| 1.0e+2|
+   -------------------------------------------------------------------------
+natives\jinput-dx8_64.dll, it is a binary file.
+natives\jinput-raw_64.dll, it is a binary file.
+natives\lwjgl64.dll, it is a binary file.
+natives\OpenAL64.dll, it is a binary file.
+pocket\creature\Entity.java, code is 27, comment is 52, blank is 25.
+pocket\creature\Human.java, code is 82, comment is 0, blank is 21.
+pocket\creature\HumanAdult.java, code is 67, comment is 10, blank is 11.
+pocket\creature\Man.java, code is 64, comment is 10, blank is 10.
+pocket\creature\Woman.java, code is 64, comment is 10, blank is 10.
+pocket\system\Cursor.java, code is 11, comment is 0, blank is 5.
+pocket\system\Main.java, code is 437, comment is 95, blank is 143.
+pocket\system\Screen.java, code is 62, comment is 0, blank is 19.
+pocket\tile\Grass.java, code is 12, comment is 0, blank is 4.
+pocket\tile\Lava.java, code is 12, comment is 0, blank is 4.
+pocket\tile\StoneGround.java, code is 12, comment is 0, blank is 4.
+pocket\tile\StoneWall.java, code is 12, comment is 0, blank is 4.
+pocket\tile\Tile.java, code is 9, comment is 0, blank is 3.
+pocket\tile\Water.java, code is 12, comment is 0, blank is 4.
+pocket\world\Space.java, code is 163, comment is 24, blank is 58.
+pocket\world\World.java, code is 111, comment is 20, blank is 53.
+res\bg.png, it is a binary file.
+res\cbg.png, it is a binary file.
+res\clear.png, it is a binary file.
+res\screen.png, it is a binary file.
+res\startup.ogg, it is a binary file.
+res\taskbar.png, it is a binary file.
+res\tilebanner.png, it is a binary file.
+res\tileset.png, it is a binary file.
+===============================================================================

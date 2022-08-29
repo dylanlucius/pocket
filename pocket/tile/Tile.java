@@ -4,8 +4,9 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Color;
 
 public class Tile {
+    public String name;
     public Image icon;
     public Color bgColor, iconColor;
-    public boolean solid;
+    public boolean ground, wall, fluid, fire;
     
 }

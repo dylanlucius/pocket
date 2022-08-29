@@ -14,29 +14,50 @@ public class World {
     public static Space worldCenter, selectionStart, selectionEnd;
 
     public static Grass grass = new Grass();
+    public static StoneGround stoneGround = new StoneGround();
+    public static StoneWall stoneWall = new StoneWall();
+    public static Water water = new Water();
+    public static Lava lava = new Lava();
+
+
+    public static byte currentTileIndex = 0;
+    public static Tile currentTile;
+    public static Tile[] tile = {grass, stoneGround, stoneWall, water, lava};
+
+    public static  HumanAdult humanAdult = new HumanAdult();
+    public static Man man = new Man();
+    public static Woman woman = new Woman();
+
+    public static byte currentEntityIndex = 0;
+    public static Entity[] entity = {humanAdult, man, woman};
+    public static Entity currentEntity = entity[currentEntityIndex];
 
     public World(){
         space = new Space[80][48];
         
+        // create world, World.space[][]
         System.out.println("Creating world");
         for(int i = 0; i < 80; i++){
             for(int j = 0; j < 48; j++){
                 space[i][j] = new Space(i * 8, j * 8);
                 space[i][j].tagX = i;
                 space[i][j].tagY = j;
-
-                //System.out.println("Creating space: x = " + i + ", y = " + j );
             }   
 
         }
 
+        // define world center
         worldCenter = World.space[39][23];
 
-        System.out.println("Adding cursor");
-        cursor = new Cursor(World.worldCenter);   // World center
+        // assign world center as default cursor location
+        cursor = new Cursor(World.worldCenter);
+
+        // set default current tile
+        currentTile = tile[currentTileIndex];
 
     }
 
+    // draw every space in the world when called
     public void draw(){
         for(int i = 0; i < 80; i++){
             for(int j = 0; j < 48; j++){
@@ -45,10 +66,12 @@ public class World {
         }
     }
 
+    // place stated entity at stated position, when called
     public static void placeEntity(int x, int y, Entity entity){
         World.space[x][y].entities.add(entity);
     }
 
+    // clear all entities on given space
     public static void clearEntities(int x, int y){
         while(World.space[x][y].entities.size() > 0){
             World.space[x][y].entities.remove(0);
@@ -67,6 +90,7 @@ public class World {
         space.cursorOn = false;
     }
 
+    // set each spaces neighbors (graph edges)
     public static void setNeighbors(){
         
         for(int i = 0; i < 80; i++){
@@ -101,6 +125,7 @@ public class World {
         
     }
 
+    // second pair of neighbors to check 8 spaces out
     public static void setNeighbors8(){
         
         for(int i = 0; i < 80; i++){
@@ -135,6 +160,7 @@ public class World {
         
     }
 
+    // place given tile at given position
     public static void placeTile(int x, int y, Tile tile){
        
        if(World.space[x][y].tile == null){
@@ -143,7 +169,16 @@ public class World {
 
     }
 
+    // clear tile
     public static void clearTile(int x, int y){
         World.space[x][y].tile = null;
+    }
+
+    public static void updateCurrentTile(){
+        currentTile = tile[currentTileIndex];
+    }
+
+    public static void updateCurrentEntity(){
+        currentEntity = entity[currentEntityIndex];
     }
 }

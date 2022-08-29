@@ -59,10 +59,7 @@ public class Screen {
             
             spritesheet = new SpriteSheet(tileset, 8, 8);
             font = new SpriteSheetFont(spritesheet, '\0');
-            graphics = new Graphics();
-            
-
-            
+            graphics = new Graphics();                     
 
         } catch (SlickException e) {    }
     }

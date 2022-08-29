@@ -4,17 +4,13 @@ import pocket.system.Screen;
 import pocket.world.World;
 import java.util.Random;
 
-public class HumanAdult extends Human {
+public class Man extends HumanAdult {
     Random random = new Random();
 
-    public HumanAdult(){
-
-        if(World.cursor != null){
-            space = World.cursor.space;
-        }
-
-        name                = "Human Adult";
-        avatar              = Screen.spritesheet.getSprite(2, 0);
+    public Man(){
+        
+        name                = "Man";
+        avatar              = Screen.spritesheet.getSprite(11, 0);
         color               = Screen.people[random.nextInt(8)];
         nickname            = "";
         age                 = 18;
