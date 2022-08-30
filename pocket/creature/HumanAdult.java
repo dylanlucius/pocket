@@ -9,6 +9,7 @@ public class HumanAdult extends Human {
 
     public HumanAdult(){
 
+        
         if(World.cursor != null){
             space = World.cursor.space;
         }
@@ -16,6 +17,9 @@ public class HumanAdult extends Human {
         name                = "Human Adult";
         avatar              = Screen.spritesheet.getSprite(2, 0);
         color               = Screen.people[random.nextInt(8)];
+
+        team                = 0; // neutral
+
         nickname            = "";
         age                 = 18;
         height              = 67;   // inches

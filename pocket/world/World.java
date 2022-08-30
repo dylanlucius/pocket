@@ -5,6 +5,16 @@ import pocket.system.*;
 import pocket.tile.*;
 
 public class World {
+
+    public static Dice d4 = new Dice(4);
+    public static Dice d6 = new Dice(6);
+    public static Dice d8 = new Dice(8);
+    public static Dice d10 = new Dice(10);
+    public static Dice d12 = new Dice(12);
+    public static Dice d20 = new Dice(20);
+    public static Dice d100 = new Dice(100);
+    public static Dice d1000 = new Dice(1000);
+
     int width, height;
     // depth, volume
     public static Space[][] space;
@@ -18,18 +28,22 @@ public class World {
     public static StoneWall stoneWall = new StoneWall();
     public static Water water = new Water();
     public static Lava lava = new Lava();
+    public static Medkit medkit = new Medkit();
 
 
     public static byte currentTileIndex = 0;
     public static Tile currentTile;
-    public static Tile[] tile = {grass, stoneGround, stoneWall, water, lava};
+    public static Tile[] tile = {grass, stoneGround, stoneWall, water, lava, medkit};
 
     public static  HumanAdult humanAdult = new HumanAdult();
     public static Man man = new Man();
     public static Woman woman = new Woman();
 
+    public static Red red = new Red();
+    public static Blue blue = new Blue();
+
     public static byte currentEntityIndex = 0;
-    public static Entity[] entity = {humanAdult, man, woman};
+    public static Entity[] entity = {red, blue, humanAdult, woman, man};
     public static Entity currentEntity = entity[currentEntityIndex];
 
     public World(){
@@ -165,6 +179,7 @@ public class World {
        
        if(World.space[x][y].tile == null){
             World.space[x][y].tile = tile;
+            World.space[x][y].tile.space = World.space[x][y];
        }
 
     }

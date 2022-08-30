@@ -240,6 +240,10 @@ public class Space {
                 entities.get(i).behavior();
             }
         }
+
+        if(tile != null){
+            tile.behavior();
+        }
         
     }
 }

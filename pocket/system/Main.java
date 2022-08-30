@@ -16,11 +16,11 @@ public class Main extends BasicGame{
         super("Pocket World");
     }
 
-        final boolean PLAY_INTRO = true;
+        final boolean PLAY_INTRO = false;
 
         public static AppGameContainer system;
         Screen screen;
-        static Input input;
+        static Input input; 
         public static World world;
 
         public static ScalableGame wrapper;
@@ -645,21 +645,30 @@ public class Main extends BasicGame{
                 }
             }
         
+            // [ENTER] CREATURE MODE
             if(creatureMode){
                 if(World.cursor.space.entities.size() <= 0){
 
                     switch(World.currentEntityIndex){
                         
                         default:
-                            World.placeEntity(World.cursor.space.tagX, World.cursor.space.tagY, new HumanAdult() );
+                            World.placeEntity(World.cursor.space.tagX, World.cursor.space.tagY, new Red() );
                             break;
 
                         case 1:
-                        World.placeEntity(World.cursor.space.tagX, World.cursor.space.tagY, new Man() );
+                        World.placeEntity(World.cursor.space.tagX, World.cursor.space.tagY, new Blue() );
                         break;
 
                         case 2:
+                        World.placeEntity(World.cursor.space.tagX, World.cursor.space.tagY, new HumanAdult() );
+                        break;
+
+                        case 3:
                         World.placeEntity(World.cursor.space.tagX, World.cursor.space.tagY, new Woman() );
+                        break;
+
+                        case 4:
+                        World.placeEntity(World.cursor.space.tagX, World.cursor.space.tagY, new Man() );
                         break;
                     }
                 }

@@ -1,7 +1,6 @@
 package pocket.creature;
 
 import pocket.system.Screen;
-import pocket.world.World;
 import java.util.Random;
 
 public class Woman extends HumanAdult {
