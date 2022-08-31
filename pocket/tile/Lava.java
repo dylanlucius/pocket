@@ -26,13 +26,11 @@ public class Lava extends Tile {
     public void behavior(){ 
         if(space.entities != null && space.entities.size() > 0){
             Participant target = (Participant) space.entities.get(0);
-            int damage = World.d12.roll(3);
+            int damage = World.d8.roll(3);
 
-            if( World.d100.roll(15) + 1 >= target.ac){
                 System.out.println("\n" + target.name + "(HP: " + target.hp + " was hurt " + damage + " by lava!");
-                target.hp -= (damage);
+                target.hp -= damage;
                 System.out.println(target.name + " remaining HP: " + target.hp);    
-            }
 
         }
     }

@@ -9,21 +9,23 @@ import pocket.world.*;
 public class Main extends BasicGame{
     
     //////////////////////////////////////
-    //           PROGRAM SETUP
+    //           [PROGRAM SETUP]
     //////////////////////////////////////
 
     public Main(){
         super("Pocket World");
     }
 
-        final boolean PLAY_INTRO = false;
+        final boolean PLAY_INTRO = true;
 
         public static AppGameContainer system;
-        Screen screen;
+        public static Screen screen;
         static Input input; 
         public static World world;
 
         public static ScalableGame wrapper;
+
+        public static Temp temp = new Temp();
 
     public static void main(String[] args) throws SlickException {
 
@@ -39,16 +41,17 @@ public class Main extends BasicGame{
 
     
     //////////////////////////////////////
-    //              INIT
+    //              [INIT]
     //////////////////////////////////////
 
         public static boolean colortest;
         public static boolean on;
-        public static boolean startupPlayed, animationOver, characterTest, cursorMode, builderMode, selection, creatureMode;
+        public static boolean startupPlayed, animationOver, characterTest, spectateMode, builderMode, selection, creatureMode;
         int titleColors, y, key;
         Sound startup;
         Cursor cursor;
         public boolean paused;
+        public static Log log;
 
     @Override
     public void init(GameContainer gc) throws SlickException{
@@ -61,6 +64,7 @@ public class Main extends BasicGame{
         key = 0;
         animationOver = false;
         paused = false;
+        log = new Log();
 
         if(!PLAY_INTRO){
             on = true;
@@ -78,26 +82,27 @@ public class Main extends BasicGame{
         menu = false;
         titleColors = 0;
 
-        cursorMode = false;
+        spectateMode = false;
         builderMode = false;
         selection = false;
         creatureMode = false;
 
+        // temp.save();
+        // temp.load();
     }
 
 
     //////////////////////////////////////
-    //              UPDATE
+    //              [UPDATE]
     //////////////////////////////////////
+    Counter animationCounter = new Counter(21);
 
     @Override
     public void update(GameContainer gc, int i) throws SlickException{
        
         //  PLAY ANIMATION
         if(!animationOver){
-            y++;
-            
-            if(y > 21){
+            if(animationCounter.over()){
                 animationOver = true;
             }
         }
@@ -123,20 +128,22 @@ public class Main extends BasicGame{
             system.reinit();
         }
 
-        // if not paused
-        if(!paused){
+        // if on and not paused
+        if(on && !paused){
+
             // check for and run any behavior on all spaces
             for(int j = 0; j < World.space.length; j++){
                 for(int k = 0; k < World.space[0].length; k++){
                     World.space[j][k].behavior();
                 }
             }
+
         }   
     }
 
  
     //////////////////////////////////////
-    //             RENDER
+    //             [RENDER]
     //////////////////////////////////////
 
     @Override
@@ -146,15 +153,15 @@ public class Main extends BasicGame{
         // GAME BOX RULER    "123456789012345612345678901234561234567890123456"
         // FULL SCREEN RULER "12345678901234561234567890123456123456789012345612345678901234567890123456789012"
 
-        //  CLEAR SCREEN
+        //  INITIAL SCREEN CLEAR
         Screen.screen.draw(0, 0, Screen.BLACK);
 
         //  INTRO ANIMATION
         if(PLAY_INTRO){
 
             if(!animationOver && !on){
-                screen.font.drawString(8, y*8,   "                                 Software Toy", Screen.rainbow[titleColors]);
-                screen.font.drawString(8, 8+y*8, "                                   presents", Screen.WHITE);
+                screen.font.drawString(8, animationCounter.step*8,   "                                 Software Toy", Screen.rainbow[titleColors]);
+                screen.font.drawString(8, 8+animationCounter.step*8, "                                   presents", Screen.WHITE);
             }
     
             if(animationOver && !on){
@@ -170,10 +177,13 @@ public class Main extends BasicGame{
         //  PLAY STATE
         if(on && animationOver){
 
+            // PERIODIC SCREEN CLEAR 
             Screen.screen.draw(0, 0, Screen.BLACK);
 
+            // OPTIONAL COLOR TEST
             screen.colortest();
 
+            // OPTIONAL CHARACTER TEST
             if(characterTest){
                 Screen.tileset.draw(144, 8, Screen.WHITE);
             }
@@ -181,32 +191,60 @@ public class Main extends BasicGame{
             // DRAW THE WORLD
             world.draw();
             
+            // DRAW PAUSE INDICATOR
             if(paused){
-                screen.font.drawString(0, 16,            "                                     Paused", Screen.YELLOW);
+                screen.font.drawString(0, 0,            "                                     Paused", Screen.YELLOW);
             }
 
-             // FULL SCREEN RULER                        "12345678901234561234567890123456123456789012345612345678901234567890123456789012"
-            if(builderMode){
-                screen.font.drawString(0, 16,            "            Builder Mode", Screen.BLUE);
-                
-                screen.font.drawString(0, 16,            "                                                        " + World.currentTile.name, Screen.WHITE);
-
-            }
-
-            if(creatureMode){
-                screen.font.drawString(0, 16,            "            Creature Mode", Screen.RED);
-                
-                screen.font.drawString(0, 16,            "                                                        " + World.currentEntity.name, Screen.WHITE);
-
-            }
+             // FULL SCREEN RULER          "12345678901234561234567890123456123456789012345612345678901234567890123456789012"
             
-        }
+            // DRAW BUILDER MODE
+            if(builderMode){
+                screen.font.drawString(0, 0,            "            Builder Mode", Screen.BLUE);
+                
+                screen.font.drawString(0, 0,            "                                                        " + World.currentTile.name, Screen.WHITE);
 
+            }
+
+            // DRAW CREATURE MODE
+            if(creatureMode){
+                screen.font.drawString(0, 0,            "            Creature Mode", Screen.RED);
+                
+                screen.font.drawString(0, 0,            "                                                        " + World.currentEntity.name, Screen.WHITE);
+
+            }
+
+            // DRAW SPECTATE MODE
+            if(spectateMode){
+                screen.font.drawString(0, 0,            "            Spectate Mode", Screen.YELLOW);
+                
+                // if cursor space has entity
+                if(World.cursor.space.entities.size() > 0){
+                    // draw entity name
+                    screen.font.drawString(0, 0,        "                                                        " + World.cursor.space.entities.get(0).name, Screen.WHITE);
+
+                    // if the entity is a "Particiant"
+                    if(World.cursor.space.entities.get(0).getClass().getSuperclass() == Participant.class){
+                        // cast entity to participant holder
+                        Participant target = (Participant) World.cursor.space.entities.get(0);
+                     
+                        // draw number
+                        screen.font.drawString(0, 8,    "                                                        #: " + target.number, Screen.WHITE);
+
+                        // draw HP
+                        screen.font.drawString(0, 16,   "                                                        HP: " + target.hp, Screen.WHITE);
+                    }
+                }
+
+                // DRAW LOG
+                log.draw();
+            }              
+        }
     }
 
     
     ////////////////////////////////////
-    //          GLOBAL INPUT
+    //          [INPUT]
     //////////////////////////////////////
 
     boolean menu;
@@ -214,12 +252,12 @@ public class Main extends BasicGame{
 
     public void keyPressed(int key, char c){
         
-         // F5   [RESTART]
+         // RESTART   [F5]
         if(key == Keyboard.KEY_F5){
             restart = true;
         }
         
-        // TITLE SCREEN ENTER
+        // TITLE SCREEN [ENTER]
         if(animationOver && !on && key == Keyboard.KEY_RETURN){
             on = true;
         }
@@ -229,17 +267,26 @@ public class Main extends BasicGame{
             paused = !paused;
         }
 
-        // 1    [COLOR TEST]
+        // STEP THROUGH
+        if(paused && key == Keyboard.KEY_PERIOD){
+            for(int j = 0; j < World.space.length; j++){
+                for(int k = 0; k < World.space[0].length; k++){
+                    World.space[j][k].behavior();
+                }
+            }
+        }
+
+        // COLOR TEST    [1]
         if(on && key == Keyboard.KEY_1){
             colortest = !colortest;
         }
 
-        // 2    [CHARACTER TEST]
+        // CHARACTER TEST   [2]
         if(on && key == Keyboard.KEY_2){
             characterTest = !characterTest;
         }
 
-        // // TAB  [MENU]
+        // // MENU  [TAB]
         // if(on && key == Keyboard.KEY_TAB){
         //     menu = !menu;
         // }
@@ -248,42 +295,64 @@ public class Main extends BasicGame{
         //          CURSOR INPUT MODES
         ///////////////////////////////////////
 
-        // K    [CURSOR]
+        // SPECTATE MODE   [K]
         if(on && key == Keyboard.KEY_K){
+
+            if(builderMode && World.cursor.space.cursorOn || creatureMode && World.cursor.space.cursorOn){
+                World.cursor.space.cursorOn = on;
+            }
+            else {
+                World.cursor.space.cursorOn = !World.cursor.space.cursorOn;
+            }
             
-            if(!builderMode && !creatureMode){
+            builderMode = false;
+            creatureMode = false;
+
+            //if(!builderMode && !creatureMode){
+
                 if(World.cursor.space.cursorOn){
                     World.removeCursor(World.cursor.space);
                     World.updateCursor(World.space[39][23]);
                 }
-                World.cursor.space.cursorOn = !World.cursor.space.cursorOn;
-    
-                
-                cursorMode = !cursorMode;
-                System.out.println("\ncursor mode " + cursorMode);
-            }
+
+                selection = false;
+
+                spectateMode = !spectateMode;
+
+                System.out.println("\nspectate mode " + spectateMode);
+            //}
         }
 
-        // B    [CURSOR]
+        // BUILDER MODE  [B]
         if(on && key == Keyboard.KEY_B){
 
-            if(!cursorMode && !creatureMode){
+            if(creatureMode && World.cursor.space.cursorOn || spectateMode && World.cursor.space.cursorOn){
+                World.cursor.space.cursorOn = on;
+            }
+            else {
+                World.cursor.space.cursorOn = !World.cursor.space.cursorOn;
+            }
+
+            spectateMode = false;
+            creatureMode = false;
+
+            //if(!spectateMode && !creatureMode){
                 if(World.cursor.space.cursorOn){
                     World.removeCursor(World.cursor.space);
                     World.updateCursor(World.space[39][23]);
                 }
-                World.cursor.space.cursorOn = !World.cursor.space.cursorOn;
+
                 selection = false;
                 
                 builderMode = !builderMode;
 
                 System.out.println("\nbuilder mode " + builderMode);
-            }  
+            //}  
         }
 
         // CYCLE TILES FORWARD in BUILDER MODE
 
-        // [ + ]
+        // [ + ] Builder
         if(on && key == Keyboard.KEY_ADD && builderMode){
             if(World.currentTileIndex < World.tile.length - 1){
                 World.currentTileIndex++;
@@ -294,7 +363,7 @@ public class Main extends BasicGame{
                 World.updateCurrentTile();
             }
         }
-        // [ - ]
+        // [ - ] Builder
         if(on && key == Keyboard.KEY_SUBTRACT && builderMode){
             if(World.currentTileIndex > 0){
                 World.currentTileIndex--;
@@ -306,28 +375,38 @@ public class Main extends BasicGame{
             }
         }
 
-        // P    [CURSOR]
+        // CREATURE MODE  [P]
         if(on && key == Keyboard.KEY_P){
 
-            if(!cursorMode && !builderMode){
+
+            if(builderMode && World.cursor.space.cursorOn || spectateMode && World.cursor.space.cursorOn){
+                World.cursor.space.cursorOn = on;
+            }
+            else {
+                World.cursor.space.cursorOn = !World.cursor.space.cursorOn;
+            }
+
+            spectateMode = false;
+            builderMode = false;
+
+            //if(!spectateMode && !builderMode){
                 if(World.cursor.space.cursorOn){
                     World.removeCursor(World.cursor.space);
                     World.updateCursor(World.space[39][23]);
                 }
-                World.cursor.space.cursorOn = !World.cursor.space.cursorOn;
                 selection = false;
     
                 
                 creatureMode = !creatureMode;
 
                 System.out.println("\ncreature mode " + creatureMode);
-            }  
+            //}  
 
         }
 
         // CYCLE CREATURES in CREATURE MODE
 
-        // [ + ]
+        // [ + ] Creature
         if(on && key == Keyboard.KEY_ADD && creatureMode){
             if(World.currentEntityIndex < World.entity.length - 1){
                 World.currentEntityIndex++;
@@ -338,7 +417,7 @@ public class Main extends BasicGame{
                 World.updateCurrentEntity();
             }
         }
-        // [ - ]
+        // [ - ] Creature
         if(on && key == Keyboard.KEY_SUBTRACT && creatureMode){
             if(World.currentEntityIndex > 0){
                 World.currentEntityIndex--;
@@ -443,8 +522,7 @@ public class Main extends BasicGame{
                     else {
                         World.removeCursor(World.cursor.space);
                         World.updateCursor(World.space[World.cursor.space.tagX][47]);
-                    }
-                    
+                    }  
                 }
                 //  NO SHIFT
                 else{
@@ -461,7 +539,7 @@ public class Main extends BasicGame{
         ///////////////////////////////
         if(on && key == Keyboard.KEY_RETURN){
             
-            // BUILDER MODE
+            // [ENTER] BUILDER MODE
             if(builderMode){
                 
                 // set world's "selection start" to cursor, set current world's "[current] selection" to true
@@ -648,12 +726,12 @@ public class Main extends BasicGame{
             // [ENTER] CREATURE MODE
             if(creatureMode){
                 if(World.cursor.space.entities.size() <= 0){
-
+                
                     switch(World.currentEntityIndex){
                         
                         default:
-                            World.placeEntity(World.cursor.space.tagX, World.cursor.space.tagY, new Red() );
-                            break;
+                        World.placeEntity(World.cursor.space.tagX, World.cursor.space.tagY, new Red() );
+                        break;
 
                         case 1:
                         World.placeEntity(World.cursor.space.tagX, World.cursor.space.tagY, new Blue() );
@@ -671,14 +749,8 @@ public class Main extends BasicGame{
                         World.placeEntity(World.cursor.space.tagX, World.cursor.space.tagY, new Man() );
                         break;
                     }
-                }
-                
+                } 
             }
-
-
         }
-
-        
-
     }
 }

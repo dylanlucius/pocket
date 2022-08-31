@@ -28,11 +28,9 @@ public class Medkit extends Tile {
             Participant target = (Participant) space.entities.get(0);
             int health = World.d8.roll(3);
 
-            if(World.d100.roll(15) + 1 >= target.ac){
                 System.out.println("\n" + target.name + " (HP: " + target.hp + ") was healed " + health + " by Medkit");
                 target.hp += (health);
                 System.out.println(target.name + " new HP: " + target.hp);    
-            }
 
         }
     }

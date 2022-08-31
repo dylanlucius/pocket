@@ -143,7 +143,7 @@ public class Space {
             if(Main.creatureMode)
             World.cursor.icon.draw(this.x, this.y, Screen.RED);
 
-            if(Main.cursorMode)
+            if(Main.spectateMode)
             World.cursor.icon.draw(this.x, this.y, Screen.YELLOW);
         }
 
@@ -231,19 +231,17 @@ public class Space {
     }
 
     public void behavior(){
-        if(entities != null){
-            // for (Entity entity : entities){
-            //     entity.behavior();
-            // }
 
-            for(int i = 0; i < entities.size(); i++){
-                entities.get(i).behavior();
-            }
-        }
-
+        // run tile behaviors for each space
         if(tile != null){
             tile.behavior();
         }
-        
+
+        // run entity behaviors for each space
+        if(entities != null){
+            for(int i = 0; i < entities.size(); i++){
+                entities.get(i).behavior();
+            }
+        }   
     }
 }

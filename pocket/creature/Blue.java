@@ -9,5 +9,10 @@ public class Blue extends Participant {
         color = Screen.BLUE;
 
         team = 2;
+
+        if(Main.on){
+            Main.log.add("#" + this.number + " joined team " + this.name);
+            Main.log.add("");
+        }
     }
 }

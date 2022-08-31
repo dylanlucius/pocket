@@ -10,5 +10,11 @@ public class Red extends Participant {
         color = Screen.PINK;
 
         team = 1;
+
+        if(Main.on){
+            Main.log.add("#" + this.number + " joined team " + this.name);
+            Main.log.add("");
+        }
+
     }
 }

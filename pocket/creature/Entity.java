@@ -1,8 +1,11 @@
 package pocket.creature;
 
 import java.util.Random;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Color;
+
+import pocket.system.*;
 import pocket.world.*;
 
 public abstract class Entity {
