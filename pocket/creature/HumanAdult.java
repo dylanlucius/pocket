@@ -1,7 +1,7 @@
 package pocket.creature;
 
-import pocket.system.Screen;
-import pocket.world.World;
+import pocket.system.*;
+import pocket.world.*;
 import java.util.Random;
 
 public class HumanAdult extends Human {
@@ -17,8 +17,6 @@ public class HumanAdult extends Human {
         name                = "Human Adult";
         avatar              = Screen.spritesheet.getSprite(2, 0);
         color               = Screen.people[random.nextInt(8)];
-
-        team                = 0; // neutral
 
         nickname            = "";
         age                 = 18;
@@ -38,7 +36,6 @@ public class HumanAdult extends Human {
         smellRange          = 5;    // spaces
         reach               = 1;    // space
         damage              = 1;    // one is standard 
-        movementSpeed       = 1;    // block per tick
 
         awake               = true;
         alert               = true;

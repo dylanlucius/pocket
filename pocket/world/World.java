@@ -1,11 +1,14 @@
 package pocket.world;
 
+import java.util.ArrayList;
+
 import pocket.creature.*;
 import pocket.system.*;
 import pocket.tile.*;
 
 public class World {
 
+    public static Dice d2 = new Dice(2);
     public static Dice d4 = new Dice(4);
     public static Dice d6 = new Dice(6);
     public static Dice d8 = new Dice(8);
@@ -35,16 +38,28 @@ public class World {
     public static Tile currentTile;
     public static Tile[] tile = {grass, stoneGround, stoneWall, water, lava, medkit};
 
-    public static  HumanAdult humanAdult = new HumanAdult();
-    public static Man man = new Man();
-    public static Woman woman = new Woman();
-
     public static Red red = new Red();
     public static Blue blue = new Blue();
+    public static  HumanAdult humanAdult = new HumanAdult();
+    public static Woman woman = new Woman();
+    public static Man man = new Man();
+    public static Fish fish = new Fish();
+    public static Shark shark = new Shark();
+    public static Tiger tiger = new Tiger();
+    public static Lion lion = new Lion();
+    public static Cat cat = new Cat();
+    public static Dog dog = new Dog();
+    public static Rodent rodent = new Rodent();
+    public static Bug bug = new Bug();
+    
 
     public static byte currentEntityIndex = 0;
-    public static Entity[] entity = {red, blue, humanAdult, woman, man};
+    
+    public static Entity[] entity = {red, blue, humanAdult, woman, man, fish, shark, tiger, lion,
+                                     cat, dog, rodent, bug};
+
     public static Entity currentEntity = entity[currentEntityIndex];
+    public static ArrayList<Entity> entityList;
 
     public World(){
         space = new Space[80][48];
@@ -69,6 +84,8 @@ public class World {
         // set default current tile
         currentTile = tile[currentTileIndex];
 
+        entityList = new ArrayList<Entity>();
+
     }
 
     // draw every space in the world when called
@@ -77,6 +94,52 @@ public class World {
             for(int j = 0; j < 48; j++){
                 space[i][j].draw();
             }
+        }
+    }
+
+    // return current entity based on currentEntityIndex
+    public static Entity returnCurrentEntity(){
+        switch(currentEntityIndex){
+            default:
+                return new Red();
+
+            case 1:
+                return new Blue();
+            
+            case 2:
+                return new HumanAdult();
+
+            case 3:
+                return new Woman();
+
+            case 4:
+                return new Man();
+
+            case 5:
+                return new Fish();
+
+            case 6:
+                return new Shark();
+
+            case 7:
+                return new Tiger();
+
+            case 8:
+                return new Lion();
+
+            case 9:
+                return new Cat();
+
+            case 10:
+            return new Dog();
+
+            case 11:
+            return new Rodent();
+
+            case 12:
+            return new Bug();
+
+
         }
     }
 
@@ -174,6 +237,24 @@ public class World {
         
     }
 
+    // returns current tile based on currentTileIndex, for use with placeTile()
+    public static Tile returnCurrentTile(){
+        switch(currentTileIndex){
+            default:
+                return new Grass();
+            case 1:
+                return new StoneGround();
+            case 2:
+                return new StoneWall();
+            case 3:
+                return new Water();
+            case 4:
+                return new Lava();
+            case 5:
+                return new Medkit();
+        }
+    }
+
     // place given tile at given position
     public static void placeTile(int x, int y, Tile tile){
        
@@ -195,5 +276,12 @@ public class World {
 
     public static void updateCurrentEntity(){
         currentEntity = entity[currentEntityIndex];
+    }
+
+    public static void drawPopulation(){
+        // FULL SCREEN RULER                "00000000011111111112222222222333333333344444444445555555555666666666677777777778"
+        // FULL SCREEN RULER                "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
+
+        Main.screen.font.drawString(0, 0,  "                                                        Population: " + entityList.size(), Screen.WHITE);
     }
 }

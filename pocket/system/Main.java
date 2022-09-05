@@ -15,7 +15,7 @@ public class Main extends BasicGame{
     public Main(){
         super("Pocket World");
     }
-
+        
         final boolean PLAY_INTRO = true;
 
         public static AppGameContainer system;
@@ -37,6 +37,7 @@ public class Main extends BasicGame{
         system.setShowFPS(false);
         system.start();
         
+
     }
 
     
@@ -47,11 +48,14 @@ public class Main extends BasicGame{
         public static boolean colortest;
         public static boolean on;
         public static boolean startupPlayed, animationOver, characterTest, spectateMode, builderMode, selection, creatureMode;
-        int titleColors, y, key;
+        int titleColors, y, key, menuPlacement;
         Sound startup;
         Cursor cursor;
         public boolean paused;
         public static Log log;
+
+        Entity currentEntity;
+        
 
     @Override
     public void init(GameContainer gc) throws SlickException{
@@ -128,20 +132,30 @@ public class Main extends BasicGame{
             system.reinit();
         }
 
-        // if on and not paused
+        // GAMEPLAY (if "on" and not paused)
         if(on && !paused){
 
-            // check for and run any behavior on all spaces
+            // BEHAVIOR check for and run any behavior on all spaces
             for(int j = 0; j < World.space.length; j++){
                 for(int k = 0; k < World.space[0].length; k++){
                     World.space[j][k].behavior();
                 }
             }
 
-        }   
-    }
+            // next game event ...
+        }
 
- 
+        //  PLACEMENT OF SPECTATE MENU
+            // if the cursor is on the right of the screen
+            if(World.cursor.space.tagX >= 39){
+                menuPlacement = 8;
+            }
+            // if it's on the left
+            else {
+                menuPlacement = 8 * 56;
+            }
+    }
+    
     //////////////////////////////////////
     //             [RENDER]
     //////////////////////////////////////
@@ -220,24 +234,24 @@ public class Main extends BasicGame{
                 
                 // if cursor space has entity
                 if(World.cursor.space.entities.size() > 0){
+                    Entity target = World.cursor.space.entities.get(0);
+
+                    // ENTITY INFO
                     // draw entity name
-                    screen.font.drawString(0, 0,        "                                                        " + World.cursor.space.entities.get(0).name, Screen.WHITE);
+                    screen.font.drawString(menuPlacement, 16,    "" + target.name, Screen.WHITE);
 
-                    // if the entity is a "Particiant"
-                    if(World.cursor.space.entities.get(0).getClass().getSuperclass() == Participant.class){
-                        // cast entity to participant holder
-                        Participant target = (Participant) World.cursor.space.entities.get(0);
-                     
-                        // draw number
-                        screen.font.drawString(0, 8,    "                                                        #: " + target.number, Screen.WHITE);
+                    // draw number
+                    screen.font.drawString(menuPlacement, 24,    "#: " + target.number, Screen.WHITE);
 
-                        // draw HP
-                        screen.font.drawString(0, 16,   "                                                        HP: " + target.hp, Screen.WHITE);
-                    }
+                    // draw HP
+                    screen.font.drawString(menuPlacement, 32,   "HP: " + target.hp, Screen.WHITE);
                 }
 
                 // DRAW LOG
                 log.draw();
+
+                World.drawPopulation();
+
             }              
         }
     }
@@ -295,8 +309,8 @@ public class Main extends BasicGame{
         //          CURSOR INPUT MODES
         ///////////////////////////////////////
 
-        // SPECTATE MODE   [K]
-        if(on && key == Keyboard.KEY_K){
+        // [TAB] SPECTATE MODE   
+        if(on && key == Keyboard.KEY_TAB){
 
             if(builderMode && World.cursor.space.cursorOn || creatureMode && World.cursor.space.cursorOn){
                 World.cursor.space.cursorOn = on;
@@ -561,7 +575,7 @@ public class Main extends BasicGame{
                     if(World.selectionStart.tagX > World.selectionEnd.tagX  && World.selectionStart.tagY > World.selectionEnd.tagY){
                         for(int i = World.selectionEnd.tagX; i < World.selectionStart.tagX + 1; i++){
                             for(int j = World.selectionEnd.tagY; j < World.selectionStart.tagY + 1; j++){
-                                World.placeTile(i, j, World.currentTile);
+                                World.placeTile(i, j, World.returnCurrentTile());
                             }
                         }
                     }
@@ -570,7 +584,7 @@ public class Main extends BasicGame{
                     if(World.selectionStart.tagX < World.selectionEnd.tagX  && World.selectionStart.tagY > World.selectionEnd.tagY){
                         for(int i = World.selectionStart.tagX; i < World.selectionEnd.tagX + 1; i++){
                             for(int j = World.selectionEnd.tagY; j < World.selectionStart.tagY + 1; j++){
-                                World.placeTile(i, j, World.currentTile);
+                                World.placeTile(i, j, World.returnCurrentTile());
                             }
                         }
                     }
@@ -579,7 +593,7 @@ public class Main extends BasicGame{
                     if(World.selectionStart.tagX > World.selectionEnd.tagX  && World.selectionStart.tagY < World.selectionEnd.tagY){
                         for(int i = World.selectionEnd.tagX; i < World.selectionStart.tagX + 1; i++){
                             for(int j = World.selectionStart.tagY; j < World.selectionEnd.tagY + 1; j++){
-                                World.placeTile(i, j, World.currentTile);
+                                World.placeTile(i, j, World.returnCurrentTile());
                             }
                         }
                     }
@@ -588,7 +602,7 @@ public class Main extends BasicGame{
                     if(World.selectionStart.tagX < World.selectionEnd.tagX  && World.selectionStart.tagY < World.selectionEnd.tagY){
                         for(int i = World.selectionStart.tagX; i < World.selectionEnd.tagX + 1; i++){
                             for(int j = World.selectionStart.tagY; j < World.selectionEnd.tagY + 1; j++){
-                                World.placeTile(i, j, World.currentTile);
+                                World.placeTile(i, j, World.returnCurrentTile());
                             }
                         }
                     }
@@ -599,20 +613,20 @@ public class Main extends BasicGame{
 
                             // center
                             if(World.selectionEnd == World.selectionStart){
-                                World.placeTile(World.cursor.space.tagX, World.cursor.space.tagY, World.currentTile);
+                                World.placeTile(World.cursor.space.tagX, World.cursor.space.tagY, World.returnCurrentTile());
                             }
 
                             // above
                             if(World.selectionEnd.tagY < World.selectionStart.tagY){
                                     for(int j = World.selectionEnd.tagY; j < World.selectionStart.tagY + 1; j++){
-                                        World.placeTile(World.selectionStart.tagX, j, World.currentTile);
+                                        World.placeTile(World.selectionStart.tagX, j, World.returnCurrentTile());
                                     }
                             }
 
                             // left
                             if(World.selectionEnd.tagX < World.selectionStart.tagX){
                                 for(int j = World.selectionEnd.tagX; j < World.selectionStart.tagX + 1; j++){
-                                    World.placeTile(j, World.selectionStart.tagY, World.currentTile);
+                                    World.placeTile(j, World.selectionStart.tagY, World.returnCurrentTile());
                                 }
                             }
 
@@ -620,7 +634,7 @@ public class Main extends BasicGame{
                             // right
                             if(World.selectionEnd.tagX > World.selectionStart.tagX){
                                 for(int j = World.selectionStart.tagX; j < World.selectionEnd.tagX + 1; j++){
-                                    World.placeTile(j, World.selectionStart.tagY, World.currentTile);
+                                    World.placeTile(j, World.selectionStart.tagY, World.returnCurrentTile());
                                 }
                             }
 
@@ -628,7 +642,7 @@ public class Main extends BasicGame{
                             // below
                             if(World.selectionEnd.tagY > World.selectionStart.tagY){
                                 for(int j = World.selectionStart.tagY; j < World.selectionEnd.tagY + 1; j++){
-                                    World.placeTile(World.selectionStart.tagX, j, World.currentTile);
+                                    World.placeTile(World.selectionStart.tagX, j, World.returnCurrentTile());
                                 }
                             }
                         }
@@ -727,30 +741,12 @@ public class Main extends BasicGame{
             if(creatureMode){
                 if(World.cursor.space.entities.size() <= 0){
                 
-                    switch(World.currentEntityIndex){
-                        
-                        default:
-                        World.placeEntity(World.cursor.space.tagX, World.cursor.space.tagY, new Red() );
-                        break;
-
-                        case 1:
-                        World.placeEntity(World.cursor.space.tagX, World.cursor.space.tagY, new Blue() );
-                        break;
-
-                        case 2:
-                        World.placeEntity(World.cursor.space.tagX, World.cursor.space.tagY, new HumanAdult() );
-                        break;
-
-                        case 3:
-                        World.placeEntity(World.cursor.space.tagX, World.cursor.space.tagY, new Woman() );
-                        break;
-
-                        case 4:
-                        World.placeEntity(World.cursor.space.tagX, World.cursor.space.tagY, new Man() );
-                        break;
-                    }
+                    World.placeEntity(World.cursor.space.tagX, World.cursor.space.tagY, World.returnCurrentEntity());
                 } 
-            }
+                else {
+                    World.clearEntities(World.cursor.space.tagX, World.cursor.space.tagY);
+                }
+            }    
         }
     }
 }

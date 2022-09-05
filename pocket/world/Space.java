@@ -40,7 +40,7 @@ public class Space {
         }
         else{
             if(tile != null){
-                tile.icon.draw(x, y, tile.iconColor);
+                tile.drawIcon(x, y);
             }
         }
 

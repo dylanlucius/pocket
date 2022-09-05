@@ -1,14 +1,18 @@
 package pocket.creature;
 
-import pocket.world.*;
 import pocket.system.*;
+import pocket.world.*;
 
-public abstract class Human extends LandAnimal {
+public class Lion extends LandAnimal{
+    public Lion(){
+        name                = "Lion";
+        avatar              = Screen.spritesheet.getSprite(12, 4);
+        color               = Screen.YELLOW;
 
-    public Human(){
-        //team = 1;
-        foodchain = 50;
-        baseSpeed = 2;
+        baseFoodchain = 60;
+        baseSpeed = 6;
+
+        hp = World.d20.roll(1) + 30;
     }
 
     public void roll(Entity target){  
@@ -16,7 +20,7 @@ public abstract class Human extends LandAnimal {
         if( counter.over() ){
              // if random roll of "d20" is equal to or larger than enemy AC
             if( World.d20.roll(1) > target.ac){
-                damage = World.d6.roll(2) + 6;
+                damage = World.d20.roll(2) + 10;
                 targetTemp = target.hp;
                 target.hp -=  damage;
                 Main.log.add(target.name + " #" + target.number + " (HP: " + targetTemp + ") --> (HP: " + target.hp + ") -" + damage);
@@ -24,5 +28,4 @@ public abstract class Human extends LandAnimal {
             }
         }
     }
-
 }

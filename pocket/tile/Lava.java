@@ -2,9 +2,9 @@ package pocket.tile;
 
 import java.util.Random;
 
-import pocket.creature.Participant;
-import pocket.system.Screen;
+import pocket.system.*;
 import pocket.world.*;
+import pocket.creature.*;
 
 public class Lava extends Tile {
     
@@ -14,6 +14,7 @@ public class Lava extends Tile {
 
         name = "Lava";
         icon = Screen.spritesheet.getSprite(7, 15);
+        secondary = Screen.spritesheet.getSprite(14, 7);  
         bgColor = Screen.RED;
         iconColor = Screen.ORANGE;
 
@@ -25,7 +26,7 @@ public class Lava extends Tile {
 
     public void behavior(){ 
         if(space.entities != null && space.entities.size() > 0){
-            Participant target = (Participant) space.entities.get(0);
+            Entity target = space.entities.get(0);
             int damage = World.d8.roll(3);
 
                 System.out.println("\n" + target.name + "(HP: " + target.hp + " was hurt " + damage + " by lava!");
@@ -34,4 +35,16 @@ public class Lava extends Tile {
 
         }
     }
+
+    public void drawIcon(int x, int y){
+        switch( World.d4.roll(1) ){
+            default:
+                secondary.draw(x, y, iconColor);
+                break;
+            case 3:
+                icon.draw(x, y, iconColor);
+                break;
+        }
+    }
+
 }

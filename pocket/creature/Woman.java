@@ -11,6 +11,7 @@ public class Woman extends HumanAdult {
         name                = "Woman";
         avatar              = Screen.spritesheet.getSprite(12, 0);
         color               = Screen.people[random.nextInt(8)];
+
         nickname            = "";
         age                 = 18;
         height              = 67;   // inches
@@ -29,7 +30,6 @@ public class Woman extends HumanAdult {
         smellRange          = 5;    // spaces
         reach               = 1;    // space
         damage              = 1;    // one is standard 
-        movementSpeed       = 1;    // block per tick
 
         awake               = true;
         alert               = true;

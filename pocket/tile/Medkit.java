@@ -2,9 +2,9 @@ package pocket.tile;
 
 import java.util.Random;
 
-import pocket.creature.Participant;
-import pocket.system.Screen;
+import pocket.system.*;
 import pocket.world.*;
+import pocket.creature.*;
 
 public class Medkit extends Tile {
     
@@ -25,7 +25,7 @@ public class Medkit extends Tile {
 
     public void behavior(){ 
         if(space.entities != null && space.entities.size() > 0){
-            Participant target = (Participant) space.entities.get(0);
+            Entity target = space.entities.get(0);
             int health = World.d8.roll(3);
 
                 System.out.println("\n" + target.name + " (HP: " + target.hp + ") was healed " + health + " by Medkit");

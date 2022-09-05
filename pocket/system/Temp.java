@@ -3,8 +3,6 @@ package pocket.system;
 import java.io.*;
 import java.util.Scanner;
 
-import pocket.system.*;
-
 public class Temp {
     
     public void save(){

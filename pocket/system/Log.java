@@ -2,8 +2,6 @@ package pocket.system;
 
 import java.util.*;
 
-import pocket.system.*;
-
 public class Log {
     ArrayList<String> history = new ArrayList<String>();
 
@@ -26,7 +24,7 @@ public class Log {
          // FULL SCREEN RULER                 "12345678901234561234567890123456123456789012345612345678901234567890123456789012"
 
             if(i < 16){
-                Main.screen.font.drawString(0, 8 + (i * 8), " " + history.get(i), Screen.WHITE);
+                Main.screen.font.drawString(8 * 12, 8 + (i * 8), " " + history.get(i), Screen.WHITE);
             }
         }
     }
