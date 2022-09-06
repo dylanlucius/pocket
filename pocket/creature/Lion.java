@@ -3,7 +3,7 @@ package pocket.creature;
 import pocket.system.*;
 import pocket.world.*;
 
-public class Lion extends LandAnimal{
+public class Lion extends BigCat{
     public Lion(){
         name                = "Lion";
         avatar              = Screen.spritesheet.getSprite(12, 4);
@@ -23,9 +23,13 @@ public class Lion extends LandAnimal{
                 damage = World.d20.roll(2) + 10;
                 targetTemp = target.hp;
                 target.hp -=  damage;
-                Main.log.add(target.name + " #" + target.number + " (HP: " + targetTemp + ") --> (HP: " + target.hp + ") -" + damage);
-                Main.log.add("");
-            }
+                Main.log.add(nickname + " (" + name  + ") did " + damage + " damage to " + target.nickname + " (" + target.name  + ")" );
+                Main.log.add("");        
+    
+                if(target.hp - damage < 0){
+                    Main.log.add(nickname + " (" + name  + ") killed " + target.nickname + " (" + target.name  + ")" );
+                    Main.log.add("");        
+                }            }
         }
     }
 }

@@ -10,9 +10,9 @@ public class Man extends HumanAdult {
         
         name                = "Man";
         avatar              = Screen.spritesheet.getSprite(11, 0);
-        color               = Screen.people[random.nextInt(8)];
 
-        nickname            = "";
+        assignNickname();
+
         age                 = 18;
         height              = 67;   // inches
         weight              = 125;  // lb;
@@ -48,7 +48,6 @@ public class Man extends HumanAdult {
 
         canBreath           = true;
         hydrated            = true;
-        hungry              = false;
         sleepy              = false;
         dizzy               = false;
         nauseous            = false;

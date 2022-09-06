@@ -1,8 +1,8 @@
 
-package pocket.system
-;
-import org.newdawn.slick.*;
+package pocket.system;
+
 import java.util.Random;
+import org.newdawn.slick.*;
 
 public class Screen {
 
@@ -33,7 +33,7 @@ public class Screen {
 
     public static final Color[] rainbow = {RED, ORANGE, YELLOW, GREEN, BLUE, PURPLE};
 
-    public static final Color[] people = {WHITE, PINK, YELLOW, TAN, BROWN, RED, BLUE, DARK_PURPLE};
+    public static final Color[] people = {PINK, YELLOW, TAN, BROWN, RED, BLUE, DARK_PURPLE};
 
 
     public static Image tileset;
@@ -64,8 +64,8 @@ public class Screen {
         } catch (SlickException e) {    }
     }
 
-    public void clear(){
-        Screen.clear.draw(0, 0, Screen.WHITE);
+    public static void clear(Color color){
+        Screen.clear.draw(0, 0, color);
     }
 
     public void colortest(){

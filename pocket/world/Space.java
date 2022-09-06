@@ -5,6 +5,7 @@ import org.newdawn.slick.Image;
 import pocket.creature.*;
 import pocket.system.*;
 import pocket.tile.*;
+import pocket.pickup.*;
 
 public class Space {
     Image image;
@@ -12,6 +13,8 @@ public class Space {
     boolean walk;
     public ArrayList<Entity> entities;
     public Tile tile;
+    public ArrayList<Pickup> pickups;
+
     public boolean cursorOn, buildCursorOn;
     public Space placeholder, up, left, down, right, up8, left8, right8, down8;
 
@@ -19,6 +22,8 @@ public class Space {
 
     public Space(int x, int y){
         entities = new ArrayList<Entity>();
+        pickups = new ArrayList<Pickup>();
+
         this.x = x;
         this.y = y;
     }
@@ -34,10 +39,17 @@ public class Space {
             Screen.bg.draw(x, y, tile.bgColor);
         }
 
-        // ENTITY OR TILE ICON
-        if (this.entities.size() != 0){
-            this.entities.get(0).avatar.draw(this.x, this.y, this.entities.get(0).color);
+         
+        // ENTITY OR PICKUP OR TILE ICON
+        if (entities.size() != 0){
+            entities.get(0).avatar.draw(x, y, entities.get(0).color);
         }
+        
+        // PICKUP
+        else if(pickups.size() > 0){ // if there are pickups on the space
+            pickups.get(0).icon.draw(x, y, pickups.get(0).color);
+        }
+        
         else{
             if(tile != null){
                 tile.drawIcon(x, y);
@@ -145,6 +157,9 @@ public class Space {
 
             if(Main.spectateMode)
             World.cursor.icon.draw(this.x, this.y, Screen.YELLOW);
+
+            if(Main.pickupMode)
+            World.cursor.icon.draw(this.x, this.y, Screen.DARK_PURPLE);
         }
 
         ///

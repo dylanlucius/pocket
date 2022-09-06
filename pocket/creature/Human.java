@@ -6,8 +6,7 @@ import pocket.system.*;
 public abstract class Human extends LandAnimal {
 
     public Human(){
-        //team = 1;
-        foodchain = 50;
+        baseFoodchain = 50;
         baseSpeed = 2;
     }
 
@@ -19,8 +18,13 @@ public abstract class Human extends LandAnimal {
                 damage = World.d6.roll(2) + 6;
                 targetTemp = target.hp;
                 target.hp -=  damage;
-                Main.log.add(target.name + " #" + target.number + " (HP: " + targetTemp + ") --> (HP: " + target.hp + ") -" + damage);
-                Main.log.add("");
+                Main.log.add(nickname + " (" + name  + ") did " + damage + " damage to " + target.nickname + " (" + target.name  + ")" );
+                Main.log.add("");        
+                    
+                if(target.hp - damage < 0){
+                    Main.log.add(nickname + " (" + name  + ") killed " + target.nickname + " (" + target.name  + ")" );
+                    Main.log.add("");        
+                }            
             }
         }
     }

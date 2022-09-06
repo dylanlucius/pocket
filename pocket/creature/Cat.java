@@ -3,14 +3,16 @@ package pocket.creature;
 import pocket.system.*;
 import pocket.world.*;
 
-public class Cat extends LandAnimal {
+public class Cat extends BigCat {
     
     public Cat(){
         name                = "Cat";
         avatar              = Screen.spritesheet.getSprite(3, 6);
         color               = Screen.DARK_GRAY;
 
-        baseFoodchain = 50;
+        assignNickname();
+
+        baseFoodchain = 48;
         baseSpeed = 3;
 
         hp = World.d4.roll(1) + 2;
@@ -24,8 +26,13 @@ public class Cat extends LandAnimal {
                 damage = World.d2.roll(1) + 2;
                 targetTemp = target.hp;
                 target.hp -=  damage;
-                Main.log.add(target.name + " #" + target.number + " (HP: " + targetTemp + ") --> (HP: " + target.hp + ") -" + damage);
-                Main.log.add("");
+                Main.log.add(nickname + " (" + name  + ") did " + damage + " damage to " + target.nickname + " (" + target.name  + ")" );
+                Main.log.add("");        
+                    
+                if(target.hp - damage < 0){
+                    Main.log.add(nickname + " (" + name  + ") killed " + target.nickname + " (" + target.name  + ")" );
+                    Main.log.add("");        
+                }            
             }
         }
     }

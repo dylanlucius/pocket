@@ -1,0 +1,17 @@
+== INSTRUCTIONS ==
+
+Welcome to Pocket World. Make your world. Watch and enjoy as it comes to life!
+
+== CONTROLS ==
+
+[B] Builder mode    | press [B] to enter or exit Builder mode. Here you can use [Arrow Keys], [Enter], and [+/-] to select and place tiles onto spaces; land, water, ... lava. You can hold [Shift] while using the arrow keys to move a greater distance at a time. You can press enter once and drag a selection box with the arrow keys to make bigger areas at once. Placing a tile over an existing tile will erase whats there instead of placing any tiles; this is how to delete tiles. You can build fortresses, battlefields, mazes, ...
+
+[P] Creature mode   | press [P] to enter or exit Creature mode. Using the same controls as Builder mode you can place individual creatures. They will control themselves, exhibiting a range of behaviors according to what type of creature they are; There is a foodchain, for example, which helps determine what creatures will eat each other. Deleting creatures is done the same way as with tiles. There are Humans, cats, dogs, rodents, ... sharks, and more ...
+
+[TAB] Spectate mode | pressing [TAB] brings up or hides spectate mode, where using the same controls as Builder and Creature modes, you can navigate the space and get info on specific creatures.
+
+[SPACE] Pause
+
+[.] Step through    | when paused, you can press [.] to step through the game one frame at a time
+
+[F5] Restart        | restarts the system

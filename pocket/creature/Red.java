@@ -17,10 +17,5 @@ public class Red extends Entity {
 
         hp = World.d100.roll(2) + 50;
 
-        if(Main.on){
-            Main.log.add("#" + this.number + " joined team " + this.name);
-            Main.log.add("");
-        }
-
     }
 }

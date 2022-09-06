@@ -11,7 +11,7 @@ public class Shark extends Fish {
         color = Screen.PURPLE;
 
         baseSpeed = 5;
-        baseFoodchain = 50;
+        baseFoodchain = 60;
 
         hp = World.d20.roll(2) + 20;
         
@@ -25,8 +25,15 @@ public class Shark extends Fish {
                 damage = World.d12.roll(3);
                 targetTemp = target.hp;
                 target.hp -=  damage;
-                Main.log.add(target.name + " #" + target.number + " (HP: " + targetTemp + ") --> (HP: " + target.hp + ") -" + damage);
-                Main.log.add("");
+                
+                Main.log.add(nickname + " (" + name  + ") did " + damage + " damage to " + target.nickname + " (" + target.name  + ")" );
+                Main.log.add("");        
+
+            
+                if(target.hp - damage < 0){
+                Main.log.add(nickname + " (" + name  + ") killed " + target.nickname + " (" + target.name  + ")" );
+                Main.log.add("");        
+                }
             }
         }
     }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import pocket.creature.*;
 import pocket.system.*;
 import pocket.tile.*;
+import pocket.pickup.*;
 
 public class World {
 
@@ -31,7 +32,7 @@ public class World {
     public static StoneWall stoneWall = new StoneWall();
     public static Water water = new Water();
     public static Lava lava = new Lava();
-    public static Medkit medkit = new Medkit();
+    public static pocket.tile.Medkit medkit = new pocket.tile.Medkit();
 
 
     public static byte currentTileIndex = 0;
@@ -51,15 +52,27 @@ public class World {
     public static Dog dog = new Dog();
     public static Rodent rodent = new Rodent();
     public static Bug bug = new Bug();
-    
+    public static LavaShark lavashark = new LavaShark();
 
     public static byte currentEntityIndex = 0;
     
-    public static Entity[] entity = {red, blue, humanAdult, woman, man, fish, shark, tiger, lion,
-                                     cat, dog, rodent, bug};
+    public static Entity[] entity = {humanAdult, man, woman, bug, rodent, dog, cat, lion, tiger, fish, shark,
+                                     lavashark, red, blue};
+
 
     public static Entity currentEntity = entity[currentEntityIndex];
     public static ArrayList<Entity> entityList;
+
+
+    public static Sword sword = new Sword();
+    public static Shield armor = new Shield();
+
+    public static byte currentPickupIndex = 0;
+
+    public static Pickup[] pickup = {sword, armor};
+    public static Pickup currentPickup = pickup[currentPickupIndex];
+
+    
 
     public World(){
         space = new Space[80][48];
@@ -101,44 +114,46 @@ public class World {
     public static Entity returnCurrentEntity(){
         switch(currentEntityIndex){
             default:
-                return new Red();
-
-            case 1:
-                return new Blue();
-            
-            case 2:
                 return new HumanAdult();
 
-            case 3:
-                return new Woman();
-
-            case 4:
+            case 1:
                 return new Man();
 
+            case 2:
+                return new Woman();
+
+            case 3:
+                return new Bug();
+
+            case 4:
+                return new Rodent();
+
             case 5:
-                return new Fish();
+                return new Dog();
 
             case 6:
-                return new Shark();
-
-            case 7:
-                return new Tiger();
-
-            case 8:
-                return new Lion();
-
-            case 9:
                 return new Cat();
 
+            case 7:
+                return new Lion();
+
+            case 8:
+                return new Tiger();
+
+            case 9:
+                return new Fish();
+
             case 10:
-            return new Dog();
+                return new Shark();
 
             case 11:
-            return new Rodent();
+                return new LavaShark();
 
             case 12:
-            return new Bug();
+                return new Red();
 
+            case 13:
+                return new Blue();
 
         }
     }
@@ -251,7 +266,7 @@ public class World {
             case 4:
                 return new Lava();
             case 5:
-                return new Medkit();
+                return new pocket.tile.Medkit();
         }
     }
 
@@ -283,5 +298,35 @@ public class World {
         // FULL SCREEN RULER                "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
 
         Main.screen.font.drawString(0, 0,  "                                                        Population: " + entityList.size(), Screen.WHITE);
+    }
+
+    // place stated entity at stated position, when called
+    public static void placePickup(int x, int y, Pickup pickup){
+        World.space[x][y].pickups.add(pickup);
+    }
+
+    // place stated entity at stated position, when called
+    public static void removePickup(int x, int y){
+        World.space[x][y].pickups.remove(0);
+    }
+
+    public static void updateCurrentPickup(){
+        currentPickup = pickup[currentPickupIndex];
+    }
+
+    // returns current tile based on currentTileIndex, for use with placeTile()
+    public static Pickup returnCurrentPickup(){
+        switch(currentPickupIndex){
+            default:
+                return new Sword();
+
+            case 1:
+                return new Shield();
+        }
+    }
+
+    // return corpse
+    public static Corpse returnCorpse(Entity entity){
+        return new Corpse(entity);
     }
 }

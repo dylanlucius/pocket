@@ -9,7 +9,9 @@ public class Dog extends LandAnimal {
         avatar              = Screen.spritesheet.getSprite(4, 6);
         color               = Screen.BROWN;
 
-        baseFoodchain = 50;
+    assignNickname();
+
+        baseFoodchain = 49;
         baseSpeed = 3;
 
         hp = World.d8.roll(1) + 4;
@@ -23,8 +25,13 @@ public class Dog extends LandAnimal {
                 damage = World.d6.roll(1) + 6;
                 targetTemp = target.hp;
                 target.hp -=  damage;
-                Main.log.add(target.name + " #" + target.number + " (HP: " + targetTemp + ") --> (HP: " + target.hp + ") -" + damage);
-                Main.log.add("");
+                Main.log.add(nickname + " (" + name  + ") did " + damage + " damage to " + target.nickname + " (" + target.name  + ")" );
+                Main.log.add("");        
+                    
+                if(target.hp - damage < 0){
+                    Main.log.add(nickname + " (" + name  + ") killed " + target.nickname + " (" + target.name  + ")" );
+                    Main.log.add("");        
+                }            
             }
         }
     }

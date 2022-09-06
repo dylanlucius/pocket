@@ -6,7 +6,7 @@ import pocket.system.*;
 import pocket.world.*;
 import pocket.creature.*;
 
-public class Lava extends Tile {
+public class Lava extends Fluid {
     
     Random random = new Random();
 
@@ -21,11 +21,13 @@ public class Lava extends Tile {
         ground = true;
         wall = false;
 
+        motionCycle = new Counter(12);
+
         
     }
 
     public void behavior(){ 
-        if(space.entities != null && space.entities.size() > 0){
+        if(space.entities != null && space.entities.size() > 0 && space.entities.get(0).name != "Lava Shark"){
             Entity target = space.entities.get(0);
             int damage = World.d8.roll(3);
 
@@ -33,17 +35,6 @@ public class Lava extends Tile {
                 target.hp -= damage;
                 System.out.println(target.name + " remaining HP: " + target.hp);    
 
-        }
-    }
-
-    public void drawIcon(int x, int y){
-        switch( World.d4.roll(1) ){
-            default:
-                secondary.draw(x, y, iconColor);
-                break;
-            case 3:
-                icon.draw(x, y, iconColor);
-                break;
         }
     }
 

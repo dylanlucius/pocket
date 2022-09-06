@@ -1,12 +1,13 @@
 package pocket.creature;
 
-import java.util.Random;
+import java.util.*;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Color;
 
 import pocket.system.*;
 import pocket.world.*;
+import pocket.pickup.*;
 
 public abstract class Entity {
  ///////////////////////////////////////////////
@@ -30,9 +31,12 @@ public abstract class Entity {
 
     public Counter counter = new Counter(8);
 
+    // pickups
+    public ArrayList<Pickup> pickups = new ArrayList<Pickup>();
+
     // SPECIFICS
     short age, height, weight;
-    String nickname; 
+    public String nickname;
 
     ///////////////////////////////////////
     //        TAXONOMIC TRAITS
@@ -58,7 +62,8 @@ public abstract class Entity {
 
     // DIET
     boolean carnivore, vegetarian, omnivore;
-    int foodchain, baseFoodchain;
+    public int foodchain, baseFoodchain, hunger;
+    Counter hungerCounter;
 
     // SEXUAL
     boolean sexual, asexual, male, female, puberty;
@@ -77,8 +82,7 @@ public abstract class Entity {
     ///////////////////////////////////
 
     // VITALS
-
-    boolean canBreath, hydrated, hungry, sleepy, dizzy, nauseous, sexuallyAroused, hasToUrinate, hasToDeficate, bleeding;
+    boolean canBreath, hydrated, sleepy, dizzy, nauseous, sexuallyAroused, hasToUrinate, hasToDeficate, bleeding;
     //byte painLevel, bloodVolume;
     short heartrate, temperature;
     // EMOTIONAL STATE
@@ -112,7 +116,7 @@ public abstract class Entity {
  ///////////////////////////////////////////////////////
  public Entity(){
 
-    if(Main.on){
+    if(Main.on && World.entityList != null){
         World.entityList.add(this);
     }
 
@@ -132,44 +136,41 @@ public abstract class Entity {
 
     number = 0;
 
-    setNumber(this);
+    setNumber();
 
     speed = baseSpeed;
 
     team = 0; // neutral
 
+    hungerCounter = new Counter(30 * 8); // every 30 seconds, top of cycle | full hunger cycle 5 minutes
+
+    hunger = 1;
+
+    assignNickname();    
+
 }
 
 public void behavior(){
 
-    lifecheck();
+    if(lifecheck()){
+        resolveHunger();
 
-    if(!attacking){
-        move();
+        if(!attacking){
+            move();
+        }
+        
+        attack();
+
+        pickupAll();
+
+        runPickups();
     }
-    
-    attack();
-    
+
 }
 
  public void move(){
 
-    // MOVEMENT MODIFIERS
-    // if the space they're on has a tile
-    if(space.tile != null){
-        // if they're not a fish and it's water
-        if(space.tile.name == "Water" && name != "Fish"){
-            speed = baseSpeed / 2;
-        }
-        // if they are a fish and it's not water
-        else if(space.tile.name != "Water" && name == "Fish"){
-            speed = 1;
-        }
-        // by default
-        else {
-            speed = baseSpeed;
-        }
-    }
+    movementModifier();
 
     // MOVEMENT
     //  1/10 chance to move at all
@@ -264,12 +265,18 @@ public void behavior(){
     }      
  }
  
+ public void movementModifier(){
+    
+ }
+ 
  public void attack(){
             
-    // [UP] if the space above them has an entity on it
+    // [UP] if the space above them exists and has an entity on it
     if(space.up != null && space.up.entities.size() > 0){
             // if entity is not on the same team
-            if(space.up.entities.get(0).team != team || space.up.entities.get(0).foodchain <= foodchain){
+            // OR hunger is at or above 5 and entity is below on foodchain
+            // OR hunger is 10 and entity is at or below on foodchain
+            if(space.up.entities.get(0).team != team || hunger >= 5 && space.up.entities.get(0).foodchain < foodchain || hunger == 10 && space.up.entities.get(0).foodchain <= foodchain){
                 attacking = true;
                 roll( space.up.entities.get(0));
             }
@@ -278,10 +285,9 @@ public void behavior(){
         attacking = false;
     }
 
-    // [LEFT] if the space above them has an entity on it
+    // [LEFT] 
     if(space.left != null && space.left.entities.size() > 0){
-            // if entity is not on the same team
-            if(space.left.entities.get(0).team != team || space.left.entities.get(0).foodchain <= foodchain){
+            if(space.left.entities.get(0).team != team || hunger >= 5 && space.left.entities.get(0).foodchain < foodchain || hunger == 10 && space.left.entities.get(0).foodchain <= foodchain){
                 attacking = true;
                 roll( space.left.entities.get(0));
             }
@@ -290,10 +296,9 @@ public void behavior(){
         attacking = false;
     }
 
-    // [RIGHT] if the space above them has an entity on it
+    // [RIGHT] 
     if(space.right != null && space.right.entities.size() > 0){
-            // if entity is not on the same team
-            if(space.right.entities.get(0).team != team || space.right.entities.get(0).foodchain <= foodchain){
+            if(space.right.entities.get(0).team != team || hunger >= 5 && space.right.entities.get(0).foodchain < foodchain || hunger == 10 && space.right.entities.get(0).foodchain <= foodchain){
                 attacking = true;
                 roll( space.right.entities.get(0));
             }
@@ -302,10 +307,10 @@ public void behavior(){
         attacking = false;
     }
 
-    // [DOWN] if the space above them has an entity on it
+    // [DOWN] 
     if(space.down != null && space.down.entities.size() > 0){
-            // if entity is not on the same team
-            if(space.down.entities.get(0).team != team || space.down.entities.get(0).foodchain <= foodchain){
+            if(space.down.entities.get(0).team != team || hunger >= 5 && space.down.entities.get(0).foodchain < foodchain || hunger ==
+             10 && space.down.entities.get(0).foodchain <= foodchain){
                 attacking = true;
                 roll( space.down.entities.get(0));
             }
@@ -325,24 +330,44 @@ public void roll(Entity target){
             damage = World.d4.roll(2);
             targetTemp = target.hp;
             target.hp -=  damage;
-            Main.log.add(target.name + " #" + target.number + " (HP: " + targetTemp + ") --> (HP: " + target.hp + ") -" + damage);
-            Main.log.add("");
+            // Main.log.add(target.name + " #" + target.number + " (HP: " + targetTemp + ") --> (HP: " + target.hp + ") -" + damage);
+            // Main.log.add("");
+
+            Main.log.add(nickname + " (" + name  + ") did " + damage + " damage to " + target.nickname + " (" + target.name  + ")" );
+            Main.log.add("");        
+
+            
+            if(target.hp - damage < 0){
+                Main.log.add(nickname + " (" + name  + ") killed " + target.nickname + " (" + target.name  + ")" );
+                Main.log.add("");        
+            }
+
         }
     }
 }
 
-public void lifecheck(){
+public boolean lifecheck(){
     // make sure they're still alive
-    if(hp <= 0){
+    if(hp < 0){
         World.entityList.remove(this);
-        World.clearEntities(space.tagX, space.tagY);
-        Main.log.add(name + " #" + number + " eliminated");
-        Main.log.add("");
 
+        //System.out.println("corpse name:" + World.returnCorpse(this).name);
+        World.placePickup( space.tagX, space.tagY, World.returnCorpse(this) );
+        //System.out.println("space item name: " + space.pickups.get(0).name);
+
+
+        World.clearEntities(space.tagX, space.tagY);
+        //Main.log.add(name + " #" + number + " eliminated");
+        //Main.log.add("");
+
+        return false; // is dead
+    }
+    else {
+        return true; // is alive
     }
 }
 
-public void setNumber(Entity particant){
+public void setNumber(){
     int number = random.nextInt(3840) + 1;
     boolean duplicate = false;
 
@@ -367,9 +392,52 @@ public void setNumber(Entity particant){
         //System.out.println("Found a unique ID number");
     }
     else {
-        setNumber(this);
+        setNumber();
         //System.out.println("fetching new number");
     }
+}
+
+public void resolveHunger(){
+    if( hungerCounter.over() ){
+        if(hunger < 10){
+            hunger++;
+        }
+        else {
+
+            if(hp - 5 < 0){
+                Main.log.add(nickname + " (" + name  + ") starved to death");
+                Main.log.add("");        
+            }
+
+            hp -= 5;
+
+
+        }
+    }
+}
+
+public void pickupAll(){
+    if(space.pickups.size() > 0){   // if there are pickups on the space
+        for(int i = 0; i < space.pickups.size(); i++){
+            System.out.println("pickup added to inventory");
+            pickups.add( space.pickups.get(0) );
+            World.removePickup(space.tagX, space.tagY);
+            pickups.get(0).holder = this;
+            System.out.println("item holder: " + pickups.get(0).holder);
+        }
+    }
+}
+
+public void runPickups(){
+    if(pickups.size() > 0){
+        for(int i = 0; i < pickups.size(); i++){
+            pickups.get(i).behavior();
+        }
+    }
+}
+
+public void assignNickname(){
+    nickname = Names.returnProposal(this);
 }
 
 }

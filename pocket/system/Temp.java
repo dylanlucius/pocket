@@ -7,7 +7,7 @@ public class Temp {
     
     public void save(){
         try{
-            PrintWriter save = new PrintWriter(new File ("save.txt") );
+            PrintWriter save = new PrintWriter(new File ("put/save.txt") );
             save.println((int) 854.);
             save.close();
             System.out.println("Saved game");

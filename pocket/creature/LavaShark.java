@@ -1,30 +1,40 @@
 package pocket.creature;
 
-import pocket.system.*;
 import pocket.world.*;
+import pocket.system.*;
 
-public class Fish extends Entity {
+public class LavaShark extends Shark {
+    
+    public LavaShark(){
+        name = "Lava Shark";
+        avatar = Screen.spritesheet.getSprite(14, 1);
+        color = Screen.DARK_PURPLE;
 
-    public Fish(){
-        name = "Fish";
-        avatar = Screen.spritesheet.getSprite(0, 14);
-        color = Screen.GREEN;
+        baseSpeed = 5;
+        baseFoodchain = 60;
 
-        baseSpeed = 2;
-
-        baseFoodchain = 20;
-
-        hp = 2;
+        hp = World.d20.roll(2) + 20;
         
     }
-      
+
     @Override
     public void move(){
 
-        movementModifier();
+        // MOVEMENT MODIFIERS
+        // if the space they're on has a tile
+        if(this.space.tile != null){
+            // if they're a fish and it's not water
+            if(space.tile.name != "Lava"){
+                speed = 1;
+            }
+            // by default
+            else {
+                speed = baseSpeed;
+            }
+        }
     
         // MOVEMENT -- fish can move from land to water, but won't move from water to land, they're also slower out of water
-        if(space.tile != null && space.tile.name == "Water"){
+        if(space.tile != null && space.tile.name == "Lava"){
                 //  1/10 chance to move at all
             if(random.nextInt(10) == 9){
                 // choose random of 4 directions
@@ -39,7 +49,7 @@ public class Fish extends Entity {
                                 // if a tile exists on it
                                 if(this.space.up.tile != null){
                                     // if the tile is a ground type
-                                    if(this.space.up.tile.ground && this.space.up.tile.name == "Water"){
+                                    if(this.space.up.tile.ground && this.space.up.tile.name == "Lava"){
                                         // if it has no entities on it
                                         if(this.space.up.entities.size() <= 0){
                                             World.placeEntity(this.space.up.tagX, this.space.up.tagY, this);
@@ -59,7 +69,7 @@ public class Fish extends Entity {
                         for(int i = 0; i < speed; i++){
                             if(this.space.left != null){
                                 if(this.space.left.tile != null){
-                                    if(this.space.left.tile.ground && this.space.left.tile.name == "Water"){
+                                    if(this.space.left.tile.ground && this.space.left.tile.name == "Lava"){
                                         if(this.space.left.entities.size() <= 0){
                                             World.placeEntity(this.space.left.tagX, this.space.left.tagY, this);
                                             World.clearEntities(this.space.tagX, this.space.tagY);
@@ -78,7 +88,7 @@ public class Fish extends Entity {
                         for(int i = 0; i < speed; i++){
                             if(this.space.right != null){
                                 if(this.space.right.tile != null){
-                                    if(this.space.right.tile.ground && this.space.right.tile.name == "Water"){
+                                    if(this.space.right.tile.ground && this.space.right.tile.name == "Lava"){
                                         if(this.space.right.entities.size() <= 0){
                                             World.placeEntity(this.space.right.tagX, this.space.right.tagY, this);
                                             World.clearEntities(this.space.tagX, this.space.tagY);
@@ -98,7 +108,7 @@ public class Fish extends Entity {
                         for(int i = 0; i < speed; i++){
                             if(this.space.down != null){
                                 if(this.space.down.tile != null){
-                                    if(this.space.down.tile.ground && this.space.down.tile.name == "Water"){
+                                    if(this.space.down.tile.ground && this.space.down.tile.name == "Lava"){
                                         if(this.space.down.entities.size() <= 0){
                                             World.placeEntity(this.space.down.tagX, this.space.down.tagY, this);
                                             World.clearEntities(this.space.tagX, this.space.tagY);
@@ -216,7 +226,7 @@ public class Fish extends Entity {
 
     // make them lower on the foodchain if they're out of the water
     if(this.space.tile != null){
-        if(this.space.tile.name == "Water"){
+        if(this.space.tile.name == "Lava"){
             foodchain = baseFoodchain;
         }
         else {
@@ -224,35 +234,14 @@ public class Fish extends Entity {
         }
     }
 
-    if(lifecheck()){
-        resolveHunger();
+    lifecheck();
 
-        if(!attacking){
-            move();
-        }
-        
-        attack();
-
-        pickupAll();
-
-        runPickups();
-
+    if(!attacking){
+        move();
     }
+    
+    attack();
     
 }
 
-    @Override
-    public void movementModifier() {
-        // MOVEMENT MODIFIERS
-    // if the space they're on has a tile
-        if(space.tile != null){
-            // if they are a fish and it's water
-            if(space.tile.name != "Water"){
-                speed = 1;
-            }
-            else {
-                speed = baseSpeed;
-            }
-        }
-    }
 }

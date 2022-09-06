@@ -3,7 +3,7 @@ package pocket.system;
 import java.util.Random;
 
 public class Dice {
-    Random random = new Random();
+    public static Random random = new Random();
 
     int sides;
 

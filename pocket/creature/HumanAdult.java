@@ -16,9 +16,8 @@ public class HumanAdult extends Human {
 
         name                = "Human Adult";
         avatar              = Screen.spritesheet.getSprite(2, 0);
-        color               = Screen.people[random.nextInt(8)];
+        color               = Screen.people[random.nextInt(7)];
 
-        nickname            = "";
         age                 = 18;
         height              = 67;   // inches
         weight              = 125;  // lb;
@@ -35,7 +34,7 @@ public class HumanAdult extends Human {
         hearingRange        = 20;   // spaces
         smellRange          = 5;    // spaces
         reach               = 1;    // space
-        damage              = 1;    // one is standard 
+        //damage              = 1;    // one is standard 
 
         awake               = true;
         alert               = true;
@@ -54,7 +53,6 @@ public class HumanAdult extends Human {
 
         canBreath           = true;
         hydrated            = true;
-        hungry              = false;
         sleepy              = false;
         dizzy               = false;
         nauseous            = false;
