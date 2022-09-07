@@ -36,15 +36,10 @@ public class Screen {
     public static final Color[] people = {PINK, YELLOW, TAN, BROWN, RED, BLUE, DARK_PURPLE};
 
 
-    public static Image tileset;
+    public static Image tileset, menu, bg, cbg, clear, screen;
     public static SpriteSheet spritesheet;
     public SpriteSheetFont font;
     public Graphics graphics;
-    public static Image menu;
-    public static Image bg;
-    public static Image cbg;
-    public static Image clear;
-    public static Image screen;
     
     public Screen(){
 

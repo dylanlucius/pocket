@@ -1,47 +1,34 @@
 package pocket.system;
 
+import java.io.*;
+
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.*;
+import org.newdawn.slick.state.*;
 
 import pocket.creature.*;
 import pocket.world.*;
 import pocket.pickup.*;
 
-public class Main extends BasicGame{
+public class Main extends BasicGameState {
     
+    public static final int ID = 0;
     //////////////////////////////////////
     //           [PROGRAM SETUP]
     //////////////////////////////////////
 
-    public Main(){
-        super("Pocket World");
-    }
+    // public Main(){
+    //     super("Pocket World");
+    // }
         
-        final boolean PLAY_INTRO = true;
+        final boolean PLAY_INTRO = false;
 
-        public static AppGameContainer system;
+        
         public static Screen screen;
         static Input input; 
         public static World world;
 
-        public static ScalableGame wrapper;
 
-        public static Temp temp = new Temp();
-
-    public static void main(String[] args) throws SlickException {
-
-        wrapper = new ScalableGame(new Main(), 640, 384, true);
-
-        system = new AppGameContainer(wrapper);
-        system.setDisplayMode(960, 576, false);
-        system.setTargetFrameRate(8);
-        system.setShowFPS(false);
-        system.start();
-        
-
-    }
-
-    
     //////////////////////////////////////
     //              [INIT]
     //////////////////////////////////////
@@ -56,12 +43,12 @@ public class Main extends BasicGame{
         public static boolean paused;
         public static Log log;
 
-        Entity currentEntity;
-        
+        Entity currentEntity; 
+
 
     @Override
-    public void init(GameContainer gc) throws SlickException{
-        
+    public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
+
         restart = false;
         screen = new Screen();
         input = new Input(640);
@@ -94,8 +81,6 @@ public class Main extends BasicGame{
         pickupMode = false;
         logMode = false;
 
-        // temp.save();
-        // temp.load();
     }
 
 
@@ -105,7 +90,7 @@ public class Main extends BasicGame{
     Counter animationCounter = new Counter(21);
 
     @Override
-    public void update(GameContainer gc, int i) throws SlickException{
+    public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException{
        
         //  PLAY ANIMATION
         if(!animationOver){
@@ -131,9 +116,9 @@ public class Main extends BasicGame{
         }
 
         // restart flag (F5) response
-        if(restart){
-            system.reinit();
-        }
+        // if(restart){
+        //     system.reinit();
+        // }
 
         // GAMEPLAY (if "on" and not paused)
         if(on && !paused){
@@ -164,7 +149,7 @@ public class Main extends BasicGame{
     //////////////////////////////////////
 
     @Override
-    public void render(GameContainer gc, Graphics graphics) throws SlickException{
+    public void render(GameContainer gc, StateBasedGame sbg, Graphics graphics) throws SlickException{
 
         // MENU BOX RULER    "12345678901234567890123456789012"
         // GAME BOX RULER    "123456789012345612345678901234561234567890123456"
@@ -291,7 +276,11 @@ public class Main extends BasicGame{
         }
     }
 
-    
+    @Override
+    public int getID(){
+        return ID;
+    }
+
     ////////////////////////////////////
     //          [INPUT]
     //////////////////////////////////////
@@ -300,6 +289,10 @@ public class Main extends BasicGame{
     boolean restart;
 
     public void keyPressed(int key, char c){
+
+        if(on && key == Keyboard.KEY_F3){
+            Program.stateManager.enterState(2);
+        }
         
          // RESTART   [F5]
         if(key == Keyboard.KEY_F5){
@@ -335,6 +328,40 @@ public class Main extends BasicGame{
             characterTest = !characterTest;
         }
 
+        // SAVE  [F1]
+        // if(on && key == Keyboard.KEY_F1){
+        //     try{
+        //         FileOutputStream file = new FileOutputStream("out/save.txt");
+        //         ObjectOutputStream out = new ObjectOutputStream(file);
+
+        //         out.writeObject(this);
+
+        //         out.close();
+        //         file.close();
+              
+        //         System.out.println("saved file");
+
+        //     } catch (IOException e) {  e.printStackTrace();}
+        // }
+
+        // // LOAD  [F2]
+        // if(on && key == Keyboard.KEY_F2){
+        //     try{
+        //         // Reading the object from a file
+        //     FileInputStream file = new FileInputStream("out/save.txt");
+        //     ObjectInputStream in = new ObjectInputStream(file);
+              
+        //     // Method for deserialization of object
+        //     BasicGameState state = (BasicGameState) in.readObject();
+            
+        //     in.close();
+        //     file.close();
+              
+        //     System.out.println("loaded file: " + state);
+
+        //     } catch (IOException e) {  e.printStackTrace();} catch (ClassNotFoundException ec) { ec.printStackTrace();}
+        // }
+        
         // LOG  MODE [TAB]
         if(on && key == Keyboard.KEY_TAB){
 

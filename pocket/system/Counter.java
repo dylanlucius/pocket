@@ -1,5 +1,6 @@
 package pocket.system;
 
+
 public class Counter {
     public int step, steps;
     public boolean trigger;

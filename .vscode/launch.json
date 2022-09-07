@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Program",
+            "request": "launch",
+            "mainClass": "pocket.system.Program",
+            "projectName": "d_7952f252"
+        },
+        {
+            "type": "java",
+            "name": "Launch Estate",
+            "request": "launch",
+            "mainClass": "pocket.system.Estate",
+            "projectName": "d_7952f252"
+        },
+        {
+            "type": "java",
             "name": "Launch Main",
             "request": "launch",
             "mainClass": "pocket.system.Main",
@@ -29,7 +43,7 @@
             "type": "java",
             "name": "Launch Main",
             "request": "launch",
-            "mainClass": "Main",
+            "mainClass": "Program",
             "projectName": "d_765bc4d0",
             "vmArgs": "-Djava.library.path=./natives"
         }

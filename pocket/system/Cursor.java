@@ -1,4 +1,5 @@
 package pocket.system;
+
 import org.newdawn.slick.Image;
 
 import pocket.world.Space;
