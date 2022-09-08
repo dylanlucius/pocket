@@ -3,9 +3,9 @@ package pocket.world;
 import java.util.ArrayList;
 
 import pocket.creature.*;
+import pocket.item.*;
 import pocket.system.*;
 import pocket.tile.*;
-import pocket.pickup.*;
 
 public class World {
 
@@ -56,21 +56,22 @@ public class World {
 
     public static byte currentEntityIndex = 0;
     
-    public static Entity[] entity = {humanAdult, man, woman, bug, rodent, dog, cat, lion, tiger, fish, shark,
+    public static Creature[] entity = {humanAdult, man, woman, bug, rodent, dog, cat, lion, tiger, fish, shark,
                                      lavashark, red, blue};
 
 
-    public static Entity currentEntity = entity[currentEntityIndex];
-    public static ArrayList<Entity> entityList;
+    public static Creature currentEntity = entity[currentEntityIndex];
+    public static ArrayList<Creature> entityList;
 
 
     public static Sword sword = new Sword();
-    public static Shield armor = new Shield();
+    public static Shield shield = new Shield();
+    public static Corpse corpse = new Corpse();
 
-    public static byte currentPickupIndex = 0;
+    public static byte currentitemIndex = 0;
 
-    public static Pickup[] pickup = {sword, armor};
-    public static Pickup currentPickup = pickup[currentPickupIndex];
+    public static Item[] item = {corpse, sword, shield};
+    public static Item currentitem = item[currentitemIndex];
 
     
 
@@ -97,7 +98,7 @@ public class World {
         // set default current tile
         currentTile = tile[currentTileIndex];
 
-        entityList = new ArrayList<Entity>();
+        entityList = new ArrayList<Creature>();
 
     }
 
@@ -111,7 +112,7 @@ public class World {
     }
 
     // return current entity based on currentEntityIndex
-    public static Entity returnCurrentEntity(){
+    public static Creature returnCurrentEntity(){
         switch(currentEntityIndex){
             default:
                 return new HumanAdult();
@@ -159,14 +160,14 @@ public class World {
     }
 
     // place stated entity at stated position, when called
-    public static void placeEntity(int x, int y, Entity entity){
-        World.space[x][y].entities.add(entity);
+    public static void placeEntity(int x, int y, Creature entity){
+        World.space[x][y].creatures.add(0, entity);
     }
 
-    // clear all entities on given space
-    public static void clearEntities(int x, int y){
-        while(World.space[x][y].entities.size() > 0){
-            World.space[x][y].entities.remove(0);
+    // clear all creatures on given space
+    public static void clearcreatures(int x, int y){
+        while(World.space[x][y].creatures.size() > 0){
+            World.space[x][y].creatures.remove(0);
         }
     }
 
@@ -301,32 +302,46 @@ public class World {
     }
 
     // place stated entity at stated position, when called
-    public static void placePickup(int x, int y, Pickup pickup){
-        World.space[x][y].pickups.add(pickup);
+    public static void placeitem(int x, int y, Item item){
+        World.space[x][y].items.add(item);
     }
 
     // place stated entity at stated position, when called
-    public static void removePickup(int x, int y){
-        World.space[x][y].pickups.remove(0);
+    public static void removeitem(int x, int y){
+        World.space[x][y].items.remove(0);
     }
 
-    public static void updateCurrentPickup(){
-        currentPickup = pickup[currentPickupIndex];
+    public static void updateCurrentitem(){
+        currentitem = item[currentitemIndex];
     }
 
     // returns current tile based on currentTileIndex, for use with placeTile()
-    public static Pickup returnCurrentPickup(){
-        switch(currentPickupIndex){
+    public static Item returnCurrentitem(){
+        Item index;
+        
+        switch(currentitemIndex){
             default:
-                return new Sword();
+                index = null;
+                break;
+
+            case 0:
+                index = new Corpse();
+                break;
 
             case 1:
-                return new Shield();
+                index = new Sword();
+                break;
+
+            case 2:
+                index = new Shield();
+                break;
         }
+
+        return index;
     }
 
     // return corpse
-    public static Corpse returnCorpse(Entity entity){
-        return new Corpse(entity);
+    public static Corpse returnCorpse(Creature entity){
+        return new Corpse();
     }
 }

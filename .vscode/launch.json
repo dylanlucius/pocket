@@ -45,7 +45,7 @@
             "request": "launch",
             "mainClass": "Program",
             "projectName": "d_765bc4d0",
-            "vmArgs": "-Djava.library.path=./natives"
+            "vmArgs": "-Djava.library.path=./natives -Xmx1G -ea"
         }
     ]
 }

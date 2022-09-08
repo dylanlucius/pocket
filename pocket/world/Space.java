@@ -1,28 +1,26 @@
 package pocket.world;
 import java.util.ArrayList;
-import org.newdawn.slick.Image;
 
 import pocket.creature.*;
+import pocket.item.*;
 import pocket.system.*;
 import pocket.tile.*;
-import pocket.pickup.*;
 
-public class Space {
-    Image image;
+public class Space  {
     public int tagX, tagY;
-    boolean walk;
-    public ArrayList<Entity> entities;
+    public ArrayList<Creature> creatures;
     public Tile tile;
-    public ArrayList<Pickup> pickups;
+    public ArrayList<Item> items;
 
     public boolean cursorOn, buildCursorOn;
+
     public Space placeholder, up, left, down, right, up8, left8, right8, down8;
 
     int x, y;
 
     public Space(int x, int y){
-        entities = new ArrayList<Entity>();
-        pickups = new ArrayList<Pickup>();
+        creatures = new ArrayList<Creature>();
+        items = new ArrayList<Item>();
 
         this.x = x;
         this.y = y;
@@ -40,14 +38,16 @@ public class Space {
         }
 
          
-        // ENTITY OR PICKUP OR TILE ICON
-        if (entities.size() != 0){
-            entities.get(0).avatar.draw(x, y, entities.get(0).color);
+        // ENTITY OR item OR TILE ICON
+        if (creatures.size() != 0 && creatures.get(0) != null){
+            creatures.get(0).avatar.draw(x, y, creatures.get(0).color);
         }
         
-        // PICKUP
-        else if(pickups.size() > 0){ // if there are pickups on the space
-            pickups.get(0).icon.draw(x, y, pickups.get(0).color);
+        // item
+        else if(items.size() > 0 && items.get(0) != null
+       
+        ){ // if there are items on the space
+            items.get(0).icon.draw(x, y, items.get(0).color);
         }
         
         else{
@@ -158,7 +158,7 @@ public class Space {
             if(Main.spectateMode)
             World.cursor.icon.draw(this.x, this.y, Screen.YELLOW);
 
-            if(Main.pickupMode)
+            if(Main.itemMode)
             World.cursor.icon.draw(this.x, this.y, Screen.DARK_PURPLE);
         }
 
@@ -253,10 +253,9 @@ public class Space {
         }
 
         // run entity behaviors for each space
-        if(entities != null){
-            for(int i = 0; i < entities.size(); i++){
-                entities.get(i).behavior();
-            }
+        if(creatures != null && creatures.size() > 0){
+            if(creatures.get(0) != null)
+            creatures.get(0).behavior();
         }   
     }
 }

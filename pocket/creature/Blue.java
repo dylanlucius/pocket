@@ -3,7 +3,7 @@ package pocket.creature;
 import pocket.system.*;
 import pocket.world.*;
 
-public class Blue extends Entity {
+public class Blue extends Creature {
     
     public Blue(){
         name = "Blue";

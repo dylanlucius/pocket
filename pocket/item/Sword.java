@@ -1,8 +1,8 @@
-package pocket.pickup;
+package pocket.item;
 
 import pocket.system.*;
 
-public class Sword extends Pickup {
+public class Sword extends Item {
     public Sword(){
         name = "Sword";
         icon = Screen.spritesheet.getSprite(15, 2);

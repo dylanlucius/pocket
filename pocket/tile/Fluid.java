@@ -5,8 +5,6 @@ import pocket.world.*;
 
 public class Fluid extends Tile {
     
-    int isSecondary;
-    Counter motionCycle;
 
     public Fluid(){
         isSecondary = Dice.random.nextInt(2);

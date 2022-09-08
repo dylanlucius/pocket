@@ -5,22 +5,22 @@ import java.util.*;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Color;
 
+import pocket.item.*;
 import pocket.system.*;
 import pocket.world.*;
-import pocket.pickup.*;
 
-public abstract class Entity {
+public abstract class Creature {
  ///////////////////////////////////////////////
  //                  FIELDS
  //////////////////////////////////////////////
     
     // BASICS
-    public Random random = new Random();
+    public transient Random random = new Random();
     public Space space;
 
     public String name;
-    public Image avatar;
-    public Color color, bgColor;
+    public transient Image avatar;
+    public Color color;
 
     public byte team;
 
@@ -31,8 +31,8 @@ public abstract class Entity {
 
     public Counter counter = new Counter(8);
 
-    // pickups
-    public ArrayList<Pickup> pickups = new ArrayList<Pickup>();
+    // items
+    public ArrayList<Item> items = new ArrayList<Item>();
 
     // SPECIFICS
     short age, height, weight;
@@ -114,7 +114,7 @@ public abstract class Entity {
  /////////////////////////////////////////////   
  //                  METHODS
  ///////////////////////////////////////////////////////
- public Entity(){
+ public Creature(){
 
     if(Main.on && World.entityList != null){
         World.entityList.add(this);
@@ -161,9 +161,9 @@ public void behavior(){
         
         attack();
 
-        pickupAll();
+        itemAll();
 
-        runPickups();
+        runitems();
     }
 
 }
@@ -188,10 +188,10 @@ public void behavior(){
                         if(space.up.tile != null){
                             // if the tile is a ground type
                             if(space.up.tile.ground){
-                                // if it has no entities on it
-                                if(space.up.entities.size() <= 0){
+                                // if it has no creatures on it
+                                if(space.up.creatures.size() <= 0){
                                     World.placeEntity(space.up.tagX, space.up.tagY, this);
-                                    World.clearEntities(space.tagX, space.tagY);
+                                    World.clearcreatures(space.tagX, space.tagY);
                                     space = space.up;
                                 }       
                             }
@@ -208,9 +208,9 @@ public void behavior(){
                     if(space.left != null){
                         if(space.left.tile != null){
                             if(space.left.tile.ground){
-                                if(space.left.entities.size() <= 0){
+                                if(space.left.creatures.size() <= 0){
                                     World.placeEntity(space.left.tagX, space.left.tagY, this);
-                                    World.clearEntities(space.tagX, space.tagY);
+                                    World.clearcreatures(space.tagX, space.tagY);
                                     space = space.left;
                                 }      
                             }
@@ -227,9 +227,9 @@ public void behavior(){
                     if(space.right != null){
                         if(space.right.tile != null){
                             if(space.right.tile.ground){
-                                if(space.right.entities.size() <= 0){
+                                if(space.right.creatures.size() <= 0){
                                     World.placeEntity(space.right.tagX, space.right.tagY, this);
-                                    World.clearEntities(space.tagX, space.tagY);
+                                    World.clearcreatures(space.tagX, space.tagY);
                                     space = space.right;
                                 }      
                             }
@@ -247,9 +247,9 @@ public void behavior(){
                     if(space.down != null){
                         if(space.down.tile != null){
                             if(space.down.tile.ground){
-                                if(space.down.entities.size() <= 0){
+                                if(space.down.creatures.size() <= 0){
                                     World.placeEntity(space.down.tagX, space.down.tagY, this);
-                                    World.clearEntities(space.tagX, space.tagY);
+                                    World.clearcreatures(space.tagX, space.tagY);
                                     space = space.down;
                                 }       
                             }
@@ -272,13 +272,13 @@ public void behavior(){
  public void attack(){
             
     // [UP] if the space above them exists and has an entity on it
-    if(space.up != null && space.up.entities.size() > 0){
+    if(space.up != null && space.up.creatures.size() > 0 && space.up.creatures.get(0) != null){
             // if entity is not on the same team
             // OR hunger is at or above 5 and entity is below on foodchain
             // OR hunger is 10 and entity is at or below on foodchain
-            if(space.up.entities.get(0).team != team || hunger >= 5 && space.up.entities.get(0).foodchain < foodchain || hunger == 10 && space.up.entities.get(0).foodchain <= foodchain){
+            if(space.up.creatures.get(0).team != team || hunger >= 5 && space.up.creatures.get(0).foodchain < foodchain || hunger == 10 && space.up.creatures.get(0).foodchain <= foodchain){
                 attacking = true;
-                roll( space.up.entities.get(0));
+                roll( space.up.creatures.get(0));
             }
     }
     else {
@@ -286,10 +286,10 @@ public void behavior(){
     }
 
     // [LEFT] 
-    if(space.left != null && space.left.entities.size() > 0){
-            if(space.left.entities.get(0).team != team || hunger >= 5 && space.left.entities.get(0).foodchain < foodchain || hunger == 10 && space.left.entities.get(0).foodchain <= foodchain){
+    if(space.left != null && space.left.creatures.size() > 0 && space.left.creatures.get(0) != null){
+            if(space.left.creatures.get(0).team != team || hunger >= 5 && space.left.creatures.get(0).foodchain < foodchain || hunger == 10 && space.left.creatures.get(0).foodchain <= foodchain){
                 attacking = true;
-                roll( space.left.entities.get(0));
+                roll( space.left.creatures.get(0));
             }
     }
     else {
@@ -297,10 +297,10 @@ public void behavior(){
     }
 
     // [RIGHT] 
-    if(space.right != null && space.right.entities.size() > 0){
-            if(space.right.entities.get(0).team != team || hunger >= 5 && space.right.entities.get(0).foodchain < foodchain || hunger == 10 && space.right.entities.get(0).foodchain <= foodchain){
+    if(space.right != null && space.right.creatures.size() > 0 && space.right.creatures.get(0) != null){
+            if(space.right.creatures.get(0).team != team || hunger >= 5 && space.right.creatures.get(0).foodchain < foodchain || hunger == 10 && space.right.creatures.get(0).foodchain <= foodchain){
                 attacking = true;
-                roll( space.right.entities.get(0));
+                roll( space.right.creatures.get(0));
             }
     }
     else {
@@ -308,11 +308,11 @@ public void behavior(){
     }
 
     // [DOWN] 
-    if(space.down != null && space.down.entities.size() > 0){
-            if(space.down.entities.get(0).team != team || hunger >= 5 && space.down.entities.get(0).foodchain < foodchain || hunger ==
-             10 && space.down.entities.get(0).foodchain <= foodchain){
+    if(space.down != null && space.down.creatures.size() > 0 && space.down.creatures.get(0) != null){
+            if(space.down.creatures.get(0).team != team || hunger >= 5 && space.down.creatures.get(0).foodchain < foodchain || hunger ==
+             10 && space.down.creatures.get(0).foodchain <= foodchain){
                 attacking = true;
-                roll( space.down.entities.get(0));
+                roll( space.down.creatures.get(0));
             }
     }
     else {
@@ -322,7 +322,7 @@ public void behavior(){
           
 }
 
-public void roll(Entity target){  
+public void roll(Creature target){  
     // if main counter is at Top of Cycle
     if( counter.over() ){
          // if random roll of "d20" is equal to or larger than enemy AC
@@ -351,14 +351,11 @@ public boolean lifecheck(){
     if(hp < 0){
         World.entityList.remove(this);
 
-        //System.out.println("corpse name:" + World.returnCorpse(this).name);
-        World.placePickup( space.tagX, space.tagY, World.returnCorpse(this) );
-        //System.out.println("space item name: " + space.pickups.get(0).name);
+        World.placeitem( space.tagX, space.tagY, World.returnCorpse(this) );
+        
+        space.items.get(0).icon = this.avatar;
 
-
-        World.clearEntities(space.tagX, space.tagY);
-        //Main.log.add(name + " #" + number + " eliminated");
-        //Main.log.add("");
+        World.clearcreatures(space.tagX, space.tagY);
 
         return false; // is dead
     }
@@ -376,10 +373,10 @@ public void setNumber(){
         for(int j = 0; j < 48; j++){
             
             // if the space is not null
-            if(World.space != null && World.space[i][j].entities.size() > 0){
+            if(World.space != null && World.space[i][j].creatures.size() > 0){
                 // if there is an entity on it, and it's a "Participant"
-                    Entity target = World.space[i][j].entities.get(0);
-                    if(number == target.number){
+                    Creature target = World.space[i][j].creatures.get(0);
+                    if(target != null && number == target.number){
                         duplicate = true;
                         //System.out.println("duplicate number found");
                     }
@@ -416,22 +413,22 @@ public void resolveHunger(){
     }
 }
 
-public void pickupAll(){
-    if(space.pickups.size() > 0){   // if there are pickups on the space
-        for(int i = 0; i < space.pickups.size(); i++){
-            System.out.println("pickup added to inventory");
-            pickups.add( space.pickups.get(0) );
-            World.removePickup(space.tagX, space.tagY);
-            pickups.get(0).holder = this;
-            System.out.println("item holder: " + pickups.get(0).holder);
+public void itemAll(){
+    if(space.items.size() > 0 &&  space.items.get(0) != null){   // if there are items on the space
+        for(int i = 0; i < space.items.size(); i++){
+            System.out.println("item added to inventory");
+            items.add( space.items.get(0) );
+            World.removeitem(space.tagX, space.tagY);
+            items.get(0).holder = this;
+            System.out.println("item holder: " + items.get(0).holder);
         }
     }
 }
 
-public void runPickups(){
-    if(pickups.size() > 0){
-        for(int i = 0; i < pickups.size(); i++){
-            pickups.get(i).behavior();
+public void runitems(){
+    if(items.size() > 0){
+        for(int i = 0; i < items.size(); i++){
+            items.get(i).behavior();
         }
     }
 }

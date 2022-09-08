@@ -8,7 +8,7 @@ import pocket.creature.*;
 
 public class Medkit extends Tile {
     
-    Random random = new Random();
+    transient Random random = new Random();
 
     public Medkit(){
 
@@ -24,8 +24,8 @@ public class Medkit extends Tile {
     }
 
     public void behavior(){ 
-        if(space.entities != null && space.entities.size() > 0){
-            Entity target = space.entities.get(0);
+        if(space.creatures != null && space.creatures.size() > 0){
+            Creature target = space.creatures.get(0);
             int health = World.d8.roll(3);
 
                 System.out.println("\n" + target.name + " (HP: " + target.hp + ") was healed " + health + " by Medkit");

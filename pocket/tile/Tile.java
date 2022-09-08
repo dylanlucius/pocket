@@ -1,17 +1,18 @@
 package pocket.tile;
 
-import org.newdawn.slick.Image;
-import org.newdawn.slick.Color;
+import org.newdawn.slick.*;
 
 import pocket.world.*;
+import pocket.system.*;
 
 public abstract class Tile {
     public String name;
-    public Image icon;
-    public Image secondary;
+    public transient Image icon, secondary;
     public Color bgColor, iconColor;
     public boolean ground, wall, fluid, fire;
-    public int secondaryFlag;
+    public int secondaryFlag, isSecondary;
+    public Counter motionCycle;
+
 
     public Space space;
 

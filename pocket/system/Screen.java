@@ -6,7 +6,7 @@ import org.newdawn.slick.*;
 
 public class Screen {
 
-    Random random = new Random();
+    transient Random random = new Random();
 
     public static final Color BLACK        = Color.decode("#000000");
     public static final Color DARK_GRAY    = Color.decode("#5F574F");
@@ -36,7 +36,7 @@ public class Screen {
     public static final Color[] people = {PINK, YELLOW, TAN, BROWN, RED, BLUE, DARK_PURPLE};
 
 
-    public static Image tileset, menu, bg, cbg, clear, screen;
+    public static transient Image tileset, menu, bg, cbg, clear, screen;
     public static SpriteSheet spritesheet;
     public SpriteSheetFont font;
     public Graphics graphics;
@@ -72,5 +72,94 @@ public class Screen {
                 }
             }
         }
+    }
+
+    public static int checkColor(Color color){
+        int index;
+
+        if(color == DARK_GRAY){
+            index = 1;
+            
+        }
+        else if(color == GRAY){
+            index = 2;
+            
+        }
+        else if(color == WHITE){
+            index = 3;
+            
+        }
+        else if(color == PINK){
+            index = 4;
+            
+        }
+        else if(color == RED){
+            index = 5;
+            
+        }
+        else if(color == ORANGE){
+            index = 6;
+            
+        }
+        else if(color == YELLOW){
+            index = 7;
+            
+        }
+        else if(color == GREEN){
+            index = 8;
+            
+        }
+        else if(color == DARK_GREEN){
+            index = 9;
+            
+        }
+        else if(color == BLUE){
+            index = 10;
+            
+        }
+        else if(color == DARK_BLUE){
+            index = 11;
+            
+        }
+        else if(color == PURPLE){
+            index = 12;
+            
+        }
+        else if(color == DARK_PURPLE){
+            index = 13;
+            
+        }
+        else if(color == TAN){
+            index = 14;
+            
+        }
+        else if(color == BROWN){
+            index = 15;
+            
+        }
+        else {
+            index = 0; // BLACK
+        }
+
+        return index;
+    }
+
+    public static int[] checkSpriteCoords(Image sprite){
+        int[] coords = new int[2];
+
+        // for every sprite in the sheet
+        for(int i = 0; i < spritesheet.getHorizontalCount(); i++){
+            for(int j = 0; j < spritesheet.getVerticalCount(); j++){
+                // if the target sprite matches the spritesheet one
+                if( sprite == spritesheet.getSprite(i * 8, j * 8) ){
+                    // set the x and y value relating to the sheet
+                    coords[0] = i;
+                    coords[1] = j;
+                    break;
+                }
+            }
+        }
+
+        return coords;
     }
 }

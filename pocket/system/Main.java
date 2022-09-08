@@ -1,14 +1,14 @@
 package pocket.system;
 
-import java.io.*;
-
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.*;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.state.*;
 
 import pocket.creature.*;
+import pocket.item.*;
 import pocket.world.*;
-import pocket.pickup.*;
+
 
 public class Main extends BasicGameState {
     
@@ -21,7 +21,7 @@ public class Main extends BasicGameState {
     //     super("Pocket World");
     // }
         
-        final boolean PLAY_INTRO = false;
+        final boolean PLAY_INTRO = true;
 
         
         public static Screen screen;
@@ -36,18 +36,17 @@ public class Main extends BasicGameState {
         public static boolean colortest;
         public static boolean on;
         public static boolean startupPlayed, animationOver, characterTest, spectateMode, builderMode,
-                              pickupMode, selection, creatureMode, logMode;
+                              itemMode, selection, creatureMode, logMode;
         int titleColors, y, key, menuPlacement;
         Sound startup;
         Cursor cursor;
         public static boolean paused;
         public static Log log;
 
-        Entity currentEntity; 
-
+        Creature currentEntity; 
 
     @Override
-    public void init(GameContainer gc, StateBasedGame sbg) throws SlickException{
+    public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 
         restart = false;
         screen = new Screen();
@@ -78,7 +77,7 @@ public class Main extends BasicGameState {
         builderMode = false;
         selection = false;
         creatureMode = false;
-        pickupMode = false;
+        itemMode = false;
         logMode = false;
 
     }
@@ -220,37 +219,40 @@ public class Main extends BasicGameState {
             if(spectateMode){
                 screen.font.drawString(0, 0,            "            Spectate Mode", Screen.YELLOW);
                 
-                // if cursor space has entity OR pickup
-                if(World.cursor.space.entities.size() > 0){
-                    Entity target = World.cursor.space.entities.get(0);
+                // if cursor space has entity OR item
+                if(World.cursor.space.creatures.size() > 0){
+                    Creature target = World.cursor.space.creatures.get(0);
 
-                    // ENTITY INFO
-                    // draw entity nickname
-                    screen.font.drawString(menuPlacement, 16,    "Name: " + target.nickname, Screen.WHITE);
+                    if(target != null){
+                            // ENTITY INFO
+                        // draw entity nickname
+                        screen.font.drawString(menuPlacement, 16,    "Name: " + target.nickname, Screen.WHITE);
 
-                    // draw entity name
-                    screen.font.drawString(menuPlacement, 24,    "Type: " + target.name, Screen.WHITE);
+                        // draw entity name
+                        screen.font.drawString(menuPlacement, 24,    "Type: " + target.name, Screen.WHITE);
 
-                    // draw number
-                    //screen.font.drawString(menuPlacement, 24,    "#: " + target.number, Screen.WHITE);
+                        // draw number
+                        //screen.font.drawString(menuPlacement, 24,    "#: " + target.number, Screen.WHITE);
 
-                    // draw HP
-                    screen.font.drawString(menuPlacement, 32,   "HP: " + target.hp, Screen.WHITE);
+                        // draw HP
+                        screen.font.drawString(menuPlacement, 32,   "HP: " + target.hp, Screen.WHITE);
 
-                    // draw hunger
-                    screen.font.drawString(menuPlacement, 40,   "Hunger: " + target.hunger, Screen.WHITE);
+                        // draw hunger
+                        screen.font.drawString(menuPlacement, 40,   "Hunger: " + target.hunger, Screen.WHITE);
 
-                    // draw foodchain
-                    //screen.font.drawString(menuPlacement, 48,   "Foodchain #: " + target.foodchain, Screen.WHITE);
+                        // draw foodchain
+                        //screen.font.drawString(menuPlacement, 48,   "Foodchain #: " + target.foodchain, Screen.WHITE);
 
-                    // draw pickups
-                    if(target.pickups.size() > 0)
-                    screen.font.drawString(menuPlacement, 48,   "Item: " + target.pickups.get(0).name, Screen.WHITE);
+                        // draw items
+                        if(target.items.size() > 0)
+                        screen.font.drawString(menuPlacement, 48,   "Item: " + target.items.get(0).name, Screen.WHITE);
 
+                    }
+                    
                 }
-                // IF THERE ARE NO ENTITIES BUT THERE ARE ITEMS
-                else if(World.cursor.space.pickups.size() > 0){
-                    Pickup target = World.cursor.space.pickups.get(0);
+                // IF THERE ARE NO creatures BUT THERE ARE ITEMS
+                else if(World.cursor.space.items.size() > 0){
+                    Item target = World.cursor.space.items.get(0);
 
                     // ITEM INFO
                     // draw item name
@@ -261,11 +263,11 @@ public class Main extends BasicGameState {
 
             }              
         
-            // DRAW PICKUP MODE
-            if(pickupMode){
-                screen.font.drawString(0, 0,            "            Pickup Mode", Screen.DARK_PURPLE);
+            // DRAW item MODE
+            if(itemMode){
+                screen.font.drawString(0, 0,            "            item Mode", Screen.DARK_PURPLE);
                 
-                screen.font.drawString(0, 0,            "                                                        " + World.currentPickup.name, Screen.WHITE);
+                screen.font.drawString(0, 0,            "                                                        " + World.currentitem.name, Screen.WHITE);
 
             }      
             
@@ -328,44 +330,22 @@ public class Main extends BasicGameState {
             characterTest = !characterTest;
         }
 
-        // SAVE  [F1]
-        // if(on && key == Keyboard.KEY_F1){
-        //     try{
-        //         FileOutputStream file = new FileOutputStream("out/save.txt");
-        //         ObjectOutputStream out = new ObjectOutputStream(file);
+        //[SAVE]  [F1]
 
-        //         out.writeObject(this);
+        if(on && key == Keyboard.KEY_F1){
+            MemoryCard.setGhostDeck();
+            MemoryCard.save();
+        }
 
-        //         out.close();
-        //         file.close();
-              
-        //         System.out.println("saved file");
-
-        //     } catch (IOException e) {  e.printStackTrace();}
-        // }
-
-        // // LOAD  [F2]
-        // if(on && key == Keyboard.KEY_F2){
-        //     try{
-        //         // Reading the object from a file
-        //     FileInputStream file = new FileInputStream("out/save.txt");
-        //     ObjectInputStream in = new ObjectInputStream(file);
-              
-        //     // Method for deserialization of object
-        //     BasicGameState state = (BasicGameState) in.readObject();
-            
-        //     in.close();
-        //     file.close();
-              
-        //     System.out.println("loaded file: " + state);
-
-        //     } catch (IOException e) {  e.printStackTrace();} catch (ClassNotFoundException ec) { ec.printStackTrace();}
-        // }
+        // LOAD  [F2]
+        if(on && key == Keyboard.KEY_F2){
+            MemoryCard.load();
+        }
         
         // LOG  MODE [TAB]
         if(on && key == Keyboard.KEY_TAB){
 
-            if(builderMode && World.cursor.space.cursorOn || creatureMode && World.cursor.space.cursorOn || pickupMode && World.cursor.space.cursorOn || spectateMode && World.cursor.space.cursorOn){
+            if(builderMode && World.cursor.space.cursorOn || creatureMode && World.cursor.space.cursorOn || itemMode && World.cursor.space.cursorOn || spectateMode && World.cursor.space.cursorOn){
                 World.cursor.space.cursorOn = on;
             }
             else {
@@ -374,7 +354,7 @@ public class Main extends BasicGameState {
 
             builderMode = false;
             creatureMode = false;
-            pickupMode = false;
+            itemMode = false;
             spectateMode = false;
 
             System.out.println("\nlog mode " + spectateMode);
@@ -410,7 +390,7 @@ public class Main extends BasicGameState {
         // [K] SPECTATE MODE   
         if(on && key == Keyboard.KEY_K){
 
-            if(builderMode && World.cursor.space.cursorOn || creatureMode && World.cursor.space.cursorOn || pickupMode && World.cursor.space.cursorOn || logMode && World.cursor.space.cursorOn){
+            if(builderMode && World.cursor.space.cursorOn || creatureMode && World.cursor.space.cursorOn || itemMode && World.cursor.space.cursorOn || logMode && World.cursor.space.cursorOn){
                 World.cursor.space.cursorOn = on;
             }
             else {
@@ -419,7 +399,7 @@ public class Main extends BasicGameState {
             
             builderMode = false;
             creatureMode = false;
-            pickupMode = false;
+            itemMode = false;
             logMode = false;
 
 
@@ -438,7 +418,7 @@ public class Main extends BasicGameState {
         // BUILDER MODE  [B]
         if(on && key == Keyboard.KEY_B){
 
-            if(creatureMode && World.cursor.space.cursorOn || spectateMode && World.cursor.space.cursorOn || pickupMode && World.cursor.space.cursorOn || logMode && World.cursor.space.cursorOn){
+            if(creatureMode && World.cursor.space.cursorOn || spectateMode && World.cursor.space.cursorOn || itemMode && World.cursor.space.cursorOn || logMode && World.cursor.space.cursorOn){
                 World.cursor.space.cursorOn = on;
             }
             else {
@@ -447,7 +427,7 @@ public class Main extends BasicGameState {
 
             spectateMode = false;
             creatureMode = false;
-            pickupMode = false;
+            itemMode = false;
             logMode = false;
 
 
@@ -492,7 +472,7 @@ public class Main extends BasicGameState {
         if(on && key == Keyboard.KEY_C){
 
 
-            if(builderMode && World.cursor.space.cursorOn || spectateMode && World.cursor.space.cursorOn || pickupMode && World.cursor.space.cursorOn || logMode && World.cursor.space.cursorOn){
+            if(builderMode && World.cursor.space.cursorOn || spectateMode && World.cursor.space.cursorOn || itemMode && World.cursor.space.cursorOn || logMode && World.cursor.space.cursorOn){
                 World.cursor.space.cursorOn = on;
             }
             else {
@@ -501,7 +481,7 @@ public class Main extends BasicGameState {
 
             spectateMode = false;
             builderMode = false;
-            pickupMode = false;
+            itemMode = false;
             logMode = false;
 
 
@@ -543,7 +523,7 @@ public class Main extends BasicGameState {
             }
         }
 
-        // PICKUP MODE  [P]
+        // item MODE  [P]
         if(on && key == Keyboard.KEY_P){
 
             if(creatureMode && World.cursor.space.cursorOn || spectateMode && World.cursor.space.cursorOn || builderMode && World.cursor.space.cursorOn || logMode && World.cursor.space.cursorOn){
@@ -567,34 +547,34 @@ public class Main extends BasicGameState {
 
                 selection = false;
                 
-                pickupMode = !pickupMode;
+                itemMode = !itemMode;
 
-                System.out.println("\npickup mode " + pickupMode);
+                System.out.println("\nitem mode " + itemMode);
             //}  
         }
 
         // CYCLE TILES FORWARD in BUILDER MODE
 
         // [ + ] Builder
-        if(on && key == Keyboard.KEY_ADD && pickupMode){
-            if(World.currentPickupIndex < World.pickup.length - 1){
-                World.currentPickupIndex++;
-                World.updateCurrentPickup();
+        if(on && key == Keyboard.KEY_ADD && itemMode){
+            if(World.currentitemIndex < World.item.length - 1){
+                World.currentitemIndex++;
+                World.updateCurrentitem();
             }
             else {
-                World.currentPickupIndex = 0;
-                World.updateCurrentPickup();
+                World.currentitemIndex = 0;
+                World.updateCurrentitem();
             }
         }
         // [ - ] Builder
-        if(on && key == Keyboard.KEY_SUBTRACT && pickupMode){
-            if(World.currentPickupIndex > 0){
-                World.currentPickupIndex--;
-                World.updateCurrentPickup();
+        if(on && key == Keyboard.KEY_SUBTRACT && itemMode){
+            if(World.currentitemIndex > 0){
+                World.currentitemIndex--;
+                World.updateCurrentitem();
             }
             else {
-                World.currentPickupIndex = (byte) (World.pickup.length - 1);
-                World.updateCurrentPickup();
+                World.currentitemIndex = (byte) (World.item.length - 1);
+                World.updateCurrentitem();
             }
         }
 
@@ -894,23 +874,26 @@ public class Main extends BasicGameState {
         
             // [ENTER] CREATURE MODE
             if(creatureMode){
-                if(World.cursor.space.entities.size() <= 0){
                 
-                    World.placeEntity(World.cursor.space.tagX, World.cursor.space.tagY, World.returnCurrentEntity());
-                } 
-                else {
-                    World.clearEntities(World.cursor.space.tagX, World.cursor.space.tagY);
-                }
+                World.placeEntity(World.cursor.space.tagX, World.cursor.space.tagY, World.returnCurrentEntity());
+                
+                // if(World.cursor.space.creatures.size() <= 0){
+                
+                //     World.placeEntity(World.cursor.space.tagX, World.cursor.space.tagY, World.returnCurrentEntity());
+                // } 
+                // else {
+                //     World.clearcreatures(World.cursor.space.tagX, World.cursor.space.tagY);
+                // }
             }
             
-            // [ENTER] PICKUP MODE
-            if(pickupMode){
-                if(World.cursor.space.pickups.size() <= 0){
+            // [ENTER] item MODE
+            if(itemMode){
+                if(World.cursor.space.items.size() <= 0){
                 
-                    World.placePickup(World.cursor.space.tagX, World.cursor.space.tagY, World.returnCurrentPickup());
+                    World.placeitem(World.cursor.space.tagX, World.cursor.space.tagY, World.returnCurrentitem());
                 } 
                 else {
-                    World.removePickup(World.cursor.space.tagX, World.cursor.space.tagY);
+                    World.removeitem(World.cursor.space.tagX, World.cursor.space.tagY);
                 }
             }
         }

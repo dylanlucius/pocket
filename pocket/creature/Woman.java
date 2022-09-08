@@ -4,7 +4,7 @@ import pocket.system.Screen;
 import java.util.Random;
 
 public class Woman extends HumanAdult {
-    Random random = new Random();
+    transient Random random = new Random();
 
     public Woman(){
 

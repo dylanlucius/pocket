@@ -4,7 +4,7 @@ import pocket.creature.*;
 
 public class Names {
     
-    public static String returnProposal(Entity entity){
+    public static String returnProposal(Creature entity){
         String firstName , lastName, proposal;
         String[] manNames = {"Aaron", "Alex", "Andrew", "Bernard", "Buddy", "Benjamin", "Charles", "Carl", "Carlos", "Christopher", "Cedric", "Carter", "Dylan", "Daniel", "Donald", "Dino", "David", "Eric", "Ethan", "Franklin", "Fred", "Gus", "Gustav", "Gino", "Gary", "Harold", "Harry", "Heathe", "Ivan", "Isaac", "Isaiah", "John", "Jack", "Jeff", "Jerry", "Ken", "Keith", "Lance", "Mike", "Michael", "Matthew", "Ned", "Neil", "Peter", "Prince", "Paul", "Phil", "Ronald", "Regis", "Ryan", "Steve", "Scott", "Stanley", "Tyler", "Toby", "Ulysses", "Vince"},
                  womanNames = {"Marge", "Sarah"},

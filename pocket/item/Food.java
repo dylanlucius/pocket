@@ -1,8 +1,8 @@
-package pocket.pickup;
+package pocket.item;
 
 import pocket.system.*;
 
-public class Food extends Pickup {
+public class Food extends Item {
 
     boolean rotten;
 
@@ -18,7 +18,7 @@ public class Food extends Pickup {
         Main.log.add(holder.nickname + " (" + holder.name  + ") ate " + name );
         Main.log.add("");
 
-        holder.pickups.remove(this);
+        holder.items.remove(this);
                 
 
     }

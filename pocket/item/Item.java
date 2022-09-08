@@ -1,20 +1,22 @@
-package pocket.pickup;
+package pocket.item;
 
 import org.newdawn.slick.*;
 import pocket.system.*;
 import pocket.creature.*;
 
-public abstract class Pickup {
+public abstract class Item {
     public String name;
-    public Image icon;
+    public transient Image icon;
     public Color color;
-    public Entity holder;
+    public Creature holder;
 
-    public Pickup(){
+    public Item(){
         name = "Pickup";
         icon = Screen.spritesheet.getSprite(15, 3); // default is question mark
         color = Screen.WHITE;
     }
+
+    // pickup
 
     public void behavior(){
         if(holder != null){

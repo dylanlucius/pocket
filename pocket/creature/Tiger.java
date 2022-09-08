@@ -16,7 +16,7 @@ public class Tiger extends BigCat {
         hp = World.d20.roll(1) + 30;
     }
 
-    public void roll(Entity target){  
+    public void roll(Creature target){  
         // if main counter is at Top of Cycle
         if( counter.over() ){
              // if random roll of "d20" is equal to or larger than enemy AC

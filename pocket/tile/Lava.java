@@ -27,8 +27,8 @@ public class Lava extends Fluid {
     }
 
     public void behavior(){ 
-        if(space.entities != null && space.entities.size() > 0 && space.entities.get(0).name != "Lava Shark"){
-            Entity target = space.entities.get(0);
+        if(space.creatures != null && space.creatures.size() > 0 && space.creatures.get(0).name != "Lava Shark"){
+            Creature target = space.creatures.get(0);
             int damage = World.d8.roll(3);
 
                 System.out.println("\n" + target.name + "(HP: " + target.hp + " was hurt " + damage + " by lava!");

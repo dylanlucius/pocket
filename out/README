@@ -4,14 +4,19 @@ Welcome to Pocket World. Make your world. Watch and enjoy as it comes to life!
 
 == CONTROLS ==
 
-[B] Builder mode    | press [B] to enter or exit Builder mode. Here you can use [Arrow Keys], [Enter], and [+/-] to select and place tiles onto spaces; land, water, ... lava. You can hold [Shift] while using the arrow keys to move a greater distance at a time. You can press enter once and drag a selection box with the arrow keys to make bigger areas at once. Placing a tile over an existing tile will erase whats there instead of placing any tiles; this is how to delete tiles. You can build fortresses, battlefields, mazes, ...
+[B]uild          | press [B] to enter Build mode where you can place tiles into spaces. There are a
+handful of tiles at the moment: Grass, Stone (Ground and Wall), Water, Lava, ... Tiles represent the ground your creatures will walk on, and other topographical features.
 
-[P] Creature mode   | press [P] to enter or exit Creature mode. Using the same controls as Builder mode you can place individual creatures. They will control themselves, exhibiting a range of behaviors according to what type of creature they are; There is a foodchain, for example, which helps determine what creatures will eat each other. Deleting creatures is done the same way as with tiles. There are Humans, cats, dogs, rodents, ... sharks, and more ...
+[C]reatures      | press [C] to enter Creature mode. Here you can place creatures instead of tiles. Creatures will immediately come to life, and do different things depending on what kind of creature they are.
 
-[TAB] Spectate mode | pressing [TAB] brings up or hides spectate mode, where using the same controls as Builder and Creature modes, you can navigate the space and get info on specific creatures.
+[P]lace Item     | press [P] for Item mode. Same as Build and Creature modes, but items.
+
+Loo[K]           | pressing [K] brings up Look mode, where you can get more detailed information on each space, like creature or item info.
 
 [SPACE] Pause
 
-[.] Step through    | when paused, you can press [.] to step through the game one frame at a time
+[.] Step through | when paused, press [.] to step through the game one frame at a time
 
-[F5] Restart        | restarts the system
+[F1] Save        | creates a save state, overwriting previous save if one exists, no warning
+
+[F2] Load        | loads save state if one exists, overwriting current game no warning

@@ -5,7 +5,7 @@ import pocket.world.*;
 import java.util.Random;
 
 public class HumanAdult extends Human {
-    Random random = new Random();
+    transient Random random = new Random();
 
     public HumanAdult(){
 

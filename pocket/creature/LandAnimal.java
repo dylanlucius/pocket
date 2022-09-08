@@ -1,6 +1,6 @@
 package pocket.creature;
 
-public class LandAnimal extends Entity {
+public class LandAnimal extends Creature {
 
 
     @Override
@@ -29,9 +29,9 @@ public class LandAnimal extends Entity {
             
             attack();
     
-            pickupAll();
+            itemAll();
 
-            runPickups();
+            runitems();
 
         }
 
