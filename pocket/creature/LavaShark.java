@@ -52,7 +52,7 @@ public class LavaShark extends Shark {
                                     if(this.space.up.tile.ground && this.space.up.tile.name == "Lava"){
                                         // if it has no creatures on it
                                         if(this.space.up.creatures.size() <= 0){
-                                            World.placeEntity(this.space.up.tagX, this.space.up.tagY, this);
+                                            World.placeCreature(this.space.up.tagX, this.space.up.tagY, this);
                                             World.clearcreatures(this.space.tagX, this.space.tagY);
                                             this.space = this.space.up;
                                         }       
@@ -71,7 +71,7 @@ public class LavaShark extends Shark {
                                 if(this.space.left.tile != null){
                                     if(this.space.left.tile.ground && this.space.left.tile.name == "Lava"){
                                         if(this.space.left.creatures.size() <= 0){
-                                            World.placeEntity(this.space.left.tagX, this.space.left.tagY, this);
+                                            World.placeCreature(this.space.left.tagX, this.space.left.tagY, this);
                                             World.clearcreatures(this.space.tagX, this.space.tagY);
                                             this.space = this.space.left;
                                         }      
@@ -90,7 +90,7 @@ public class LavaShark extends Shark {
                                 if(this.space.right.tile != null){
                                     if(this.space.right.tile.ground && this.space.right.tile.name == "Lava"){
                                         if(this.space.right.creatures.size() <= 0){
-                                            World.placeEntity(this.space.right.tagX, this.space.right.tagY, this);
+                                            World.placeCreature(this.space.right.tagX, this.space.right.tagY, this);
                                             World.clearcreatures(this.space.tagX, this.space.tagY);
                                             this.space = this.space.right;
                                         }      
@@ -110,7 +110,7 @@ public class LavaShark extends Shark {
                                 if(this.space.down.tile != null){
                                     if(this.space.down.tile.ground && this.space.down.tile.name == "Lava"){
                                         if(this.space.down.creatures.size() <= 0){
-                                            World.placeEntity(this.space.down.tagX, this.space.down.tagY, this);
+                                            World.placeCreature(this.space.down.tagX, this.space.down.tagY, this);
                                             World.clearcreatures(this.space.tagX, this.space.tagY);
                                             this.space = this.space.down;
                                         }       
@@ -143,7 +143,7 @@ public class LavaShark extends Shark {
                                     if(this.space.up.tile.ground){
                                         // if it has no creatures on it
                                         if(this.space.up.creatures.size() <= 0){
-                                            World.placeEntity(this.space.up.tagX, this.space.up.tagY, this);
+                                            World.placeCreature(this.space.up.tagX, this.space.up.tagY, this);
                                             World.clearcreatures(this.space.tagX, this.space.tagY);
                                             this.space = this.space.up;
                                         }       
@@ -162,7 +162,7 @@ public class LavaShark extends Shark {
                                 if(this.space.left.tile != null){
                                     if(this.space.left.tile.ground){
                                         if(this.space.left.creatures.size() <= 0){
-                                            World.placeEntity(this.space.left.tagX, this.space.left.tagY, this);
+                                            World.placeCreature(this.space.left.tagX, this.space.left.tagY, this);
                                             World.clearcreatures(this.space.tagX, this.space.tagY);
                                             this.space = this.space.left;
                                         }      
@@ -181,7 +181,7 @@ public class LavaShark extends Shark {
                                 if(this.space.right.tile != null){
                                     if(this.space.right.tile.ground){
                                         if(this.space.right.creatures.size() <= 0){
-                                            World.placeEntity(this.space.right.tagX, this.space.right.tagY, this);
+                                            World.placeCreature(this.space.right.tagX, this.space.right.tagY, this);
                                             World.clearcreatures(this.space.tagX, this.space.tagY);
                                             this.space = this.space.right;
                                         }      
@@ -201,7 +201,7 @@ public class LavaShark extends Shark {
                                 if(this.space.down.tile != null){
                                     if(this.space.down.tile.ground){
                                         if(this.space.down.creatures.size() <= 0){
-                                            World.placeEntity(this.space.down.tagX, this.space.down.tagY, this);
+                                            World.placeCreature(this.space.down.tagX, this.space.down.tagY, this);
                                             World.clearcreatures(this.space.tagX, this.space.tagY);
                                             this.space = this.space.down;
                                         }       
@@ -234,13 +234,21 @@ public class LavaShark extends Shark {
         }
     }
 
-    lifecheck();
+    if(lifecheck()){
+        
+        resolveHunger();
 
-    if(!attacking){
-        move();
+        if(!attacking){
+            move();
+        }
+        
+        attack();
+
+        itemAll();
+
+        runitems();
+
     }
-    
-    attack();
     
 }
 

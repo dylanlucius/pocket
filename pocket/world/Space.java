@@ -166,6 +166,10 @@ public class Space  {
         //  ABOVE
         //
 
+        if(World.datboiChosen){
+            Screen.spritesheet.getSprite(15, 1).draw(World.datboi.space.x, World.datboi.space.y - 8);
+        }
+
         
     }
 

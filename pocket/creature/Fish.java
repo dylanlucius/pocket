@@ -42,7 +42,7 @@ public class Fish extends Creature {
                                     if(this.space.up.tile.ground && this.space.up.tile.name == "Water"){
                                         // if it has no creatures on it
                                         if(this.space.up.creatures.size() <= 0){
-                                            World.placeEntity(this.space.up.tagX, this.space.up.tagY, this);
+                                            World.placeCreature(this.space.up.tagX, this.space.up.tagY, this);
                                             World.clearcreatures(this.space.tagX, this.space.tagY);
                                             this.space = this.space.up;
                                         }       
@@ -61,7 +61,7 @@ public class Fish extends Creature {
                                 if(this.space.left.tile != null){
                                     if(this.space.left.tile.ground && this.space.left.tile.name == "Water"){
                                         if(this.space.left.creatures.size() <= 0){
-                                            World.placeEntity(this.space.left.tagX, this.space.left.tagY, this);
+                                            World.placeCreature(this.space.left.tagX, this.space.left.tagY, this);
                                             World.clearcreatures(this.space.tagX, this.space.tagY);
                                             this.space = this.space.left;
                                         }      
@@ -80,7 +80,7 @@ public class Fish extends Creature {
                                 if(this.space.right.tile != null){
                                     if(this.space.right.tile.ground && this.space.right.tile.name == "Water"){
                                         if(this.space.right.creatures.size() <= 0){
-                                            World.placeEntity(this.space.right.tagX, this.space.right.tagY, this);
+                                            World.placeCreature(this.space.right.tagX, this.space.right.tagY, this);
                                             World.clearcreatures(this.space.tagX, this.space.tagY);
                                             this.space = this.space.right;
                                         }      
@@ -100,7 +100,7 @@ public class Fish extends Creature {
                                 if(this.space.down.tile != null){
                                     if(this.space.down.tile.ground && this.space.down.tile.name == "Water"){
                                         if(this.space.down.creatures.size() <= 0){
-                                            World.placeEntity(this.space.down.tagX, this.space.down.tagY, this);
+                                            World.placeCreature(this.space.down.tagX, this.space.down.tagY, this);
                                             World.clearcreatures(this.space.tagX, this.space.tagY);
                                             this.space = this.space.down;
                                         }       
@@ -133,7 +133,7 @@ public class Fish extends Creature {
                                     if(this.space.up.tile.ground){
                                         // if it has no creatures on it
                                         if(this.space.up.creatures.size() <= 0){
-                                            World.placeEntity(this.space.up.tagX, this.space.up.tagY, this);
+                                            World.placeCreature(this.space.up.tagX, this.space.up.tagY, this);
                                             World.clearcreatures(this.space.tagX, this.space.tagY);
                                             this.space = this.space.up;
                                         }       
@@ -152,7 +152,7 @@ public class Fish extends Creature {
                                 if(this.space.left.tile != null){
                                     if(this.space.left.tile.ground){
                                         if(this.space.left.creatures.size() <= 0){
-                                            World.placeEntity(this.space.left.tagX, this.space.left.tagY, this);
+                                            World.placeCreature(this.space.left.tagX, this.space.left.tagY, this);
                                             World.clearcreatures(this.space.tagX, this.space.tagY);
                                             this.space = this.space.left;
                                         }      
@@ -171,7 +171,7 @@ public class Fish extends Creature {
                                 if(this.space.right.tile != null){
                                     if(this.space.right.tile.ground){
                                         if(this.space.right.creatures.size() <= 0){
-                                            World.placeEntity(this.space.right.tagX, this.space.right.tagY, this);
+                                            World.placeCreature(this.space.right.tagX, this.space.right.tagY, this);
                                             World.clearcreatures(this.space.tagX, this.space.tagY);
                                             this.space = this.space.right;
                                         }      
@@ -191,7 +191,7 @@ public class Fish extends Creature {
                                 if(this.space.down.tile != null){
                                     if(this.space.down.tile.ground){
                                         if(this.space.down.creatures.size() <= 0){
-                                            World.placeEntity(this.space.down.tagX, this.space.down.tagY, this);
+                                            World.placeCreature(this.space.down.tagX, this.space.down.tagY, this);
                                             World.clearcreatures(this.space.tagX, this.space.tagY);
                                             this.space = this.space.down;
                                         }       

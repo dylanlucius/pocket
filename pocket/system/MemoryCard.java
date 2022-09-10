@@ -2,8 +2,6 @@ package pocket.system;
 
 import java.io.*;
 
-import org.newdawn.slick.SlickException;
-
 import pocket.world.*;
 import pocket.tile.*;
 import pocket.creature.*;
@@ -24,7 +22,7 @@ public class MemoryCard {
     
     public static void save(){
         try{
-            FileOutputStream file = new FileOutputStream("out/save.txt");
+            FileOutputStream file = new FileOutputStream("out/save.pocket");
             ObjectOutputStream out = new ObjectOutputStream(file);
 
             packGhostDeck();
@@ -223,7 +221,7 @@ public class MemoryCard {
 
         }
 
-        System.out.println(index);
+        //System.out.println(index);
         return index;
 
     }
@@ -232,7 +230,7 @@ public class MemoryCard {
     public static void load(){
         try{
 
-            FileInputStream file = new FileInputStream("out/save.txt");
+            FileInputStream file = new FileInputStream("out/save.pocket");
             ObjectInputStream in = new ObjectInputStream(file);
             
             try{
@@ -242,9 +240,9 @@ public class MemoryCard {
             in.close();
             file.close();
 
-            try {
-                Program.system.reinit();
-            } catch (SlickException e ) { e.printStackTrace();}
+            // try {
+            //     Program.system.reinit();
+            // } catch (SlickException e ) { e.printStackTrace();}
 
             unpackGhostDeck();
             

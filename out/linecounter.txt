@@ -751,3 +751,165 @@ res\taskbar.png, it is a binary file.
 res\tilebanner.png, it is a binary file.
 res\tileset.png, it is a binary file.
 ===============================================================================
+===============================================================================
+EXTENSION NAME : linecounter
+EXTENSION VERSION : 0.2.7
+-------------------------------------------------------------------------------
+count time : 2022-09-09 16:09:08
+count workspace : c:\Users\Admin\Desktop\d
+total files : 62
+total code lines : 3070
+total comment lines : 421
+total blank lines : 1035
+
+    statistics
+   |      extension|     total code|  total comment|    total blank|percent|
+   -------------------------------------------------------------------------
+   |          .java|           3058|            421|           1025| 1.0e+2|
+   |               |             12|              0|             10|   0.39|
+   -------------------------------------------------------------------------
+natives\jinput-dx8_64.dll, it is a binary file.
+natives\jinput-raw_64.dll, it is a binary file.
+natives\lwjgl64.dll, it is a binary file.
+natives\OpenAL64.dll, it is a binary file.
+out\README, code is 12, comment is 0, blank is 10.
+out\save.pocket, it is a binary file.
+pocket\creature\BigCat.java, code is 148, comment is 22, blank is 28.
+pocket\creature\Blue.java, code is 13, comment is 0, blank is 7.
+pocket\creature\Bug.java, code is 48, comment is 4, blank is 15.
+pocket\creature\Cat.java, code is 29, comment is 2, blank is 9.
+pocket\creature\Creature.java, code is 258, comment is 94, blank is 95.
+pocket\creature\Dog.java, code is 29, comment is 2, blank is 7.
+pocket\creature\Fish.java, code is 188, comment is 26, blank is 44.
+pocket\creature\Human.java, code is 24, comment is 2, blank is 6.
+pocket\creature\HumanAdult.java, code is 63, comment is 11, blank is 14.
+pocket\creature\LandAnimal.java, code is 37, comment is 4, blank is 13.
+pocket\creature\LavaShark.java, code is 184, comment is 27, blank is 44.
+pocket\creature\Lion.java, code is 27, comment is 2, blank is 6.
+pocket\creature\Man.java, code is 60, comment is 9, blank is 12.
+pocket\creature\Red.java, code is 13, comment is 0, blank is 8.
+pocket\creature\Rodent.java, code is 28, comment is 2, blank is 6.
+pocket\creature\Shark.java, code is 28, comment is 2, blank is 11.
+pocket\creature\Tiger.java, code is 28, comment is 2, blank is 8.
+pocket\creature\Woman.java, code is 60, comment is 9, blank is 12.
+pocket\item\Corpse.java, code is 8, comment is 2, blank is 4.
+pocket\item\Food.java, code is 14, comment is 0, blank is 11.
+pocket\item\Gun.java, code is 3, comment is 0, blank is 2.
+pocket\item\Item.java, code is 26, comment is 2, blank is 8.
+pocket\item\Medkit.java, code is 3, comment is 0, blank is 2.
+pocket\item\Shield.java, code is 11, comment is 0, blank is 5.
+pocket\item\Sword.java, code is 11, comment is 0, blank is 4.
+pocket\system\Afterworld.java, code is 26, comment is 0, blank is 13.
+pocket\system\Counter.java, code is 21, comment is 0, blank is 7.
+pocket\system\Cursor.java, code is 11, comment is 0, blank is 6.
+pocket\system\Dice.java, code is 16, comment is 0, blank is 7.
+pocket\system\Ghost.java, code is 8, comment is 0, blank is 6.
+pocket\system\Log.java, code is 25, comment is 1, blank is 11.
+pocket\system\Main.java, code is 560, comment is 128, blank is 178.
+pocket\system\MemoryCard.java, code is 298, comment is 11, blank is 121.
+pocket\system\Names.java, code is 39, comment is 0, blank is 15.
+pocket\system\Program.java, code is 27, comment is 0, blank is 14.
+pocket\system\Screen.java, code is 125, comment is 4, blank is 46.
+pocket\tile\Fluid.java, code is 33, comment is 0, blank is 9.
+pocket\tile\Grass.java, code is 25, comment is 1, blank is 7.
+pocket\tile\Lava.java, code is 27, comment is 0, blank is 14.
+pocket\tile\Medkit.java, code is 25, comment is 0, blank is 12.
+pocket\tile\StoneGround.java, code is 12, comment is 0, blank is 4.
+pocket\tile\StoneWall.java, code is 12, comment is 0, blank is 4.
+pocket\tile\Tile.java, code is 18, comment is 0, blank is 9.
+pocket\tile\Water.java, code is 13, comment is 0, blank is 7.
+pocket\world\Space.java, code is 171, comment is 25, blank is 66.
+pocket\world\World.java, code is 225, comment is 27, blank is 88.
+res\bg.png, it is a binary file.
+res\cbg.png, it is a binary file.
+res\clear.png, it is a binary file.
+res\human.png, it is a binary file.
+res\screen.png, it is a binary file.
+res\skull.png, it is a binary file.
+res\startup.ogg, it is a binary file.
+res\taskbar.png, it is a binary file.
+res\tilebanner.png, it is a binary file.
+res\tileset.png, it is a binary file.
+===============================================================================
+===============================================================================
+EXTENSION NAME : linecounter
+EXTENSION VERSION : 0.2.7
+-------------------------------------------------------------------------------
+count time : 2022-09-09 23:46:20
+count workspace : c:\Users\Admin\Desktop\d
+total files : 64
+total code lines : 3308
+total comment lines : 473
+total blank lines : 1121
+
+    statistics
+   |      extension|     total code|  total comment|    total blank|percent|
+   -------------------------------------------------------------------------
+   |          .java|           3296|            473|           1111| 1.0e+2|
+   |               |             12|              0|             10|   0.36|
+   -------------------------------------------------------------------------
+natives\jinput-dx8_64.dll, it is a binary file.
+natives\jinput-raw_64.dll, it is a binary file.
+natives\lwjgl64.dll, it is a binary file.
+natives\OpenAL64.dll, it is a binary file.
+out\README, code is 12, comment is 0, blank is 10.
+out\save.pocket, it is a binary file.
+out\save.pocket_1, it is a binary file.
+pocket\creature\BigCat.java, code is 148, comment is 22, blank is 28.
+pocket\creature\Blue.java, code is 13, comment is 0, blank is 7.
+pocket\creature\Bug.java, code is 48, comment is 4, blank is 15.
+pocket\creature\Cat.java, code is 29, comment is 2, blank is 9.
+pocket\creature\Creature.java, code is 260, comment is 94, blank is 97.
+pocket\creature\Dog.java, code is 29, comment is 2, blank is 7.
+pocket\creature\Fish.java, code is 188, comment is 26, blank is 44.
+pocket\creature\Human.java, code is 24, comment is 2, blank is 6.
+pocket\creature\HumanAdult.java, code is 63, comment is 11, blank is 14.
+pocket\creature\LandAnimal.java, code is 37, comment is 4, blank is 13.
+pocket\creature\LavaShark.java, code is 184, comment is 27, blank is 44.
+pocket\creature\Lion.java, code is 27, comment is 2, blank is 6.
+pocket\creature\Man.java, code is 60, comment is 9, blank is 12.
+pocket\creature\Player.java, code is 15, comment is 0, blank is 8.
+pocket\creature\Red.java, code is 13, comment is 0, blank is 8.
+pocket\creature\Rodent.java, code is 28, comment is 2, blank is 6.
+pocket\creature\Shark.java, code is 28, comment is 2, blank is 11.
+pocket\creature\Tiger.java, code is 28, comment is 2, blank is 8.
+pocket\creature\Woman.java, code is 60, comment is 9, blank is 12.
+pocket\item\Corpse.java, code is 8, comment is 2, blank is 4.
+pocket\item\Food.java, code is 14, comment is 0, blank is 11.
+pocket\item\Gun.java, code is 3, comment is 0, blank is 2.
+pocket\item\Item.java, code is 26, comment is 2, blank is 8.
+pocket\item\Medkit.java, code is 3, comment is 0, blank is 2.
+pocket\item\Shield.java, code is 11, comment is 0, blank is 5.
+pocket\item\Sword.java, code is 11, comment is 0, blank is 4.
+pocket\system\Afterworld.java, code is 26, comment is 0, blank is 13.
+pocket\system\Counter.java, code is 21, comment is 0, blank is 7.
+pocket\system\Cursor.java, code is 11, comment is 0, blank is 6.
+pocket\system\Dice.java, code is 16, comment is 0, blank is 7.
+pocket\system\Ghost.java, code is 8, comment is 0, blank is 6.
+pocket\system\Log.java, code is 25, comment is 1, blank is 11.
+pocket\system\Main.java, code is 740, comment is 178, blank is 236.
+pocket\system\MemoryCard.java, code is 297, comment is 12, blank is 121.
+pocket\system\Names.java, code is 39, comment is 0, blank is 15.
+pocket\system\Program.java, code is 28, comment is 0, blank is 15.
+pocket\system\Screen.java, code is 125, comment is 4, blank is 46.
+pocket\tile\Fluid.java, code is 33, comment is 0, blank is 9.
+pocket\tile\Grass.java, code is 25, comment is 1, blank is 7.
+pocket\tile\Lava.java, code is 27, comment is 0, blank is 14.
+pocket\tile\Medkit.java, code is 25, comment is 0, blank is 12.
+pocket\tile\StoneGround.java, code is 12, comment is 0, blank is 4.
+pocket\tile\StoneWall.java, code is 12, comment is 0, blank is 4.
+pocket\tile\Tile.java, code is 18, comment is 0, blank is 9.
+pocket\tile\Water.java, code is 13, comment is 0, blank is 7.
+pocket\world\Space.java, code is 174, comment is 25, blank is 67.
+pocket\world\World.java, code is 263, comment is 28, blank is 104.
+res\bg.png, it is a binary file.
+res\cbg.png, it is a binary file.
+res\clear.png, it is a binary file.
+res\human.png, it is a binary file.
+res\screen.png, it is a binary file.
+res\skull.png, it is a binary file.
+res\startup.ogg, it is a binary file.
+res\taskbar.png, it is a binary file.
+res\tilebanner.png, it is a binary file.
+res\tileset.png, it is a binary file.
+===============================================================================

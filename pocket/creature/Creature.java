@@ -15,6 +15,7 @@ public abstract class Creature {
  //////////////////////////////////////////////
     
     // BASICS
+    public boolean isdatboi;
     public transient Random random = new Random();
     public Space space;
 
@@ -116,16 +117,18 @@ public abstract class Creature {
  ///////////////////////////////////////////////////////
  public Creature(){
 
-    if(Main.on && World.entityList != null){
-        World.entityList.add(this);
+    if(Main.on && World.allCreatures != null){
+        World.allCreatures.add(this);
     }
 
-    // if there's a world cursor, set this entity's space to the world cursor's space
+    // if there's a world cursor, set this creature's space to the world cursor's space
     if(World.cursor != null){
         space = World.cursor.space;
     }
 
     // smiley face avatar
+    isdatboi = false;
+
     avatar = Screen.spritesheet.getSprite(2, 0);
 
     hp = World.d10.roll(1) + 10; // range 11 to 20
@@ -190,7 +193,7 @@ public void behavior(){
                             if(space.up.tile.ground){
                                 // if it has no creatures on it
                                 if(space.up.creatures.size() <= 0){
-                                    World.placeEntity(space.up.tagX, space.up.tagY, this);
+                                    World.placeCreature(space.up.tagX, space.up.tagY, this);
                                     World.clearcreatures(space.tagX, space.tagY);
                                     space = space.up;
                                 }       
@@ -209,7 +212,7 @@ public void behavior(){
                         if(space.left.tile != null){
                             if(space.left.tile.ground){
                                 if(space.left.creatures.size() <= 0){
-                                    World.placeEntity(space.left.tagX, space.left.tagY, this);
+                                    World.placeCreature(space.left.tagX, space.left.tagY, this);
                                     World.clearcreatures(space.tagX, space.tagY);
                                     space = space.left;
                                 }      
@@ -228,7 +231,7 @@ public void behavior(){
                         if(space.right.tile != null){
                             if(space.right.tile.ground){
                                 if(space.right.creatures.size() <= 0){
-                                    World.placeEntity(space.right.tagX, space.right.tagY, this);
+                                    World.placeCreature(space.right.tagX, space.right.tagY, this);
                                     World.clearcreatures(space.tagX, space.tagY);
                                     space = space.right;
                                 }      
@@ -248,7 +251,7 @@ public void behavior(){
                         if(space.down.tile != null){
                             if(space.down.tile.ground){
                                 if(space.down.creatures.size() <= 0){
-                                    World.placeEntity(space.down.tagX, space.down.tagY, this);
+                                    World.placeCreature(space.down.tagX, space.down.tagY, this);
                                     World.clearcreatures(space.tagX, space.tagY);
                                     space = space.down;
                                 }       
@@ -271,11 +274,11 @@ public void behavior(){
  
  public void attack(){
             
-    // [UP] if the space above them exists and has an entity on it
+    // [UP] if the space above them exists and has an creature on it
     if(space.up != null && space.up.creatures.size() > 0 && space.up.creatures.get(0) != null){
-            // if entity is not on the same team
-            // OR hunger is at or above 5 and entity is below on foodchain
-            // OR hunger is 10 and entity is at or below on foodchain
+            // if creature is not on the same team
+            // OR hunger is at or above 5 and creature is below on foodchain
+            // OR hunger is 10 and creature is at or below on foodchain
             if(space.up.creatures.get(0).team != team || hunger >= 5 && space.up.creatures.get(0).foodchain < foodchain || hunger == 10 && space.up.creatures.get(0).foodchain <= foodchain){
                 attacking = true;
                 roll( space.up.creatures.get(0));
@@ -349,11 +352,12 @@ public void roll(Creature target){
 public boolean lifecheck(){
     // make sure they're still alive
     if(hp < 0){
-        World.entityList.remove(this);
+        
+        World.allCreatures.remove(this);
 
         World.placeitem( space.tagX, space.tagY, World.returnCorpse(this) );
         
-        space.items.get(0).icon = this.avatar;
+        //space.items.get(0).icon = this.avatar;
 
         World.clearcreatures(space.tagX, space.tagY);
 
@@ -374,7 +378,7 @@ public void setNumber(){
             
             // if the space is not null
             if(World.space != null && World.space[i][j].creatures.size() > 0){
-                // if there is an entity on it, and it's a "Participant"
+                // if there is an creature on it, and it's a "Participant"
                     Creature target = World.space[i][j].creatures.get(0);
                     if(target != null && number == target.number){
                         duplicate = true;

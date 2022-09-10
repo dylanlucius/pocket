@@ -36,7 +36,7 @@ public class Screen {
     public static final Color[] people = {PINK, YELLOW, TAN, BROWN, RED, BLUE, DARK_PURPLE};
 
 
-    public static transient Image tileset, menu, bg, cbg, clear, screen;
+    public static transient Image tileset, menu, bg, clear, screen, skull, human;
     public static SpriteSheet spritesheet;
     public SpriteSheetFont font;
     public Graphics graphics;
@@ -46,11 +46,20 @@ public class Screen {
         try{
 
             tileset = new Image("res/tileset.png", Color.magenta);
+            tileset.setFilter(Image.FILTER_NEAREST);
+
             menu = new Image("res/taskbar.png");
             bg = new Image("res/bg.png");
             clear = new Image("res/clear.png");
             screen = new Image("res/screen.png");
-            tileset.setFilter(Image.FILTER_NEAREST);
+            
+            skull = new Image("res/skull.png", Color.magenta);
+            skull.setFilter(Image.FILTER_NEAREST);
+
+            human = new Image("res/human.png", Color.magenta);
+            human.setFilter(Image.FILTER_NEAREST);
+
+
             
             spritesheet = new SpriteSheet(tileset, 8, 8);
             font = new SpriteSheetFont(spritesheet, '\0');

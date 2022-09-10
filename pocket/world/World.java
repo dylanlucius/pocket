@@ -2,6 +2,8 @@ package pocket.world;
 
 import java.util.ArrayList;
 
+import org.lwjgl.input.Mouse;
+
 import pocket.creature.*;
 import pocket.item.*;
 import pocket.system.*;
@@ -20,11 +22,9 @@ public class World {
     public static Dice d1000 = new Dice(1000);
 
     int width, height;
-    // depth, volume
+
     public static Space[][] space;
-
     public static Cursor cursor;
-
     public static Space worldCenter, selectionStart, selectionEnd;
 
     public static Grass grass = new Grass();
@@ -34,10 +34,12 @@ public class World {
     public static Lava lava = new Lava();
     public static pocket.tile.Medkit medkit = new pocket.tile.Medkit();
 
-
     public static byte currentTileIndex = 0;
     public static Tile currentTile;
     public static Tile[] tile = {grass, stoneGround, stoneWall, water, lava, medkit};
+
+    public static Player player = new Player();
+    public static boolean isPlayer;
 
     public static Red red = new Red();
     public static Blue blue = new Blue();
@@ -54,15 +56,20 @@ public class World {
     public static Bug bug = new Bug();
     public static LavaShark lavashark = new LavaShark();
 
-    public static byte currentEntityIndex = 0;
+    public static byte currentCreatureIndex = 0;
     
-    public static Creature[] entity = {humanAdult, man, woman, bug, rodent, dog, cat, lion, tiger, fish, shark,
+    public static Creature[] creature = {player, humanAdult, man, woman, bug, rodent, dog, cat, lion, tiger, fish, shark,
                                      lavashark, red, blue};
 
 
-    public static Creature currentEntity = entity[currentEntityIndex];
-    public static ArrayList<Creature> entityList;
+    public static Creature currentCreature = creature[currentCreatureIndex];
+    public static ArrayList<Creature> allCreatures;
+    public static Creature datboi;
+    public static int datboiIndex;
+    public static boolean datboiChosen;
 
+    //public static Creature playerOne;
+    public static Space playerSpace;
 
     public static Sword sword = new Sword();
     public static Shield shield = new Shield();
@@ -73,9 +80,8 @@ public class World {
     public static Item[] item = {corpse, sword, shield};
     public static Item currentitem = item[currentitemIndex];
 
-    
-
     public World(){
+
         space = new Space[80][48];
         
         // create world, World.space[][]
@@ -98,7 +104,8 @@ public class World {
         // set default current tile
         currentTile = tile[currentTileIndex];
 
-        entityList = new ArrayList<Creature>();
+        allCreatures = new ArrayList<Creature>();
+        datboiIndex = 0;
 
     }
 
@@ -111,63 +118,86 @@ public class World {
         }
     }
 
-    // return current entity based on currentEntityIndex
-    public static Creature returnCurrentEntity(){
-        switch(currentEntityIndex){
+    // return current creature based on currentCreatureIndex
+    public static Creature returnCurrentCreature(){
+        switch(currentCreatureIndex){
             default:
+                return new Player();
+            
+            case 1:
+
                 return new HumanAdult();
 
-            case 1:
+            case 2:
                 return new Man();
 
-            case 2:
+            case 3:
                 return new Woman();
 
-            case 3:
+            case 4:
                 return new Bug();
 
-            case 4:
+            case 5:
                 return new Rodent();
 
-            case 5:
+            case 6:
                 return new Dog();
 
-            case 6:
+            case 7:
                 return new Cat();
 
-            case 7:
+            case 8:
                 return new Lion();
 
-            case 8:
+            case 9:
                 return new Tiger();
 
-            case 9:
+            case 10:
                 return new Fish();
 
-            case 10:
+            case 11:
                 return new Shark();
 
-            case 11:
+            case 12:
                 return new LavaShark();
 
-            case 12:
+            case 13:
                 return new Red();
 
-            case 13:
+            case 14:
                 return new Blue();
 
         }
     }
 
-    // place stated entity at stated position, when called
-    public static void placeEntity(int x, int y, Creature entity){
-        World.space[x][y].creatures.add(0, entity);
+    // place stated creature at stated position, when called
+    public static void placeCreature(int x, int y, Creature creature){
+        
+        if(creature.name == "Player"){
+            if(!isPlayer){
+                space[x][y].creatures.add(0, creature);
+                playerSpace = creature.space;
+                isPlayer = true;    
+            }
+            else {
+                World.space[x][y].creatures.add(0, creature);
+                World.clearcreatures(playerSpace.tagX, playerSpace.tagY);
+                playerSpace = creature.space;
+            }
+        }
+        else {
+            space[x][y].creatures.add(0, creature); 
+        }
+
+        
     }
 
     // clear all creatures on given space
     public static void clearcreatures(int x, int y){
         while(World.space[x][y].creatures.size() > 0){
             World.space[x][y].creatures.remove(0);
+            if(World.space[x][y].creatures.size() > 0 && World.space[x][y].creatures.get(0).name == "Player")
+            World.isPlayer = false;
         }
     }
 
@@ -290,23 +320,23 @@ public class World {
         currentTile = tile[currentTileIndex];
     }
 
-    public static void updateCurrentEntity(){
-        currentEntity = entity[currentEntityIndex];
+    public static void updateCurrentCreature(){
+        currentCreature = creature[currentCreatureIndex];
     }
 
     public static void drawPopulation(){
         // FULL SCREEN RULER                "00000000011111111112222222222333333333344444444445555555555666666666677777777778"
         // FULL SCREEN RULER                "12345678901234567890123456789012345678901234567890123456789012345678901234567890"
 
-        Main.screen.font.drawString(0, 0,  "                                                        Population: " + entityList.size(), Screen.WHITE);
+        Main.screen.font.drawString(0, 0,  "                                                        Population: " + allCreatures.size(), Screen.WHITE);
     }
 
-    // place stated entity at stated position, when called
+    // place stated creature at stated position, when called
     public static void placeitem(int x, int y, Item item){
         World.space[x][y].items.add(item);
     }
 
-    // place stated entity at stated position, when called
+    // place stated creature at stated position, when called
     public static void removeitem(int x, int y){
         World.space[x][y].items.remove(0);
     }
@@ -341,7 +371,25 @@ public class World {
     }
 
     // return corpse
-    public static Corpse returnCorpse(Creature entity){
+    public static Corpse returnCorpse(Creature creature){
         return new Corpse();
     }
+
+    public static void drawdatboi(){
+        Space space = World.space[(int) ( Mouse.getX() / 1.5) / 8][(int) ( (-Mouse.getY() + Program.SCALE_Y) / 1.5) / 8];
+
+        if(datboiChosen){
+            Main.screen.font.drawString(0, 16, " Name: " + datboi.nickname + " Type: " + datboi.name + " HP: " + datboi.hp + " Hunger: " + datboi.hunger, Screen.WHITE);    
+        }
+        else {
+            if(space.creatures.size() > 0){
+                datboi = space.creatures.get(0);
+                Main.screen.font.drawString(0, 16, " Name: " + datboi.nickname + " Type: " + datboi.name + " HP: " + datboi.hp + " Hunger: " + datboi.hunger, Screen.WHITE);    
+            }
+        }
+
+
+        
+    }
+
 }

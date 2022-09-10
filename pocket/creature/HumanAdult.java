@@ -18,6 +18,9 @@ public class HumanAdult extends Human {
         avatar              = Screen.spritesheet.getSprite(2, 0);
         color               = Screen.people[random.nextInt(7)];
 
+        // avatar = Screen.human;
+        // color = Screen.WHITE;
+
         age                 = 18;
         height              = 67;   // inches
         weight              = 125;  // lb;

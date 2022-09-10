@@ -1,59 +1,46 @@
 package pocket.system;
 
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
+
+
 import org.newdawn.slick.*;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.state.*;
-
 import pocket.creature.*;
 import pocket.item.*;
 import pocket.world.*;
 
-
 public class Main extends BasicGameState {
-    
-    public static final int ID = 0;
-    //////////////////////////////////////
-    //           [PROGRAM SETUP]
-    //////////////////////////////////////
+ 
+    public static final int ID  = 0;
+    public static final boolean PLAY_INTRO    = true;
 
-    // public Main(){
-    //     super("Pocket World");
-    // }
-        
-        final boolean PLAY_INTRO = true;
+    public static boolean
+    colortest, on, paused, startupPlayed, animationOver, characterTest,
+    spectateMode, builderMode, itemMode, selection, creatureMode, logMode, restart;
 
-        
-        public static Screen screen;
-        static Input input; 
-        public static World world;
+    static int
+    titleColors, menuPlacement;
 
-
-    //////////////////////////////////////
-    //              [INIT]
-    //////////////////////////////////////
-
-        public static boolean colortest;
-        public static boolean on;
-        public static boolean startupPlayed, animationOver, characterTest, spectateMode, builderMode,
-                              itemMode, selection, creatureMode, logMode;
-        int titleColors, y, key, menuPlacement;
-        Sound startup;
-        Cursor cursor;
-        public static boolean paused;
-        public static Log log;
-
-        Creature currentEntity; 
+    public static Screen screen;
+    public static Log log;
+    static Input input; 
+    static World world;
+    Counter animationCounter = new Counter(21);
+    Sound startup;
+    Cursor cursor;
+    Creature currentCreature;
 
     @Override
     public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 
-        restart = false;
+        
+
+        // restart = false;
         screen = new Screen();
         input = new Input(640);
-        y = 0;
         colortest = false;
-        key = 0;
         animationOver = false;
         paused = false;
         log = new Log();
@@ -82,12 +69,6 @@ public class Main extends BasicGameState {
 
     }
 
-
-    //////////////////////////////////////
-    //              [UPDATE]
-    //////////////////////////////////////
-    Counter animationCounter = new Counter(21);
-
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException{
        
@@ -106,7 +87,7 @@ public class Main extends BasicGameState {
             }
         }  
 
-        //  TITLE COLORS
+        //  CYCLE COMPANY SPLASH COLORS
         if(titleColors < 5){
             titleColors++;
         }
@@ -133,20 +114,26 @@ public class Main extends BasicGameState {
         }
 
         //  PLACEMENT OF SPECTATE MENU
-            // if the cursor is on the right of the screen
-            if(World.cursor.space.tagX >= 39){
-                menuPlacement = 8;
-            }
-            // if it's on the left
-            else {
-                menuPlacement = 8 * 39;
-            }
-    }
-    
-    //////////////////////////////////////
-    //             [RENDER]
-    //////////////////////////////////////
+        // if the cursor is on the right of the screen
+        if(World.cursor.space.tagX >= 39){
+            menuPlacement = 8;
+        }
+        // if it's on the left
+        else {
+            menuPlacement = 8 * 39;
+        }
 
+        if(builderMode || creatureMode || itemMode || spectateMode){
+            int mouseX = (int) ( Mouse.getX() / 1.5) / 8,
+                mouseY = (int) ( (-Mouse.getY() + Program.SCALE_Y) / 1.5) / 8;
+
+            World.removeCursor(World.cursor.space);
+            World.updateCursor(World.space[mouseX][mouseY]);
+
+            //System.out.println("\nx: " + mouseX + ", y: " + mouseY);
+        }
+    }
+ 
     @Override
     public void render(GameContainer gc, StateBasedGame sbg, Graphics graphics) throws SlickException{
 
@@ -197,7 +184,6 @@ public class Main extends BasicGameState {
                 screen.font.drawString(0, 0,            "                                     Paused", Screen.YELLOW);
             }
 
-             // FULL SCREEN RULER          "12345678901234561234567890123456123456789012345612345678901234567890123456789012"
             
             // DRAW BUILDER MODE
             if(builderMode){
@@ -211,43 +197,49 @@ public class Main extends BasicGameState {
             if(creatureMode){
                 screen.font.drawString(0, 0,            "            Creature Mode", Screen.RED);
                 
-                screen.font.drawString(0, 0,            "                                                        " + World.currentEntity.name, Screen.WHITE);
+                screen.font.drawString(0, 0,            "                                                        " + World.currentCreature.name, Screen.WHITE);
 
             }
 
             // DRAW SPECTATE MODE
             if(spectateMode){
+
                 screen.font.drawString(0, 0,            "            Spectate Mode", Screen.YELLOW);
                 
-                // if cursor space has entity OR item
+                // Creature target = World.cursor.space.creatures.get(0);
+                // FULL SCREEN RULER                    "12345678901234561234567890123456123456789012345612345678901234567890123456789012"
+                
+                World.drawPopulation();
+                World.drawdatboi();
+
+                // if cursor space has creature OR item
                 if(World.cursor.space.creatures.size() > 0){
-                    Creature target = World.cursor.space.creatures.get(0);
 
-                    if(target != null){
-                            // ENTITY INFO
-                        // draw entity nickname
-                        screen.font.drawString(menuPlacement, 16,    "Name: " + target.nickname, Screen.WHITE);
+                    // if(target != null){
+                    //         // ENTITY INFO
+                    //     // draw creature nickname
+                    //     screen.font.drawString(menuPlacement, 16,    "Name: " + target.nickname, Screen.WHITE);
 
-                        // draw entity name
-                        screen.font.drawString(menuPlacement, 24,    "Type: " + target.name, Screen.WHITE);
+                    //     // draw creature name
+                    //     screen.font.drawString(menuPlacement, 24,    "Type: " + target.name, Screen.WHITE);
 
-                        // draw number
-                        //screen.font.drawString(menuPlacement, 24,    "#: " + target.number, Screen.WHITE);
+                    //     // draw number
+                    //     //screen.font.drawString(menuPlacement, 24,    "#: " + target.number, Screen.WHITE);
 
-                        // draw HP
-                        screen.font.drawString(menuPlacement, 32,   "HP: " + target.hp, Screen.WHITE);
+                    //     // draw HP
+                    //     screen.font.drawString(menuPlacement, 32,   "HP: " + target.hp, Screen.WHITE);
 
-                        // draw hunger
-                        screen.font.drawString(menuPlacement, 40,   "Hunger: " + target.hunger, Screen.WHITE);
+                    //     // draw hunger
+                    //     screen.font.drawString(menuPlacement, 40,   "Hunger: " + target.hunger, Screen.WHITE);
 
-                        // draw foodchain
-                        //screen.font.drawString(menuPlacement, 48,   "Foodchain #: " + target.foodchain, Screen.WHITE);
+                    //     // draw foodchain
+                    //     //screen.font.drawString(menuPlacement, 48,   "Foodchain #: " + target.foodchain, Screen.WHITE);
 
-                        // draw items
-                        if(target.items.size() > 0)
-                        screen.font.drawString(menuPlacement, 48,   "Item: " + target.items.get(0).name, Screen.WHITE);
+                    //     // draw items
+                    //     if(target.items.size() > 0)
+                    //     screen.font.drawString(menuPlacement, 48,   "Item: " + target.items.get(0).name, Screen.WHITE);
 
-                    }
+                    // }
                     
                 }
                 // IF THERE ARE NO creatures BUT THERE ARE ITEMS
@@ -259,7 +251,6 @@ public class Main extends BasicGameState {
                     screen.font.drawString(menuPlacement, 16,    "Item: " + target.name, Screen.WHITE);
                 }
 
-                World.drawPopulation();
 
             }              
         
@@ -283,36 +274,29 @@ public class Main extends BasicGameState {
         return ID;
     }
 
-    ////////////////////////////////////
-    //          [INPUT]
-    //////////////////////////////////////
-
-    
-    boolean restart;
-
     public void keyPressed(int key, char c){
 
-        if(on && key == Keyboard.KEY_F3){
+        if(Main.on &&  key == Keyboard.KEY_F3){
             Program.stateManager.enterState(2);
         }
         
-         // RESTART   [F5]
+        // RESTART   [F5]
         if(key == Keyboard.KEY_F5){
             restart = true;
         }
         
         // TITLE SCREEN [ENTER]
-        if(animationOver && !on && key == Keyboard.KEY_RETURN){
-            on = true;
+        if(Main.animationOver && !Main.on &&key == Keyboard.KEY_RETURN){
+            Main.on = true;
         }
 
         // PAUSE [SPACE]
-        if(on && !logMode && key == Keyboard.KEY_SPACE){
-            paused = !paused;
+        if(Main.on && !Main.logMode &&key == Keyboard.KEY_SPACE){
+            Main.paused = !Main.paused;
         }
 
         // STEP THROUGH
-        if(paused && key == Keyboard.KEY_PERIOD){
+        if(Main.paused &&key == Keyboard.KEY_PERIOD){
             for(int j = 0; j < World.space.length; j++){
                 for(int k = 0; k < World.space[0].length; k++){
                     World.space[j][k].behavior();
@@ -321,64 +305,64 @@ public class Main extends BasicGameState {
         }
 
         // COLOR TEST    [1]
-        if(on && key == Keyboard.KEY_1){
-            colortest = !colortest;
+        if(Main.on &&key == Keyboard.KEY_1){
+            Main.colortest = !Main.colortest;
         }
 
         // CHARACTER TEST   [2]
-        if(on && key == Keyboard.KEY_2){
-            characterTest = !characterTest;
+        if(Main.on &&key == Keyboard.KEY_2){
+            Main.characterTest = !Main.characterTest;
         }
 
         //[SAVE]  [F1]
 
-        if(on && key == Keyboard.KEY_F1){
+        if(Main.on &&key == Keyboard.KEY_F1){
             MemoryCard.setGhostDeck();
             MemoryCard.save();
         }
 
         // LOAD  [F2]
-        if(on && key == Keyboard.KEY_F2){
+        if(Main.on &&key == Keyboard.KEY_F2){
             MemoryCard.load();
         }
         
-        // LOG  MODE [TAB]
-        if(on && key == Keyboard.KEY_TAB){
+        // Main.log  MODE [TAB]
+        if(Main.on &&key == Keyboard.KEY_TAB){
 
-            if(builderMode && World.cursor.space.cursorOn || creatureMode && World.cursor.space.cursorOn || itemMode && World.cursor.space.cursorOn || spectateMode && World.cursor.space.cursorOn){
-                World.cursor.space.cursorOn = on;
+            if(Main.builderMode && World.cursor.space.cursorOn || Main.creatureMode && World.cursor.space.cursorOn || Main.itemMode && World.cursor.space.cursorOn || Main.spectateMode && World.cursor.space.cursorOn){
+                World.cursor.space.cursorOn = Main.on;
             }
             else {
                 World.cursor.space.cursorOn = !World.cursor.space.cursorOn;
             }
 
-            builderMode = false;
-            creatureMode = false;
-            itemMode = false;
-            spectateMode = false;
+            Main.builderMode = false;
+            Main.creatureMode = false;
+            Main.itemMode = false;
+            Main.spectateMode = false;
 
-            System.out.println("\nlog mode " + spectateMode);
+            System.out.println("\nlog mode " + Main.spectateMode);
 
-            logMode = !logMode;
+            Main.logMode = !Main.logMode;
 
-            paused = true;
+            Main.paused = true;
 
-            log.currentLogIndex = 0;
+            Main.log.currentLogIndex = 0;
 
         }
 
-        // CYCLE LOG
+        // CYCLE Main.log
 
-        // [ + ] Log
-        if(on && key == Keyboard.KEY_ADD && logMode){
-            if(log.currentLogIndex < log.history.size() - 44){
-                log.currentLogIndex++;
+        // [ + ] Main.log
+        if(Main.on &&key == Keyboard.KEY_ADD && Main.logMode){
+            if(Main.log.currentLogIndex < Main.log.history.size() - 44){
+                Main.log.currentLogIndex++;
             }
         }
-        // [ - ] Log
-        if(on && key == Keyboard.KEY_SUBTRACT && logMode){
-            if(log.currentLogIndex > 0){
-                log.currentLogIndex--;
+        // [ - ] Main.log
+        if(Main.on &&key == Keyboard.KEY_SUBTRACT && Main.logMode){
+            if(Main.log.currentLogIndex > 0){
+                Main.log.currentLogIndex--;
             }
         }
 
@@ -388,47 +372,49 @@ public class Main extends BasicGameState {
         ///////////////////////////////////////
 
         // [K] SPECTATE MODE   
-        if(on && key == Keyboard.KEY_K){
+        if(Main.on &&key == Keyboard.KEY_K){
 
-            if(builderMode && World.cursor.space.cursorOn || creatureMode && World.cursor.space.cursorOn || itemMode && World.cursor.space.cursorOn || logMode && World.cursor.space.cursorOn){
-                World.cursor.space.cursorOn = on;
+            if(Main.builderMode && World.cursor.space.cursorOn || Main.creatureMode && World.cursor.space.cursorOn || Main.itemMode && World.cursor.space.cursorOn || Main.logMode && World.cursor.space.cursorOn){
+                World.cursor.space.cursorOn = Main.on;
             }
             else {
                 World.cursor.space.cursorOn = !World.cursor.space.cursorOn;
             }
             
-            builderMode = false;
-            creatureMode = false;
-            itemMode = false;
-            logMode = false;
+            Main.builderMode = false;
+            Main.creatureMode = false;
+            Main.itemMode = false;
+            Main.logMode = false;
 
 
                 if(World.cursor.space.cursorOn){
-                    World.removeCursor(World.cursor.space);
-                    World.updateCursor(World.space[39][23]);
+                    if(World.datboi == null){
+                        World.removeCursor(World.cursor.space);
+                        World.updateCursor(World.space[39][23]);
+                    }
                 }
 
-                selection = false;
+                Main.selection = false;
 
-                spectateMode = !spectateMode;
+                Main.spectateMode = !Main.spectateMode;
 
-                System.out.println("\nspectate mode " + spectateMode);
+                System.out.println("\nspectate mode " + Main.spectateMode);
         }
 
         // BUILDER MODE  [B]
-        if(on && key == Keyboard.KEY_B){
+        if(Main.on &&key == Keyboard.KEY_B){
 
-            if(creatureMode && World.cursor.space.cursorOn || spectateMode && World.cursor.space.cursorOn || itemMode && World.cursor.space.cursorOn || logMode && World.cursor.space.cursorOn){
-                World.cursor.space.cursorOn = on;
+            if(Main.creatureMode && World.cursor.space.cursorOn || Main.spectateMode && World.cursor.space.cursorOn || Main.itemMode && World.cursor.space.cursorOn || Main.logMode && World.cursor.space.cursorOn){
+                World.cursor.space.cursorOn = Main.on;
             }
             else {
                 World.cursor.space.cursorOn = !World.cursor.space.cursorOn;
             }
 
-            spectateMode = false;
-            creatureMode = false;
-            itemMode = false;
-            logMode = false;
+            Main.spectateMode = false;
+            Main.creatureMode = false;
+            Main.itemMode = false;
+            Main.logMode = false;
 
 
                 if(World.cursor.space.cursorOn){
@@ -436,17 +422,17 @@ public class Main extends BasicGameState {
                     World.updateCursor(World.space[39][23]);
                 }
 
-                selection = false;
+                Main.selection = false;
                 
-                builderMode = !builderMode;
+                Main.builderMode = !Main.builderMode;
 
-                System.out.println("\nbuilder mode " + builderMode);
+                System.out.println("\nbuilder mode " + Main.builderMode);
         }
 
-        // CYCLE TILES FORWARD in BUILDER MODE
+        // CYCLE TILES in BUILDER MODE
 
         // [ + ] Builder
-        if(on && key == Keyboard.KEY_ADD && builderMode){
+        if(Main.on &&key == Keyboard.KEY_ADD && Main.builderMode){
             if(World.currentTileIndex < World.tile.length - 1){
                 World.currentTileIndex++;
                 World.updateCurrentTile();
@@ -457,7 +443,7 @@ public class Main extends BasicGameState {
             }
         }
         // [ - ] Builder
-        if(on && key == Keyboard.KEY_SUBTRACT && builderMode){
+        if(Main.on &&key == Keyboard.KEY_SUBTRACT && Main.builderMode){
             if(World.currentTileIndex > 0){
                 World.currentTileIndex--;
                 World.updateCurrentTile();
@@ -469,94 +455,94 @@ public class Main extends BasicGameState {
         }
 
         // CREATURE MODE  [C]
-        if(on && key == Keyboard.KEY_C){
+        if(Main.on &&key == Keyboard.KEY_C){
 
 
-            if(builderMode && World.cursor.space.cursorOn || spectateMode && World.cursor.space.cursorOn || itemMode && World.cursor.space.cursorOn || logMode && World.cursor.space.cursorOn){
-                World.cursor.space.cursorOn = on;
+            if(Main.builderMode && World.cursor.space.cursorOn || Main.spectateMode && World.cursor.space.cursorOn || Main.itemMode && World.cursor.space.cursorOn || Main.logMode && World.cursor.space.cursorOn){
+                World.cursor.space.cursorOn = Main.on;
             }
             else {
                 World.cursor.space.cursorOn = !World.cursor.space.cursorOn;
             }
 
-            spectateMode = false;
-            builderMode = false;
-            itemMode = false;
-            logMode = false;
+            Main.spectateMode = false;
+            Main.builderMode = false;
+            Main.itemMode = false;
+            Main.logMode = false;
 
 
                 if(World.cursor.space.cursorOn){
                     World.removeCursor(World.cursor.space);
                     World.updateCursor(World.space[39][23]);
                 }
-                selection = false;
-    
-                
-                creatureMode = !creatureMode;
+                Main.selection = false;
 
-                System.out.println("\ncreature mode " + creatureMode);
+                
+                Main.creatureMode = !Main.creatureMode;
+
+                System.out.println("\ncreature mode " + Main.creatureMode);
 
         }
 
         // CYCLE CREATURES in CREATURE MODE
 
         // [ + ] Creature
-        if(on && key == Keyboard.KEY_ADD && creatureMode){
-            if(World.currentEntityIndex < World.entity.length - 1){
-                World.currentEntityIndex++;
-                World.updateCurrentEntity();
+        if(Main.on && key == Keyboard.KEY_ADD && Main.creatureMode){
+            if(World.currentCreatureIndex < World.creature.length - 1){
+                World.currentCreatureIndex++;
+                World.updateCurrentCreature();
             }
             else {
-                World.currentEntityIndex = 0;
-                World.updateCurrentEntity();
+                World.currentCreatureIndex = 0;
+                World.updateCurrentCreature();
             }
         }
         // [ - ] Creature
-        if(on && key == Keyboard.KEY_SUBTRACT && creatureMode){
-            if(World.currentEntityIndex > 0){
-                World.currentEntityIndex--;
-                World.updateCurrentEntity();
+        if(Main.on && key == Keyboard.KEY_SUBTRACT && Main.creatureMode){
+            if(World.currentCreatureIndex > 0){
+                World.currentCreatureIndex--;
+                World.updateCurrentCreature();
             }
             else {
-                World.currentEntityIndex = (byte) (World.entity.length - 1);
-                World.updateCurrentEntity();
+                World.currentCreatureIndex = (byte) (World.creature.length - 1);
+                World.updateCurrentCreature();
             }
         }
 
         // item MODE  [P]
-        if(on && key == Keyboard.KEY_P){
+        if(Main.on && key == Keyboard.KEY_P){
 
-            if(creatureMode && World.cursor.space.cursorOn || spectateMode && World.cursor.space.cursorOn || builderMode && World.cursor.space.cursorOn || logMode && World.cursor.space.cursorOn){
-                World.cursor.space.cursorOn = on;
+            if(Main.creatureMode && World.cursor.space.cursorOn || Main.spectateMode && World.cursor.space.cursorOn || Main.builderMode && World.cursor.space.cursorOn || Main.logMode && World.cursor.space.cursorOn){
+                World.cursor.space.cursorOn = Main.on;
             }
             else {
                 World.cursor.space.cursorOn = !World.cursor.space.cursorOn;
             }
 
-            spectateMode = false;
-            creatureMode = false;
-            builderMode = false;
-            logMode = false;
+            Main.spectateMode = false;
+            Main.creatureMode = false;
+            Main.builderMode = false;
+            Main.logMode = false;
 
 
-            //if(!spectateMode && !creatureMode){
+            //if(!Main.spectateMode && !Main.creatureMode){
                 if(World.cursor.space.cursorOn){
                     World.removeCursor(World.cursor.space);
                     World.updateCursor(World.space[39][23]);
                 }
 
-                selection = false;
+                Main.selection = false;
                 
-                itemMode = !itemMode;
+                Main.itemMode = !Main.itemMode;
 
-                System.out.println("\nitem mode " + itemMode);
+                System.out.println("\nitem mode " + Main.itemMode);
             //}  
         }
 
-        // CYCLE TILES FORWARD in BUILDER MODE
+        // CYCLE TILES in ITEM MODE
 
         // [ + ] Builder
-        if(on && key == Keyboard.KEY_ADD && itemMode){
+        if(Main.on && key == Keyboard.KEY_ADD && Main.itemMode){
             if(World.currentitemIndex < World.item.length - 1){
                 World.currentitemIndex++;
                 World.updateCurrentitem();
@@ -567,7 +553,7 @@ public class Main extends BasicGameState {
             }
         }
         // [ - ] Builder
-        if(on && key == Keyboard.KEY_SUBTRACT && itemMode){
+        if(Main.on && key == Keyboard.KEY_SUBTRACT && Main.itemMode){
             if(World.currentitemIndex > 0){
                 World.currentitemIndex--;
                 World.updateCurrentitem();
@@ -578,16 +564,37 @@ public class Main extends BasicGameState {
             }
         }
 
+        // CYCLE Dat Boi in Spectate mode
+
+        // [ + ] Spectate
+        if(Main.on && key == Keyboard.KEY_ADD && Main.spectateMode){
+            if(World.datboiIndex < World.allCreatures.size() - 1){
+                World.datboiIndex++;
+            }
+            else {
+                World.datboiIndex = 0;
+            }
+        }
+        // [ - ] Spectate
+        if(Main.on &&key == Keyboard.KEY_SUBTRACT && Main.spectateMode){
+            if(World.datboiIndex > 0){
+                World.datboiIndex--;
+            }
+            else {
+                World.datboiIndex = (byte) (World.allCreatures.size() - 1);
+            }
+        }
+
         //
         //  UNIVERSAL CURSOR MODE CONTROLS
         //
 
         // UP [MOVE CURSOR UP]
-        if(World.cursor.space.cursorOn && key == Keyboard.KEY_UP){
+        if(World.cursor.space.cursorOn &&key == Keyboard.KEY_UP){
             
             if(World.cursor.space.up != null){
                 //  IF SHIFT
-                if(key == Keyboard.KEY_UP && input.isKeyDown(Input.KEY_LSHIFT) || key == Keyboard.KEY_UP && input.isKeyDown(Input.KEY_RSHIFT)){
+                if(key == Keyboard.KEY_UP && Main.input.isKeyDown(org.newdawn.slick.Input.KEY_LSHIFT) ||key == Keyboard.KEY_UP && Main.input.isKeyDown(org.newdawn.slick.Input.KEY_RSHIFT)){
                     if(World.cursor.space.up8 != null){
                         World.removeCursor(World.cursor.space);
                         World.updateCursor(World.cursor.space.up8);
@@ -608,11 +615,11 @@ public class Main extends BasicGameState {
         }
 
         // LEFT [MOVE CURSOR LEFT]
-        if(World.cursor.space.cursorOn && key == Keyboard.KEY_LEFT){
+        if(World.cursor.space.cursorOn &&key == Keyboard.KEY_LEFT){
             
             if(World.cursor.space.left != null){
                 // IF SHIFT
-                if(key == Keyboard.KEY_LEFT && input.isKeyDown(Input.KEY_LSHIFT) || key == Keyboard.KEY_LEFT && input.isKeyDown(Input.KEY_RSHIFT)){
+                if(key == Keyboard.KEY_LEFT && Main.input.isKeyDown(org.newdawn.slick.Input.KEY_LSHIFT) ||key == Keyboard.KEY_LEFT && Main.input.isKeyDown(org.newdawn.slick.Input.KEY_RSHIFT)){
                     if(World.cursor.space.left8 != null){
                         World.removeCursor(World.cursor.space);
                         World.updateCursor(World.cursor.space.left8);
@@ -624,7 +631,7 @@ public class Main extends BasicGameState {
                 }
                 //  NO SHIFT
                 else{
-                      
+                    
                     World.removeCursor(World.cursor.space);
                     World.updateCursor(World.cursor.space.left);
                 }
@@ -632,12 +639,12 @@ public class Main extends BasicGameState {
         }
 
         // RIGHT [MOVE CURSOR RIGHT]
-        if(World.cursor.space.cursorOn && key == Keyboard.KEY_RIGHT){
+        if(World.cursor.space.cursorOn &&key == Keyboard.KEY_RIGHT){
             
             if(World.cursor.space.right != null){
 
                 //  IF SHIFT
-                if(key == Keyboard.KEY_RIGHT && input.isKeyDown(Input.KEY_LSHIFT) || key == Keyboard.KEY_RIGHT && input.isKeyDown(Input.KEY_RSHIFT)){
+                if(key == Keyboard.KEY_RIGHT && Main.input.isKeyDown(org.newdawn.slick.Input.KEY_LSHIFT) ||key == Keyboard.KEY_RIGHT && Main.input.isKeyDown(org.newdawn.slick.Input.KEY_RSHIFT)){
                     if(World.cursor.space.right8 != null){
                         World.removeCursor(World.cursor.space);
                         World.updateCursor(World.cursor.space.right8);
@@ -658,11 +665,11 @@ public class Main extends BasicGameState {
         }
 
         // DOWN [MOVE CURSOR DOWN]
-        if(World.cursor.space.cursorOn && key == Keyboard.KEY_DOWN){
+        if(World.cursor.space.cursorOn &&key == Keyboard.KEY_DOWN){
             
             if(World.cursor.space.down != null){
                 // IF SHIFT
-                if(key == Keyboard.KEY_DOWN && input.isKeyDown(Input.KEY_LSHIFT) || key == Keyboard.KEY_DOWN && input.isKeyDown(Input.KEY_RSHIFT)){
+                if(key == Keyboard.KEY_DOWN && Main.input.isKeyDown(org.newdawn.slick.Input.KEY_LSHIFT) ||key == Keyboard.KEY_DOWN && Main.input.isKeyDown(org.newdawn.slick.Input.KEY_RSHIFT)){
 
                     if(World.cursor.space.down8 != null){
                         World.removeCursor(World.cursor.space);
@@ -682,28 +689,28 @@ public class Main extends BasicGameState {
                 }
             }  
         }
-     
+    
         //////////////////////////////////////
         //  ENTER [CURSOR MODES]
         ///////////////////////////////
-        if(on && key == Keyboard.KEY_RETURN){
+        if(Main.on &&key == Keyboard.KEY_RETURN){
             
             // [ENTER] BUILDER MODE
             if(builderMode){
                 
-                // set world's "selection start" to cursor, set current world's "[current] selection" to true
-                if(!selection){
+                // set world's "Main.selection start" to cursor, set current world's "[current] Main.selection" to true
+                if(!Main.selection){
                     World.selectionStart = World.cursor.space;
-                    selection = true;
+                    Main.selection = true;
                 }
                 
-                // set world's "selection end" to cursor, set current world's "[current] selection" to false
+                // set world's "Main.selection end" to cursor, set current world's "[current] Main.selection" to false
                 else{
                     World.selectionEnd = World.cursor.space;
-                    selection = false;
+                    Main.selection = false;
                 }
 
-                // place tiles from world selection start to world selection end
+                // place tiles from world Main.selection start to world Main.selection end
                 if(World.cursor.space.tile == null && World.selectionEnd != null){
                     
                     // cursor ends to LEFT and ABOVE start select  --  from right to LEFT and bottom to TOP
@@ -787,7 +794,7 @@ public class Main extends BasicGameState {
                     World.selectionEnd = null;
                 }
                 
-                //  clear tiles from world selection start to end
+                //  clear tiles from world Main.selection start to end
                 else if(World.cursor.space.tile != null && World.selectionEnd != null){
 
                     // UP LEFT
@@ -875,11 +882,11 @@ public class Main extends BasicGameState {
             // [ENTER] CREATURE MODE
             if(creatureMode){
                 
-                World.placeEntity(World.cursor.space.tagX, World.cursor.space.tagY, World.returnCurrentEntity());
+                World.placeCreature(World.cursor.space.tagX, World.cursor.space.tagY, World.returnCurrentCreature());
                 
                 // if(World.cursor.space.creatures.size() <= 0){
                 
-                //     World.placeEntity(World.cursor.space.tagX, World.cursor.space.tagY, World.returnCurrentEntity());
+                //     World.placeCreature(World.cursor.space.tagX, World.cursor.space.tagY, World.returnCurrentCreature());
                 // } 
                 // else {
                 //     World.clearcreatures(World.cursor.space.tagX, World.cursor.space.tagY);
@@ -896,6 +903,252 @@ public class Main extends BasicGameState {
                     World.removeitem(World.cursor.space.tagX, World.cursor.space.tagY);
                 }
             }
+        
+            if(spectateMode){
+                if(World.space[(int) ( Mouse.getX() / 1.5) / 8][(int) ( (-Mouse.getY() + Program.SCALE_Y) / 1.5) / 8].creatures.size() > 0){
+                    World.datboi = World.space[(int) ( Mouse.getX() / 1.5) / 8][(int) ( (-Mouse.getY() + Program.SCALE_Y) / 1.5) / 8].creatures.get(0);
+                    World.datboi.isdatboi = true;
+                    World.datboiChosen = true;
+    
+                }
+            }
+        }
+
+        if(spectateMode && Main.on &&key == Keyboard.KEY_ESCAPE){
+            World.datboi.isdatboi = false;
+            World.datboiChosen = false;
+        }
+    
+    }
+
+    public void mousePressed(int button, int x, int y){
+        
+        // LEFT MOUSE
+
+        if(Mouse.isButtonDown(0)){
+            // System.out.println("left mouse clicked "  + (int) (Mouse.getX() / 1.5) + ", " + (int) ((-Mouse.getY() + Program.SCALE_Y) / 1.5) );
+            System.out.println("\nleft mouse clicked at space "  + ((int) (Mouse.getX() / 1.5)) / 8 + ", " + ((int) ((-Mouse.getY() + Program.SCALE_Y) / 1.5)) / 8 );
+        
+            // IN BUILD MODE
+            if(builderMode){
+                // set world's "Main.selection start" to cursor, set current world's "[current] Main.selection" to true
+                if(!Main.selection){
+                    World.selectionStart = World.cursor.space;
+                    Main.selection = true;
+                }
+                
+                // set world's "Main.selection end" to cursor, set current world's "[current] Main.selection" to false
+                else{
+                    World.selectionEnd = World.cursor.space;
+                    Main.selection = false;
+                }
+
+                if(World.cursor.space.tile == null && World.selectionEnd != null){
+                    
+                    // cursor ends to LEFT and ABOVE start select  --  from right to LEFT and bottom to TOP
+                    if(World.selectionStart.tagX > World.selectionEnd.tagX  && World.selectionStart.tagY > World.selectionEnd.tagY){
+                        for(int i = World.selectionEnd.tagX; i < World.selectionStart.tagX + 1; i++){
+                            for(int j = World.selectionEnd.tagY; j < World.selectionStart.tagY + 1; j++){
+                                World.placeTile(i, j, World.returnCurrentTile());
+                            }
+                        }
+                    }
+    
+                    // cursor ends to RIGHT and ABOVE start select  --  from left to RIGHT and bottom to TOP
+                    if(World.selectionStart.tagX < World.selectionEnd.tagX  && World.selectionStart.tagY > World.selectionEnd.tagY){
+                        for(int i = World.selectionStart.tagX; i < World.selectionEnd.tagX + 1; i++){
+                            for(int j = World.selectionEnd.tagY; j < World.selectionStart.tagY + 1; j++){
+                                World.placeTile(i, j, World.returnCurrentTile());
+                            }
+                        }
+                    }
+    
+                    // cursor ends to LEFT and BELOW of start select  --  print from RIGHT TO LEFT and TOP TO BOTTOM
+                    if(World.selectionStart.tagX > World.selectionEnd.tagX  && World.selectionStart.tagY < World.selectionEnd.tagY){
+                        for(int i = World.selectionEnd.tagX; i < World.selectionStart.tagX + 1; i++){
+                            for(int j = World.selectionStart.tagY; j < World.selectionEnd.tagY + 1; j++){
+                                World.placeTile(i, j, World.returnCurrentTile());
+                            }
+                        }
+                    }
+    
+                    // cursor ends to RIGHT and BELOW of start select  --  print LEFT TO RIGHT and TOP TO BOTTOM
+                    if(World.selectionStart.tagX < World.selectionEnd.tagX  && World.selectionStart.tagY < World.selectionEnd.tagY){
+                        for(int i = World.selectionStart.tagX; i < World.selectionEnd.tagX + 1; i++){
+                            for(int j = World.selectionStart.tagY; j < World.selectionEnd.tagY + 1; j++){
+                                World.placeTile(i, j, World.returnCurrentTile());
+                            }
+                        }
+                    }
+                    
+                    // edge cases -- above, below, left, right, and center
+                    if( !(World.selectionStart.tagX > World.selectionEnd.tagX  && World.selectionStart.tagY > World.selectionEnd.tagY) &&
+                        !(World.selectionStart.tagX < World.selectionEnd.tagX  && World.selectionStart.tagY < World.selectionEnd.tagY) ){
+    
+                            // center
+                            if(World.selectionEnd == World.selectionStart){
+                                World.placeTile(World.cursor.space.tagX, World.cursor.space.tagY, World.returnCurrentTile());
+                            }
+    
+                            // above
+                            if(World.selectionEnd.tagY < World.selectionStart.tagY){
+                                    for(int j = World.selectionEnd.tagY; j < World.selectionStart.tagY + 1; j++){
+                                        World.placeTile(World.selectionStart.tagX, j, World.returnCurrentTile());
+                                    }
+                            }
+    
+                            // left
+                            if(World.selectionEnd.tagX < World.selectionStart.tagX){
+                                for(int j = World.selectionEnd.tagX; j < World.selectionStart.tagX + 1; j++){
+                                    World.placeTile(j, World.selectionStart.tagY, World.returnCurrentTile());
+                                }
+                            }
+    
+    
+                            // right
+                            if(World.selectionEnd.tagX > World.selectionStart.tagX){
+                                for(int j = World.selectionStart.tagX; j < World.selectionEnd.tagX + 1; j++){
+                                    World.placeTile(j, World.selectionStart.tagY, World.returnCurrentTile());
+                                }
+                            }
+    
+    
+                            // below
+                            if(World.selectionEnd.tagY > World.selectionStart.tagY){
+                                for(int j = World.selectionStart.tagY; j < World.selectionEnd.tagY + 1; j++){
+                                    World.placeTile(World.selectionStart.tagX, j, World.returnCurrentTile());
+                                }
+                            }
+                        }
+    
+                    // reset the selectors
+                    World.selectionStart = null;
+                    World.selectionEnd = null;
+                }
+                
+                //  clear tiles from world Main.selection start to end
+                else if(World.cursor.space.tile != null && World.selectionEnd != null){
+    
+                    // UP LEFT
+                    if(World.selectionStart.tagX > World.selectionEnd.tagX  && World.selectionStart.tagY > World.selectionEnd.tagY){
+                        for(int i = World.selectionEnd.tagX; i < World.selectionStart.tagX + 1; i++){
+                            for(int j = World.selectionEnd.tagY; j < World.selectionStart.tagY + 1; j++){
+                                World.clearTile(i, j);
+                            }
+                        }
+                    }
+    
+                    // UP RIGHT
+                    if(World.selectionStart.tagX < World.selectionEnd.tagX  && World.selectionStart.tagY > World.selectionEnd.tagY){
+                        for(int i = World.selectionStart.tagX; i < World.selectionEnd.tagX + 1; i++){
+                            for(int j = World.selectionEnd.tagY; j < World.selectionStart.tagY + 1; j++){
+                                World.clearTile(i, j);
+                            }
+                        }
+                    }
+    
+                    //  DOWN LEFT
+                    if(World.selectionStart.tagX < World.selectionEnd.tagX  && World.selectionStart.tagY < World.selectionEnd.tagY){
+                        for(int i = World.selectionEnd.tagX; i < World.selectionStart.tagX + 1; i++){
+                            for(int j = World.selectionStart.tagY; j < World.selectionEnd.tagY + 1; j++){
+                                World.clearTile(i, j);
+                            }
+                        }
+                    }
+    
+                    //  DOWN RIGHT
+                    if(World.selectionStart.tagX < World.selectionEnd.tagX  && World.selectionStart.tagY < World.selectionEnd.tagY){
+                        for(int i = World.selectionStart.tagX; i < World.selectionEnd.tagX + 1; i++){
+                            for(int j = World.selectionStart.tagY; j < World.selectionEnd.tagY + 1; j++){
+                                World.clearTile(i, j);
+                            }
+                        }
+                    }
+    
+                    // edge cases
+                    if( !(World.selectionStart.tagX > World.selectionEnd.tagX  && World.selectionStart.tagY > World.selectionEnd.tagY) &&
+                        !(World.selectionStart.tagX < World.selectionEnd.tagX  && World.selectionStart.tagY < World.selectionEnd.tagY) ){
+    
+                            // center
+                            if(World.selectionEnd == World.selectionStart){
+                                World.clearTile(World.cursor.space.tagX, World.cursor.space.tagY);
+                            }
+    
+                            // above
+                            if(World.selectionEnd.tagY < World.selectionStart.tagY){
+                                    for(int j = World.selectionEnd.tagY; j < World.selectionStart.tagY + 1; j++){
+                                        World.clearTile(World.selectionStart.tagX, j);
+                                    }
+                            }
+    
+                            // left
+                            if(World.selectionEnd.tagX < World.selectionStart.tagX){
+                                for(int j = World.selectionEnd.tagX; j < World.selectionStart.tagX + 1; j++){
+                                    World.clearTile(j, World.selectionStart.tagY);
+                                }
+                            }
+    
+    
+                            // right
+                            if(World.selectionEnd.tagX > World.selectionStart.tagX){
+                                for(int j = World.selectionStart.tagX; j < World.selectionEnd.tagX + 1; j++){
+                                    World.clearTile(j, World.selectionStart.tagY);
+                                }
+                            }
+    
+    
+                            // below
+                            if(World.selectionEnd.tagY > World.selectionStart.tagY){
+                                for(int j = World.selectionStart.tagY; j < World.selectionEnd.tagY + 1; j++){
+                                    World.clearTile(World.selectionStart.tagX, j);
+                                }
+                            }
+                        }
+                    
+                    //  reset selectors
+                    World.selectionStart = null;
+                    World.selectionEnd = null;
+                }
+            }
+    
+            if(Main.creatureMode){
+                
+                World.placeCreature(World.cursor.space.tagX, World.cursor.space.tagY, World.returnCurrentCreature());
+                
+                // if(World.cursor.space.creatures.size() <= 0){
+                
+                //     World.placeCreature(World.cursor.space.tagX, World.cursor.space.tagY, World.returnCurrentCreature());
+                // } 
+                // else {
+                //     World.clearcreatures(World.cursor.space.tagX, World.cursor.space.tagY);
+                // }
+            }
+            
+            // item MODE
+            if(Main.itemMode){
+                if(World.cursor.space.items.size() <= 0){
+                
+                    World.placeitem(World.cursor.space.tagX, World.cursor.space.tagY, World.returnCurrentitem());
+                } 
+                else {
+                    World.removeitem(World.cursor.space.tagX, World.cursor.space.tagY);
+                }
+            }
+        
+            if(spectateMode){
+                if(World.space[(int) ( Mouse.getX() / 1.5) / 8][(int) ( (-Mouse.getY() + Program.SCALE_Y) / 1.5) / 8].creatures.size() > 0){
+                    World.datboi = World.space[(int) ( Mouse.getX() / 1.5) / 8][(int) ( (-Mouse.getY() + Program.SCALE_Y) / 1.5) / 8].creatures.get(0);
+                    World.datboi.isdatboi = true;
+                    World.datboiChosen = true;
+    
+                }
+            }
+        }
+
+        // RIGHT MOUSE
+        if(Mouse.isButtonDown(1)){
+            // System.out.println("right mouse clicked " + (int) (Mouse.getX() / 1.5) + ", " + (int) ((-Mouse.getY() + Program.SCALE_Y) / 1.5) );
+            System.out.println("\nright mouse clicked at space "  + ((int) (Mouse.getX() / 1.5)) / 8 + ", " + ((int) ((-Mouse.getY() + Program.SCALE_Y) / 1.5)) / 8 );
         }
     }
 }

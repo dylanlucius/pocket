@@ -3412,6 +3412,837 @@
                     "comment": 0
                 }
             ]
+        },
+        {
+            "version": "0.2.7",
+            "counttime": "2022-09-09 16:09:08",
+            "filesum": 62,
+            "codesum": 3070,
+            "commentsum": 421,
+            "blanksum": 1035,
+            "statistics": {
+                ".java": {
+                    "code": 3058,
+                    "comment": 421,
+                    "blank": 1025
+                },
+                "": {
+                    "code": 12,
+                    "comment": 0,
+                    "blank": 10
+                }
+            },
+            "filelist": [
+                {
+                    "filename": "natives\\jinput-dx8_64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "natives\\jinput-raw_64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "natives\\lwjgl64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "natives\\OpenAL64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 10,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": "out\\README"
+                },
+                {
+                    "filename": "out\\save.pocket",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 28,
+                    "code": 148,
+                    "comment": 22,
+                    "filename": "pocket\\creature\\BigCat.java"
+                },
+                {
+                    "blank": 7,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": "pocket\\creature\\Blue.java"
+                },
+                {
+                    "blank": 15,
+                    "code": 48,
+                    "comment": 4,
+                    "filename": "pocket\\creature\\Bug.java"
+                },
+                {
+                    "blank": 9,
+                    "code": 29,
+                    "comment": 2,
+                    "filename": "pocket\\creature\\Cat.java"
+                },
+                {
+                    "blank": 95,
+                    "code": 258,
+                    "comment": 94,
+                    "filename": "pocket\\creature\\Creature.java"
+                },
+                {
+                    "blank": 7,
+                    "code": 29,
+                    "comment": 2,
+                    "filename": "pocket\\creature\\Dog.java"
+                },
+                {
+                    "blank": 44,
+                    "code": 188,
+                    "comment": 26,
+                    "filename": "pocket\\creature\\Fish.java"
+                },
+                {
+                    "blank": 6,
+                    "code": 24,
+                    "comment": 2,
+                    "filename": "pocket\\creature\\Human.java"
+                },
+                {
+                    "blank": 14,
+                    "code": 63,
+                    "comment": 11,
+                    "filename": "pocket\\creature\\HumanAdult.java"
+                },
+                {
+                    "blank": 13,
+                    "code": 37,
+                    "comment": 4,
+                    "filename": "pocket\\creature\\LandAnimal.java"
+                },
+                {
+                    "blank": 44,
+                    "code": 184,
+                    "comment": 27,
+                    "filename": "pocket\\creature\\LavaShark.java"
+                },
+                {
+                    "blank": 6,
+                    "code": 27,
+                    "comment": 2,
+                    "filename": "pocket\\creature\\Lion.java"
+                },
+                {
+                    "blank": 12,
+                    "code": 60,
+                    "comment": 9,
+                    "filename": "pocket\\creature\\Man.java"
+                },
+                {
+                    "blank": 8,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": "pocket\\creature\\Red.java"
+                },
+                {
+                    "blank": 6,
+                    "code": 28,
+                    "comment": 2,
+                    "filename": "pocket\\creature\\Rodent.java"
+                },
+                {
+                    "blank": 11,
+                    "code": 28,
+                    "comment": 2,
+                    "filename": "pocket\\creature\\Shark.java"
+                },
+                {
+                    "blank": 8,
+                    "code": 28,
+                    "comment": 2,
+                    "filename": "pocket\\creature\\Tiger.java"
+                },
+                {
+                    "blank": 12,
+                    "code": 60,
+                    "comment": 9,
+                    "filename": "pocket\\creature\\Woman.java"
+                },
+                {
+                    "blank": 4,
+                    "code": 8,
+                    "comment": 2,
+                    "filename": "pocket\\item\\Corpse.java"
+                },
+                {
+                    "blank": 11,
+                    "code": 14,
+                    "comment": 0,
+                    "filename": "pocket\\item\\Food.java"
+                },
+                {
+                    "blank": 2,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "pocket\\item\\Gun.java"
+                },
+                {
+                    "blank": 8,
+                    "code": 26,
+                    "comment": 2,
+                    "filename": "pocket\\item\\Item.java"
+                },
+                {
+                    "blank": 2,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "pocket\\item\\Medkit.java"
+                },
+                {
+                    "blank": 5,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "pocket\\item\\Shield.java"
+                },
+                {
+                    "blank": 4,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "pocket\\item\\Sword.java"
+                },
+                {
+                    "blank": 13,
+                    "code": 26,
+                    "comment": 0,
+                    "filename": "pocket\\system\\Afterworld.java"
+                },
+                {
+                    "blank": 7,
+                    "code": 21,
+                    "comment": 0,
+                    "filename": "pocket\\system\\Counter.java"
+                },
+                {
+                    "blank": 6,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "pocket\\system\\Cursor.java"
+                },
+                {
+                    "blank": 7,
+                    "code": 16,
+                    "comment": 0,
+                    "filename": "pocket\\system\\Dice.java"
+                },
+                {
+                    "blank": 6,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "pocket\\system\\Ghost.java"
+                },
+                {
+                    "blank": 11,
+                    "code": 25,
+                    "comment": 1,
+                    "filename": "pocket\\system\\Log.java"
+                },
+                {
+                    "blank": 178,
+                    "code": 560,
+                    "comment": 128,
+                    "filename": "pocket\\system\\Main.java"
+                },
+                {
+                    "blank": 121,
+                    "code": 298,
+                    "comment": 11,
+                    "filename": "pocket\\system\\MemoryCard.java"
+                },
+                {
+                    "blank": 15,
+                    "code": 39,
+                    "comment": 0,
+                    "filename": "pocket\\system\\Names.java"
+                },
+                {
+                    "blank": 14,
+                    "code": 27,
+                    "comment": 0,
+                    "filename": "pocket\\system\\Program.java"
+                },
+                {
+                    "blank": 46,
+                    "code": 125,
+                    "comment": 4,
+                    "filename": "pocket\\system\\Screen.java"
+                },
+                {
+                    "blank": 9,
+                    "code": 33,
+                    "comment": 0,
+                    "filename": "pocket\\tile\\Fluid.java"
+                },
+                {
+                    "blank": 7,
+                    "code": 25,
+                    "comment": 1,
+                    "filename": "pocket\\tile\\Grass.java"
+                },
+                {
+                    "blank": 14,
+                    "code": 27,
+                    "comment": 0,
+                    "filename": "pocket\\tile\\Lava.java"
+                },
+                {
+                    "blank": 12,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "pocket\\tile\\Medkit.java"
+                },
+                {
+                    "blank": 4,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": "pocket\\tile\\StoneGround.java"
+                },
+                {
+                    "blank": 4,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": "pocket\\tile\\StoneWall.java"
+                },
+                {
+                    "blank": 9,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "pocket\\tile\\Tile.java"
+                },
+                {
+                    "blank": 7,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": "pocket\\tile\\Water.java"
+                },
+                {
+                    "blank": 66,
+                    "code": 171,
+                    "comment": 25,
+                    "filename": "pocket\\world\\Space.java"
+                },
+                {
+                    "blank": 88,
+                    "code": 225,
+                    "comment": 27,
+                    "filename": "pocket\\world\\World.java"
+                },
+                {
+                    "filename": "res\\bg.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\cbg.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\clear.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\human.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\screen.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\skull.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\startup.ogg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\taskbar.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\tilebanner.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\tileset.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                }
+            ]
+        },
+        {
+            "version": "0.2.7",
+            "counttime": "2022-09-09 23:46:20",
+            "filesum": 64,
+            "codesum": 3308,
+            "commentsum": 473,
+            "blanksum": 1121,
+            "statistics": {
+                ".java": {
+                    "code": 3296,
+                    "comment": 473,
+                    "blank": 1111
+                },
+                "": {
+                    "code": 12,
+                    "comment": 0,
+                    "blank": 10
+                }
+            },
+            "filelist": [
+                {
+                    "filename": "natives\\jinput-dx8_64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "natives\\jinput-raw_64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "natives\\lwjgl64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "natives\\OpenAL64.dll",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 10,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": "out\\README"
+                },
+                {
+                    "filename": "out\\save.pocket",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "out\\save.pocket_1",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "blank": 28,
+                    "code": 148,
+                    "comment": 22,
+                    "filename": "pocket\\creature\\BigCat.java"
+                },
+                {
+                    "blank": 7,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": "pocket\\creature\\Blue.java"
+                },
+                {
+                    "blank": 15,
+                    "code": 48,
+                    "comment": 4,
+                    "filename": "pocket\\creature\\Bug.java"
+                },
+                {
+                    "blank": 9,
+                    "code": 29,
+                    "comment": 2,
+                    "filename": "pocket\\creature\\Cat.java"
+                },
+                {
+                    "blank": 97,
+                    "code": 260,
+                    "comment": 94,
+                    "filename": "pocket\\creature\\Creature.java"
+                },
+                {
+                    "blank": 7,
+                    "code": 29,
+                    "comment": 2,
+                    "filename": "pocket\\creature\\Dog.java"
+                },
+                {
+                    "blank": 44,
+                    "code": 188,
+                    "comment": 26,
+                    "filename": "pocket\\creature\\Fish.java"
+                },
+                {
+                    "blank": 6,
+                    "code": 24,
+                    "comment": 2,
+                    "filename": "pocket\\creature\\Human.java"
+                },
+                {
+                    "blank": 14,
+                    "code": 63,
+                    "comment": 11,
+                    "filename": "pocket\\creature\\HumanAdult.java"
+                },
+                {
+                    "blank": 13,
+                    "code": 37,
+                    "comment": 4,
+                    "filename": "pocket\\creature\\LandAnimal.java"
+                },
+                {
+                    "blank": 44,
+                    "code": 184,
+                    "comment": 27,
+                    "filename": "pocket\\creature\\LavaShark.java"
+                },
+                {
+                    "blank": 6,
+                    "code": 27,
+                    "comment": 2,
+                    "filename": "pocket\\creature\\Lion.java"
+                },
+                {
+                    "blank": 12,
+                    "code": 60,
+                    "comment": 9,
+                    "filename": "pocket\\creature\\Man.java"
+                },
+                {
+                    "blank": 8,
+                    "code": 15,
+                    "comment": 0,
+                    "filename": "pocket\\creature\\Player.java"
+                },
+                {
+                    "blank": 8,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": "pocket\\creature\\Red.java"
+                },
+                {
+                    "blank": 6,
+                    "code": 28,
+                    "comment": 2,
+                    "filename": "pocket\\creature\\Rodent.java"
+                },
+                {
+                    "blank": 11,
+                    "code": 28,
+                    "comment": 2,
+                    "filename": "pocket\\creature\\Shark.java"
+                },
+                {
+                    "blank": 8,
+                    "code": 28,
+                    "comment": 2,
+                    "filename": "pocket\\creature\\Tiger.java"
+                },
+                {
+                    "blank": 12,
+                    "code": 60,
+                    "comment": 9,
+                    "filename": "pocket\\creature\\Woman.java"
+                },
+                {
+                    "blank": 4,
+                    "code": 8,
+                    "comment": 2,
+                    "filename": "pocket\\item\\Corpse.java"
+                },
+                {
+                    "blank": 11,
+                    "code": 14,
+                    "comment": 0,
+                    "filename": "pocket\\item\\Food.java"
+                },
+                {
+                    "blank": 2,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "pocket\\item\\Gun.java"
+                },
+                {
+                    "blank": 8,
+                    "code": 26,
+                    "comment": 2,
+                    "filename": "pocket\\item\\Item.java"
+                },
+                {
+                    "blank": 2,
+                    "code": 3,
+                    "comment": 0,
+                    "filename": "pocket\\item\\Medkit.java"
+                },
+                {
+                    "blank": 5,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "pocket\\item\\Shield.java"
+                },
+                {
+                    "blank": 4,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "pocket\\item\\Sword.java"
+                },
+                {
+                    "blank": 13,
+                    "code": 26,
+                    "comment": 0,
+                    "filename": "pocket\\system\\Afterworld.java"
+                },
+                {
+                    "blank": 7,
+                    "code": 21,
+                    "comment": 0,
+                    "filename": "pocket\\system\\Counter.java"
+                },
+                {
+                    "blank": 6,
+                    "code": 11,
+                    "comment": 0,
+                    "filename": "pocket\\system\\Cursor.java"
+                },
+                {
+                    "blank": 7,
+                    "code": 16,
+                    "comment": 0,
+                    "filename": "pocket\\system\\Dice.java"
+                },
+                {
+                    "blank": 6,
+                    "code": 8,
+                    "comment": 0,
+                    "filename": "pocket\\system\\Ghost.java"
+                },
+                {
+                    "blank": 11,
+                    "code": 25,
+                    "comment": 1,
+                    "filename": "pocket\\system\\Log.java"
+                },
+                {
+                    "blank": 236,
+                    "code": 740,
+                    "comment": 178,
+                    "filename": "pocket\\system\\Main.java"
+                },
+                {
+                    "blank": 121,
+                    "code": 297,
+                    "comment": 12,
+                    "filename": "pocket\\system\\MemoryCard.java"
+                },
+                {
+                    "blank": 15,
+                    "code": 39,
+                    "comment": 0,
+                    "filename": "pocket\\system\\Names.java"
+                },
+                {
+                    "blank": 15,
+                    "code": 28,
+                    "comment": 0,
+                    "filename": "pocket\\system\\Program.java"
+                },
+                {
+                    "blank": 46,
+                    "code": 125,
+                    "comment": 4,
+                    "filename": "pocket\\system\\Screen.java"
+                },
+                {
+                    "blank": 9,
+                    "code": 33,
+                    "comment": 0,
+                    "filename": "pocket\\tile\\Fluid.java"
+                },
+                {
+                    "blank": 7,
+                    "code": 25,
+                    "comment": 1,
+                    "filename": "pocket\\tile\\Grass.java"
+                },
+                {
+                    "blank": 14,
+                    "code": 27,
+                    "comment": 0,
+                    "filename": "pocket\\tile\\Lava.java"
+                },
+                {
+                    "blank": 12,
+                    "code": 25,
+                    "comment": 0,
+                    "filename": "pocket\\tile\\Medkit.java"
+                },
+                {
+                    "blank": 4,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": "pocket\\tile\\StoneGround.java"
+                },
+                {
+                    "blank": 4,
+                    "code": 12,
+                    "comment": 0,
+                    "filename": "pocket\\tile\\StoneWall.java"
+                },
+                {
+                    "blank": 9,
+                    "code": 18,
+                    "comment": 0,
+                    "filename": "pocket\\tile\\Tile.java"
+                },
+                {
+                    "blank": 7,
+                    "code": 13,
+                    "comment": 0,
+                    "filename": "pocket\\tile\\Water.java"
+                },
+                {
+                    "blank": 67,
+                    "code": 174,
+                    "comment": 25,
+                    "filename": "pocket\\world\\Space.java"
+                },
+                {
+                    "blank": 104,
+                    "code": 263,
+                    "comment": 28,
+                    "filename": "pocket\\world\\World.java"
+                },
+                {
+                    "filename": "res\\bg.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\cbg.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\clear.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\human.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\screen.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\skull.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\startup.ogg",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\taskbar.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\tilebanner.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                },
+                {
+                    "filename": "res\\tileset.png",
+                    "isbinaryfile": true,
+                    "blank": 0,
+                    "code": 0,
+                    "comment": 0
+                }
+            ]
         }
     ]
 }
