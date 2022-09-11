@@ -20,7 +20,7 @@ public class Main extends BasicGameState {
     colortest, on, paused, startupPlayed, animationOver, characterTest,
     spectateMode, builderMode, itemMode, selection, creatureMode, logMode, restart;
 
-    static int
+    public static int
     titleColors, menuPlacement;
 
     public static Screen screen;
@@ -72,9 +72,11 @@ public class Main extends BasicGameState {
     @Override
     public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException{
        
+        animationCounter.update();
+
         //  PLAY ANIMATION
         if(!animationOver){
-            if(animationCounter.over()){
+            if(animationCounter.trigger){
                 animationOver = true;
             }
         }
@@ -123,6 +125,7 @@ public class Main extends BasicGameState {
             menuPlacement = 8 * 39;
         }
 
+        // update cursor position
         if(builderMode || creatureMode || itemMode || spectateMode){
             int mouseX = (int) ( Mouse.getX() / 1.5) / 8,
                 mouseY = (int) ( (-Mouse.getY() + Program.SCALE_Y) / 1.5) / 8;
@@ -183,8 +186,7 @@ public class Main extends BasicGameState {
             if(paused){
                 screen.font.drawString(0, 0,            "                                     Paused", Screen.YELLOW);
             }
-
-            
+  
             // DRAW BUILDER MODE
             if(builderMode){
                 screen.font.drawString(0, 0,            "            Builder Mode", Screen.BLUE);
@@ -274,11 +276,35 @@ public class Main extends BasicGameState {
         return ID;
     }
 
+    
+
     public void keyPressed(int key, char c){
 
-        if(Main.on &&  key == Keyboard.KEY_F3){
-            Program.stateManager.enterState(2);
-        }
+        
+        ///////////////////////////////////
+        //    PLAYER CHARACTER INPUT
+        //////////////////////////////////
+
+        // UP
+        if(key == Keyboard.KEY_W)
+        Player.direction = 0;
+
+        // LEFT
+        else if(key == Keyboard.KEY_A)
+        Player.direction = 1;
+
+        // RIGHT
+        else if(key == Keyboard.KEY_D)
+        Player.direction = 2;
+
+        // DOWN
+        else if(key == Keyboard.KEY_S)
+        Player.direction = 3;
+
+
+        // if(Main.on &&  key == Keyboard.KEY_F3){
+        //     Program.stateManager.enterState(2);
+        // }
         
         // RESTART   [F5]
         if(key == Keyboard.KEY_F5){
@@ -314,15 +340,15 @@ public class Main extends BasicGameState {
             Main.characterTest = !Main.characterTest;
         }
 
-        //[SAVE]  [F1]
+        //[SAVE]  [CTRL+S]
 
-        if(Main.on &&key == Keyboard.KEY_F1){
+        if(Main.on && key == Keyboard.KEY_S && Main.input.isKeyDown(org.newdawn.slick.Input.KEY_LCONTROL) || Main.on && key == Keyboard.KEY_S && Main.input.isKeyDown(org.newdawn.slick.Input.KEY_RCONTROL)){
             MemoryCard.setGhostDeck();
             MemoryCard.save();
         }
 
-        // LOAD  [F2]
-        if(Main.on &&key == Keyboard.KEY_F2){
+        // LOAD  [CTRL+O]
+        if(Main.on && key == Keyboard.KEY_O && Main.input.isKeyDown(org.newdawn.slick.Input.KEY_LCONTROL) || Main.on && key == Keyboard.KEY_O && Main.input.isKeyDown(org.newdawn.slick.Input.KEY_RCONTROL)){
             MemoryCard.load();
         }
         
@@ -925,10 +951,13 @@ public class Main extends BasicGameState {
         
         // LEFT MOUSE
 
-        if(Mouse.isButtonDown(0)){
-            // System.out.println("left mouse clicked "  + (int) (Mouse.getX() / 1.5) + ", " + (int) ((-Mouse.getY() + Program.SCALE_Y) / 1.5) );
-            System.out.println("\nleft mouse clicked at space "  + ((int) (Mouse.getX() / 1.5)) / 8 + ", " + ((int) ((-Mouse.getY() + Program.SCALE_Y) / 1.5)) / 8 );
-        
+        if(Mouse.isButtonDown(0)){        
+            
+            // TITLE SCREEN [ENTER]
+            if(Main.animationOver && !Main.on){
+                Main.on = true;
+            }
+
             // IN BUILD MODE
             if(builderMode){
                 // set world's "Main.selection start" to cursor, set current world's "[current] Main.selection" to true

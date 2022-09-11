@@ -12,14 +12,13 @@ public class Dog extends LandAnimal {
     assignNickname();
 
         baseFoodchain = 49;
-        baseSpeed = 3;
 
         hp = World.d8.roll(1) + 4;
     }
 
     public void roll(Creature target){  
         // if main counter is at Top of Cycle
-        if( counter.over() ){
+        if( counter.trigger ){
              // if random roll of "d20" is equal to or larger than enemy AC
             if( World.d20.roll(1) > target.ac){
                 damage = World.d6.roll(1) + 6;

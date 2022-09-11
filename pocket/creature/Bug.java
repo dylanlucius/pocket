@@ -10,7 +10,6 @@ public class Bug extends LandAnimal {
         color               = Screen.rainbow[random.nextInt(6)];
 
         baseFoodchain = 5;
-        baseSpeed = 2;
 
         hp = 1;
     }
@@ -48,7 +47,7 @@ public class Bug extends LandAnimal {
     // zero damage
     public void roll(Creature target){  
         // if main counter is at Top of Cycle
-        if( counter.over() ){
+        if( counter.trigger ){
              // if random roll of "d20" is equal to or larger than enemy AC
             if( World.d20.roll(1) > target.ac){
                 damage = 0;

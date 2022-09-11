@@ -13,7 +13,7 @@ public class Fluid extends Tile {
 
     public void drawIcon(int x, int y){
 
-        if( !Main.paused && motionCycle.over() ){
+        if( !Main.paused && motionCycle.trigger ){
             switch( World.d4.roll(1) ){
                 default:
                     secondary.draw(x, y, iconColor);
@@ -39,4 +39,5 @@ public class Fluid extends Tile {
 
         }
     }
+
 }

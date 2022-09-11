@@ -11,14 +11,13 @@ public class Tiger extends BigCat {
         color               = Screen.ORANGE;
 
         baseFoodchain = 60;
-        baseSpeed = 6;
 
         hp = World.d20.roll(1) + 30;
     }
 
     public void roll(Creature target){  
         // if main counter is at Top of Cycle
-        if( counter.over() ){
+        if( counter.trigger ){
              // if random roll of "d20" is equal to or larger than enemy AC
             if( World.d20.roll(1) > target.ac){
                 damage = World.d20.roll(2) + 10;

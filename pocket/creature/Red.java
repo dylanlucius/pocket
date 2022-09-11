@@ -11,7 +11,6 @@ public class Red extends Creature {
         color = Screen.PINK;
 
         team = 2;
-        baseSpeed = 3;
 
         foodchain = 99;
 

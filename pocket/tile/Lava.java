@@ -27,6 +27,8 @@ public class Lava extends Fluid {
     }
 
     public void behavior(){ 
+        motionCycle.update();
+        
         if(space.creatures != null && space.creatures.size() > 0 && space.creatures.get(0).name != "Lava Shark"){
             Creature target = space.creatures.get(0);
             int damage = World.d8.roll(3);

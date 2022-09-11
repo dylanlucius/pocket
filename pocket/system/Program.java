@@ -31,7 +31,7 @@ import org.newdawn.slick.state.*;
 
             system = new AppGameContainer(wrapper);
             system.setDisplayMode(960, SCALE_Y, false);
-            system.setTargetFrameRate(8);
+            system.setTargetFrameRate(16);
             system.setShowFPS(false);
             system.start();
 

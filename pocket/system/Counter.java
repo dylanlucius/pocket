@@ -12,17 +12,15 @@ public class Counter {
         trigger = false;
     }
 
-    public boolean over(){
+    public void update(){
         if(step < steps){
             step++;
             trigger = false;
         }
         else {
-            
-            step = 0; 
-            trigger = true; 
+            step = 0;
+            trigger = true;
         }
-
-        return trigger;
     }
+
 }

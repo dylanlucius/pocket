@@ -14,6 +14,7 @@ public abstract class Creature {
  //                  FIELDS
  //////////////////////////////////////////////
     
+    public final int HUNGER_UNIT = 10;
     // BASICS
     public boolean isdatboi;
     public transient Random random = new Random();
@@ -30,7 +31,7 @@ public abstract class Creature {
 
     public boolean attacking;
 
-    public Counter counter = new Counter(8);
+    public Counter counter = new Counter(15);
 
     // items
     public ArrayList<Item> items = new ArrayList<Item>();
@@ -75,7 +76,7 @@ public abstract class Creature {
 
     // PHYSICAL
     boolean canWalk, canSwim, canFly, fight, flee;;
-    int reach, speed, baseSpeed;
+    int reach;
     //short damage; // how much damage if attacks -- dangerousness
 
     /////////////////////////////////
@@ -141,11 +142,9 @@ public abstract class Creature {
 
     setNumber();
 
-    speed = baseSpeed;
-
     team = 0; // neutral
 
-    hungerCounter = new Counter(30 * 8); // every 30 seconds, top of cycle | full hunger cycle 5 minutes
+    hungerCounter = new Counter(HUNGER_UNIT * 16); // every 30 seconds, top of cycle | full hunger cycle 5 minutes
 
     hunger = 1;
 
@@ -154,6 +153,11 @@ public abstract class Creature {
 }
 
 public void behavior(){
+
+    System.out.println("\n" + counter.step);
+
+    counter.update();
+    hungerCounter.update();
 
     if(lifecheck()){
         resolveHunger();
@@ -176,95 +180,59 @@ public void behavior(){
     movementModifier();
 
     // MOVEMENT
-    //  1/10 chance to move at all
-    if(random.nextInt(10) == 9){
-        // choose random of 4 directions
-        switch(random.nextInt(4)){
+    //  1 2 3 4 5 6 7 8
+    //                ^      <-- threshold   |  executes 1 time
 
-            // up
-            default:{
-                // execute a random number of times between 1 and 8
-                for(int i = 0; i < speed ; i++){
-                    // if the space above them exists
-                    if(space.up != null){
-                        // if a tile exists on it
-                        if(space.up.tile != null){
-                            // if the tile is a ground type
-                            if(space.up.tile.ground){
-                                // if it has no creatures on it
-                                if(space.up.creatures.size() <= 0){
-                                    World.placeCreature(space.up.tagX, space.up.tagY, this);
-                                    World.clearcreatures(space.tagX, space.tagY);
-                                    space = space.up;
-                                }       
-                            }
-                        }
+    if(Speedcheck.fullspeed()){
+        
+        if(random.nextInt(10) == 0){
+            switch(random.nextInt(4)){
+
+                // up
+                default:{
+                    // if the space above them exists, a tile exists on it, the tile is a ground type and has no creatures on it
+                    if(space.up != null && space.up.tile != null && space.up.tile.ground && space.up.creatures.size() <= 0){
+                        World.placeCreature(space.up.tagX, space.up.tagY, this);
+                        World.clearcreatures(space.tagX, space.tagY);
+                        space = space.up;
                     }
-                }   
+                    break;    
+                }
 
-                break;    
-            }
-
-            // left
-            case 1:{
-                for(int i = 0; i < speed; i++){
-                    if(space.left != null){
-                        if(space.left.tile != null){
-                            if(space.left.tile.ground){
-                                if(space.left.creatures.size() <= 0){
-                                    World.placeCreature(space.left.tagX, space.left.tagY, this);
-                                    World.clearcreatures(space.tagX, space.tagY);
-                                    space = space.left;
-                                }      
-                            }
-                        }
+                // left
+                case 1:{
+                    if(space.left != null && space.left.tile != null && space.left.tile.ground && space.left.creatures.size() <= 0){
+                        World.placeCreature(space.left.tagX, space.left.tagY, this);
+                        World.clearcreatures(space.tagX, space.tagY);
+                        space = space.left;
                     }
-                }   
-
-                break;
-            }
-            
-            // right
-            case 2:{
-                for(int i = 0; i < speed; i++){
-                    if(space.right != null){
-                        if(space.right.tile != null){
-                            if(space.right.tile.ground){
-                                if(space.right.creatures.size() <= 0){
-                                    World.placeCreature(space.right.tagX, space.right.tagY, this);
-                                    World.clearcreatures(space.tagX, space.tagY);
-                                    space = space.right;
-                                }      
-                            }
-                        }
+                    break;
+                }
+                
+                // right
+                case 2:{
+                    if(space.right != null && space.right.tile != null && space.right.tile.ground && space.right.creatures.size() <= 0){
+                        World.placeCreature(space.right.tagX, space.right.tagY, this);
+                        World.clearcreatures(space.tagX, space.tagY);
+                        space = space.right;
                     }
-                }   
+                    break;
+                }
 
-                break;
-            }
-
-            // down
-            case 3:{
-
-                for(int i = 0; i < speed; i++){
-                    if(space.down != null){
-                        if(space.down.tile != null){
-                            if(space.down.tile.ground){
-                                if(space.down.creatures.size() <= 0){
-                                    World.placeCreature(space.down.tagX, space.down.tagY, this);
-                                    World.clearcreatures(space.tagX, space.tagY);
-                                    space = space.down;
-                                }       
-                            }
-                        }
+                // down
+                case 3:{
+                    if(space.down != null && space.down.tile != null && space.down.tile.ground && space.down.creatures.size() <= 0){
+                        World.placeCreature(space.down.tagX, space.down.tagY, this);
+                        World.clearcreatures(space.tagX, space.tagY);
+                        space = space.down;
                     }
-                }   
-
-                break;
-            }
-
-            
+                    break;
+                }
         }     
+  
+
+        }
+            // choose random of 4 directions
     }      
  }
  
@@ -327,7 +295,7 @@ public void behavior(){
 
 public void roll(Creature target){  
     // if main counter is at Top of Cycle
-    if( counter.over() ){
+    if( counter.trigger ){
          // if random roll of "d20" is equal to or larger than enemy AC
         if( World.d20.roll(1) > target.ac){
             damage = World.d4.roll(2);
@@ -399,7 +367,7 @@ public void setNumber(){
 }
 
 public void resolveHunger(){
-    if( hungerCounter.over() ){
+    if( hungerCounter.trigger ){
         if(hunger < 10){
             hunger++;
         }

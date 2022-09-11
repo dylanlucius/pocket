@@ -44,9 +44,7 @@ public class Space  {
         }
         
         // item
-        else if(items.size() > 0 && items.get(0) != null
-       
-        ){ // if there are items on the space
+        else if(items.size() > 0 && items.get(0) != null){ // if there are items on the space
             items.get(0).icon.draw(x, y, items.get(0).color);
         }
         
@@ -167,7 +165,7 @@ public class Space  {
         //
 
         if(World.datboiChosen){
-            Screen.spritesheet.getSprite(15, 1).draw(World.datboi.space.x, World.datboi.space.y - 8);
+            Screen.spritesheet.getSprite(15, 1).draw(World.datboi.space.x, World.datboi.space.y - 8, Screen.rainbow[Main.titleColors]);
         }
 
         

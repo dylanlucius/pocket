@@ -10,7 +10,6 @@ public class LavaShark extends Shark {
         avatar = Screen.spritesheet.getSprite(14, 1);
         color = Screen.DARK_PURPLE;
 
-        baseSpeed = 5;
         baseFoodchain = 60;
 
         hp = World.d20.roll(2) + 20;
@@ -25,11 +24,9 @@ public class LavaShark extends Shark {
         if(this.space.tile != null){
             // if they're a fish and it's not water
             if(space.tile.name != "Lava"){
-                speed = 1;
             }
             // by default
             else {
-                speed = baseSpeed;
             }
         }
     
@@ -43,7 +40,6 @@ public class LavaShark extends Shark {
                     // up
                     default:{
                         // execute a random number of times between 1 and 8
-                        for(int i = 0; i < speed ; i++){
                             // if the space above them exists
                             if(this.space.up != null){
                                 // if a tile exists on it
@@ -58,15 +54,12 @@ public class LavaShark extends Shark {
                                         }       
                                     }
                                 }
-                            }
-                        }   
-        
+                            }        
                         break;    
                     }
         
                     // left
                     case 1:{
-                        for(int i = 0; i < speed; i++){
                             if(this.space.left != null){
                                 if(this.space.left.tile != null){
                                     if(this.space.left.tile.ground && this.space.left.tile.name == "Lava"){
@@ -77,15 +70,12 @@ public class LavaShark extends Shark {
                                         }      
                                     }
                                 }
-                            }
-                        }   
-        
+                            }        
                         break;
                     }
                     
                     // right
                     case 2:{
-                        for(int i = 0; i < speed; i++){
                             if(this.space.right != null){
                                 if(this.space.right.tile != null){
                                     if(this.space.right.tile.ground && this.space.right.tile.name == "Lava"){
@@ -96,16 +86,13 @@ public class LavaShark extends Shark {
                                         }      
                                     }
                                 }
-                            }
-                        }   
-        
+                            }        
                         break;
                     }
         
                     // down
                     case 3:{
-        
-                        for(int i = 0; i < speed; i++){
+    
                             if(this.space.down != null){
                                 if(this.space.down.tile != null){
                                     if(this.space.down.tile.ground && this.space.down.tile.name == "Lava"){
@@ -116,9 +103,7 @@ public class LavaShark extends Shark {
                                         }       
                                     }
                                 }
-                            }
-                        }   
-        
+                            }        
                         break;
                     }
         
@@ -134,7 +119,6 @@ public class LavaShark extends Shark {
                     // up
                     default:{
                         // execute a random number of times between 1 and 8
-                        for(int i = 0; i < speed ; i++){
                             // if the space above them exists
                             if(this.space.up != null){
                                 // if a tile exists on it
@@ -150,14 +134,12 @@ public class LavaShark extends Shark {
                                     }
                                 }
                             }
-                        }   
         
                         break;    
                     }
         
                     // left
                     case 1:{
-                        for(int i = 0; i < speed; i++){
                             if(this.space.left != null){
                                 if(this.space.left.tile != null){
                                     if(this.space.left.tile.ground){
@@ -169,14 +151,11 @@ public class LavaShark extends Shark {
                                     }
                                 }
                             }
-                        }   
-        
                         break;
                     }
                     
                     // right
                     case 2:{
-                        for(int i = 0; i < speed; i++){
                             if(this.space.right != null){
                                 if(this.space.right.tile != null){
                                     if(this.space.right.tile.ground){
@@ -187,16 +166,12 @@ public class LavaShark extends Shark {
                                         }      
                                     }
                                 }
-                            }
-                        }   
-        
+                            }   
                         break;
                     }
         
                     // down
                     case 3:{
-        
-                        for(int i = 0; i < speed; i++){
                             if(this.space.down != null){
                                 if(this.space.down.tile != null){
                                     if(this.space.down.tile.ground){
@@ -208,8 +183,6 @@ public class LavaShark extends Shark {
                                     }
                                 }
                             }
-                        }   
-        
                         break;
                     }
         

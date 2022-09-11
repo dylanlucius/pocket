@@ -10,7 +10,6 @@ public class Shark extends Fish {
         avatar = Screen.spritesheet.getSprite(14, 1);
         color = Screen.PURPLE;
 
-        baseSpeed = 5;
         baseFoodchain = 60;
 
         hp = World.d20.roll(2) + 20;
@@ -19,7 +18,7 @@ public class Shark extends Fish {
 
     public void roll(Creature target){  
         // if main counter is at Top of Cycle
-        if( counter.over() ){
+        if( counter.trigger ){
              // if random roll of "d20" is equal to or larger than enemy AC
             if( World.d20.roll(1) > target.ac){
                 damage = World.d12.roll(3);

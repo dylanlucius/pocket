@@ -10,7 +10,6 @@ public class Blue extends Creature {
         color = Screen.BLUE;
 
         team = 3;
-        baseSpeed = 3;
 
         foodchain = 99;
 
