@@ -9,18 +9,20 @@ public abstract class Item {
     public transient Image icon;
     public Color color;
     public Creature holder;
+    public boolean inUse;
 
     public Item(){
         name = "Pickup";
         icon = Screen.spritesheet.getSprite(15, 3); // default is question mark
         color = Screen.WHITE;
+        inUse = false;
     }
 
     // pickup
 
     public void behavior(){
         if(holder != null){
-            System.out.println("item action should be happening");
+            // System.out.println("item action should be happening");
             action();
         }
     }

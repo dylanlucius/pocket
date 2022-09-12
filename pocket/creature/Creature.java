@@ -14,7 +14,7 @@ public abstract class Creature {
  //                  FIELDS
  //////////////////////////////////////////////
     
-    public final int HUNGER_UNIT = 10;
+    public final int HUNGER_UNIT = 30;
     // BASICS
     public boolean isdatboi;
     public transient Random random = new Random();
@@ -154,7 +154,7 @@ public abstract class Creature {
 
 public void behavior(){
 
-    System.out.println("\n" + counter.step);
+    //System.out.println("\n" + counter.step);
 
     counter.update();
     hungerCounter.update();
@@ -327,7 +327,12 @@ public boolean lifecheck(){
         
         //space.items.get(0).icon = this.avatar;
 
+        if(this.isdatboi){
+            World.datboiChosen = false;
+        }
+
         World.clearcreatures(space.tagX, space.tagY);
+
 
         return false; // is dead
     }
@@ -388,11 +393,16 @@ public void resolveHunger(){
 public void itemAll(){
     if(space.items.size() > 0 &&  space.items.get(0) != null){   // if there are items on the space
         for(int i = 0; i < space.items.size(); i++){
-            System.out.println("item added to inventory");
+            Main.log.add(this.nickname + " (" + this.name + ") picked up " + space.items.get(0).name);
             items.add( space.items.get(0) );
             World.removeitem(space.tagX, space.tagY);
-            items.get(0).holder = this;
-            System.out.println("item holder: " + items.get(0).holder);
+            if(items.size() > 0){
+                for(Item item : items){
+                    item.holder = this;
+                }
+            }
+            
+            //System.out.println("item holder: " + items.get(0).holder);
         }
     }
 }
@@ -407,6 +417,12 @@ public void runitems(){
 
 public void assignNickname(){
     nickname = Names.returnProposal(this);
+}
+
+public void dropItem(){
+    if(this.items.size() > 0){
+        space.items.add(items.remove(0));
+    }
 }
 
 }

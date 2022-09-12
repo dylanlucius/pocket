@@ -27,7 +27,7 @@ public class Main extends BasicGameState {
     public static Log log;
     static Input input; 
     static World world;
-    Counter animationCounter = new Counter(21);
+    Counter animationCounter = new Counter(27);
     Sound startup;
     Cursor cursor;
     Creature currentCreature;
@@ -151,8 +151,8 @@ public class Main extends BasicGameState {
         if(PLAY_INTRO){
 
             if(!animationOver && !on){
-                screen.font.drawString(8, animationCounter.step*8,   "                                 Software Toy", Screen.rainbow[titleColors]);
-                screen.font.drawString(8, 8+animationCounter.step*8, "                                   presents", Screen.WHITE);
+                screen.font.drawString(8, animationCounter.step*6,   "                                 Software Toy", Screen.rainbow[titleColors]);
+                screen.font.drawString(8, 8+animationCounter.step*6, "                                   presents", Screen.WHITE);
             }
     
             if(animationOver && !on){
@@ -250,7 +250,7 @@ public class Main extends BasicGameState {
 
                     // ITEM INFO
                     // draw item name
-                    screen.font.drawString(menuPlacement, 16,    "Item: " + target.name, Screen.WHITE);
+                    screen.font.drawString(menuPlacement, 16,    "Item: " + target.name + "In use: " + target.inUse, Screen.WHITE);
                 }
 
 
@@ -285,6 +285,14 @@ public class Main extends BasicGameState {
         //    PLAYER CHARACTER INPUT
         //////////////////////////////////
 
+        if(key == Keyboard.KEY_COMMA){
+            if(World.playerone != null){
+                System.out.println("dropped item");
+                World.playerone.dropItem();
+            } 
+        }
+            
+
         // UP
         if(key == Keyboard.KEY_W)
         Player.direction = 0;
@@ -302,9 +310,27 @@ public class Main extends BasicGameState {
         Player.direction = 3;
 
 
-        // if(Main.on &&  key == Keyboard.KEY_F3){
-        //     Program.stateManager.enterState(2);
-        // }
+        // PLAYER 2 CONTROLS
+        // UP
+        if(key == Keyboard.KEY_UP)
+        PlayerTwo.direction = 0;
+
+        // LEFT
+        else if(key == Keyboard.KEY_LEFT)
+        PlayerTwo.direction = 1;
+
+        // RIGHT
+        else if(key == Keyboard.KEY_RIGHT)
+        PlayerTwo.direction = 2;
+
+        // DOWN
+        else if(key == Keyboard.KEY_DOWN)
+        PlayerTwo.direction = 3;
+
+
+        if(Main.on &&  key == Keyboard.KEY_F3){
+            Program.stateManager.enterState(2);
+        }
         
         // RESTART   [F5]
         if(key == Keyboard.KEY_F5){
@@ -312,12 +338,13 @@ public class Main extends BasicGameState {
         }
         
         // TITLE SCREEN [ENTER]
-        if(Main.animationOver && !Main.on &&key == Keyboard.KEY_RETURN){
+        if(Main.animationOver && !Main.on){
+            if(key == Keyboard.KEY_RETURN /*|| key == Keyboard.KEY_SPACE*/)
             Main.on = true;
         }
 
         // PAUSE [SPACE]
-        if(Main.on && !Main.logMode &&key == Keyboard.KEY_SPACE){
+        if(Main.on && !Main.logMode && key == Keyboard.KEY_SPACE){
             Main.paused = !Main.paused;
         }
 
@@ -397,8 +424,8 @@ public class Main extends BasicGameState {
         //          CURSOR INPUT MODES
         ///////////////////////////////////////
 
-        // [K] SPECTATE MODE   
-        if(Main.on &&key == Keyboard.KEY_K){
+        // [V] VIEW MODE   
+        if(Main.on &&key == Keyboard.KEY_V){
 
             if(Main.builderMode && World.cursor.space.cursorOn || Main.creatureMode && World.cursor.space.cursorOn || Main.itemMode && World.cursor.space.cursorOn || Main.logMode && World.cursor.space.cursorOn){
                 World.cursor.space.cursorOn = Main.on;

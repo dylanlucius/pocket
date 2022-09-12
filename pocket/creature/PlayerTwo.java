@@ -4,16 +4,16 @@ import pocket.system.*;
 import pocket.world.*;
 import pocket.item.*;
 
-public class Player extends Creature {
+public class PlayerTwo extends Creature {
     
     public static int direction;
     public static boolean moving;
 
-    public Player(){
+    public PlayerTwo(){
         
-        name = "Player";
+        name = "Player Two";
         avatar = Screen.spritesheet.getSprite(0, 4);
-        color = Screen.BLUE;
+        color = Screen.RED;
 
         baseFoodchain = 60;
 
@@ -25,13 +25,10 @@ public class Player extends Creature {
         items.get(1).holder = this;
 
         direction = 99;
-
-
     }
 
     public void move(){
 
-        
         movementModifier();
 
             // choose random of 4 directions
@@ -113,12 +110,12 @@ public class Player extends Creature {
      }
 
      public void roll(Creature target){  
-        int result = World.d20.roll(1);
-        System.out.println(result);
             // if random roll of "d20" is equal to or larger than enemy AC
-        if( ( result ) > target.ac){;
+        if( World.d20.roll(1) > target.ac){;
             targetTemp = target.hp;
             target.hp -=  damage;
+            // Main.log.add(target.name + " #" + target.number + " (HP: " + targetTemp + ") --> (HP: " + target.hp + ") -" + damage);
+            // Main.log.add("");
 
             Main.log.add(nickname + " (" + name  + ") did " + damage + " damage to " + target.nickname + " (" + target.name  + ")" );
             Main.log.add("");        

@@ -7,9 +7,13 @@ public class Sword extends Item {
         name = "Sword";
         icon = Screen.spritesheet.getSprite(15, 2);
         color = Screen.GRAY;
+        
     }
 
-    public void behavior(){
-
+    public void action(){
+        if(!inUse){
+            holder.damage += 5;
+            inUse = true;
+        }
     }
 }

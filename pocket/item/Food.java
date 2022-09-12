@@ -13,13 +13,16 @@ public class Food extends Item {
     }
 
     public void action(){
-        holder.hunger = 1;
+        
+        if(holder.hunger >= 5){
+            
+            holder.hunger = 1;
 
-        Main.log.add(holder.nickname + " (" + holder.name  + ") ate " + name );
-        Main.log.add("");
+            Main.log.add(holder.nickname + " (" + holder.name  + ") ate " + name );
+            Main.log.add("");
 
-        holder.items.remove(this);
-                
-
+            holder.items.remove(this);
+        }       
+            
     }
 }

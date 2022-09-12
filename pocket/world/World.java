@@ -39,7 +39,9 @@ public class World {
     public static Tile[] tile = {grass, stoneGround, stoneWall, water, lava, medkit};
 
     public static Player player = new Player();
+    public static Space playerSpace;
     public static boolean isPlayer;
+    public static Player playerone;
 
     public static Red red = new Red();
     public static Blue blue = new Blue();
@@ -55,11 +57,12 @@ public class World {
     public static Rodent rodent = new Rodent();
     public static Bug bug = new Bug();
     public static LavaShark lavashark = new LavaShark();
+    public static PlayerTwo playertwo = new PlayerTwo();
 
     public static byte currentCreatureIndex = 0;
     
     public static Creature[] creature = {player, humanAdult, man, woman, bug, rodent, dog, cat, lion, tiger, fish, shark,
-                                     lavashark, red, blue};
+                                     lavashark, red, blue, playertwo};
 
 
     public static Creature currentCreature = creature[currentCreatureIndex];
@@ -67,9 +70,6 @@ public class World {
     public static Creature datboi;
     public static int datboiIndex;
     public static boolean datboiChosen;
-
-    //public static Creature playerOne;
-    public static Space playerSpace;
 
     public static Sword sword = new Sword();
     public static Shield shield = new Shield();
@@ -167,37 +167,52 @@ public class World {
             case 14:
                 return new Blue();
 
+            case 15:
+                return new PlayerTwo();
+
         }
     }
 
     // place stated creature at stated position, when called
     public static void placeCreature(int x, int y, Creature creature){
-        
         if(creature.name == "Player"){
-            if(!isPlayer){
-                space[x][y].creatures.add(0, creature);
-                playerSpace = creature.space;
-                isPlayer = true;    
-            }
-            else {
-                World.space[x][y].creatures.add(0, creature);
-                World.clearcreatures(playerSpace.tagX, playerSpace.tagY);
-                playerSpace = creature.space;
-            }
-        }
-        else {
-            space[x][y].creatures.add(0, creature); 
-        }
+            if(!Player.moving && countPlayer() > 1){
 
-        
+            }
+            else{
+                World.space[x][y].creatures.add(creature);
+                playerone = (Player) creature;
+                    System.out.println(playerone);
+            }
+
+        }
+        else if(creature.name == "Player Two"){
+            if(!PlayerTwo.moving && countPlayerTwo() > 1){
+
+            }
+            else{
+                World.space[x][y].creatures.add(creature);
+
+            }
+
+        }
+        else{
+            World.space[x][y].creatures.add(creature);
+
+        }
+    
     }
 
     // clear all creatures on given space
     public static void clearcreatures(int x, int y){
         while(World.space[x][y].creatures.size() > 0){
+            if(World.space[x][y].creatures.get(0).name == "Player"){
+                // System.out.println(playerone);
+                World.playerone = null;
+                // System.out.println(playerone);
+            }
+
             World.space[x][y].creatures.remove(0);
-            if(World.space[x][y].creatures.size() > 0 && World.space[x][y].creatures.get(0).name == "Player")
-            World.isPlayer = false;
         }
     }
 
@@ -379,12 +394,12 @@ public class World {
         Space space = World.space[(int) ( Mouse.getX() / 1.5) / 8][(int) ( (-Mouse.getY() + Program.SCALE_Y) / 1.5) / 8];
 
         if(datboiChosen){
-            Main.screen.font.drawString(0, 16, " Name: " + datboi.nickname + " Type: " + datboi.name + " HP: " + datboi.hp + " Hunger: " + datboi.hunger, Screen.WHITE);    
+            Main.screen.font.drawString(0, 16, " Name: " + datboi.nickname + " Type: " + datboi.name + " HP: " + datboi.hp + " Hunger: " + datboi.hunger + " Damage: " + datboi.damage + " # Items: " + datboi.items.size(), Screen.WHITE);    
         }
         else {
             if(space.creatures.size() > 0){
                 datboi = space.creatures.get(0);
-                Main.screen.font.drawString(0, 16, " Name: " + datboi.nickname + " Type: " + datboi.name + " HP: " + datboi.hp + " Hunger: " + datboi.hunger, Screen.WHITE);    
+                Main.screen.font.drawString(0, 16, " Name: " + datboi.nickname + " Type: " + datboi.name + " HP: " + datboi.hp + " Hunger: " + datboi.hunger + " Damage: " + datboi.damage, Screen.WHITE);    
             }
         }
 
@@ -392,4 +407,27 @@ public class World {
         
     }
 
+    public static int countPlayer(){
+        int numberOfPlayers = 0;
+
+        for(Creature creature : allCreatures){
+            if(creature.name =="Player"){
+                numberOfPlayers++;
+            }
+        }
+
+        return numberOfPlayers;
+    }
+
+    public static int countPlayerTwo(){
+        int numberOfPlayers = 0;
+
+        for(Creature creature : allCreatures){
+            if(creature.name =="Player Two"){
+                numberOfPlayers++;
+            }
+        }
+
+        return numberOfPlayers;
+    }
 }
